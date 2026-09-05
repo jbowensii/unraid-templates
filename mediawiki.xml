@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>MediaWiki</Name>
+  <Repository>mediawiki:stable</Repository>
+  <Registry>https://hub.docker.com/_/mediawiki</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/jbowensii/unraid-templates/issues</Support>
+  <Project>https://www.mediawiki.org/</Project>
+  <Overview>MediaWiki is the free, open-source wiki engine that powers Wikipedia. This template runs the OFFICIAL MediaWiki Docker image (default tag: stable = newest stable release, currently 1.46; use tag 'lts' for the long-term-support 1.43 line, or pin a specific version like '1.44').&#13;&#10;&#13;&#10;=== FIRST-RUN SETUP ===&#13;&#10;1) Leave the "LocalSettings.php" path BLANK for the very first start (mounting a not-yet-existing file makes Docker create a folder by that name, which breaks MediaWiki).&#13;&#10;2) Start the container and open the WebUI. Complete the setup wizard. For the database choose SQLite (simplest - writes to the mapped /var/www/html/data folder) OR an external MySQL/MariaDB server (recommended for anything you care about).&#13;&#10;3) At the end of the wizard, download the generated LocalSettings.php and save it into your appdata folder (e.g. /mnt/user/appdata/mediawiki/LocalSettings.php).&#13;&#10;4) Edit this container, set the "LocalSettings.php" path to that file, and restart. The wiki is live.&#13;&#10;&#13;&#10;=== EXTENSIONS ===&#13;&#10;The image already bundles the common extensions (VisualEditor, WikiEditor, CodeMirror, Cite, ParserFunctions, Scribunto, SyntaxHighlight, TemplateData, ConfirmEdit, ImageMap, InputBox, Poem, PdfHandler and more). Enable them with wfLoadExtension('...') lines in LocalSettings.php. Non-bundled extensions (e.g. PluggableAuth + OpenID Connect for SSO, Mermaid for diagrams) are added under /var/www/html/extensions - map the "Extensions" path to persist them. See the repo README.&#13;&#10;&#13;&#10;=== MULTIPLE WIKIS / DATABASE ===&#13;&#10;Run one container per wiki (own appdata folder, own host port, own reverse-proxy URL). Several low-traffic wikis can share one MariaDB server, each with its own database. See the repo README for a full walk-through.</Overview>
+  <Category>Productivity: Tools: Other:</Category>
+  <WebUI>http://[IP]:[PORT:80]/</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/mediawiki.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/wikimedia/mediawiki/master/resources/assets/mediawiki.png</Icon>
+  <ExtraParams/>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>Needs a database: SQLite (built in, no extra container) or an external MySQL/MariaDB server.</Requires>
+  <Config Name="WebUI Port" Target="80" Default="8080" Mode="tcp" Description="Host HTTP port for the wiki. Point your reverse proxy at this port." Type="Port" Display="always" Required="true" Mask="false">8080</Config>
+  <Config Name="Uploads (images)" Target="/var/www/html/images" Default="/mnt/user/appdata/mediawiki/images" Mode="rw" Description="Persistent storage for uploaded files and images. Required." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/mediawiki/images</Config>
+  <Config Name="SQLite data dir" Target="/var/www/html/data" Default="/mnt/user/appdata/mediawiki/data" Mode="rw" Description="Holds the wiki database file IF you choose SQLite during setup. Harmless to keep mapped even when using MySQL/MariaDB." Type="Path" Display="always" Required="false" Mask="false">/mnt/user/appdata/mediawiki/data</Config>
+  <Config Name="LocalSettings.php" Target="/var/www/html/LocalSettings.php" Default="" Mode="rw" Description="LEAVE BLANK ON FIRST RUN. After completing the setup wizard, save the downloaded LocalSettings.php to your appdata folder and set this path to it, then restart." Type="Path" Display="always" Required="false" Mask="false"/>
+  <Config Name="Extensions (optional)" Target="/var/www/html/extensions" Default="" Mode="rw" Description="Optional: map a folder here to persist add-on (non-bundled) extensions across image updates, e.g. PluggableAuth, OpenIDConnect, Mermaid." Type="Path" Display="advanced" Required="false" Mask="false"/>
+  <Config Name="Skins (optional)" Target="/var/www/html/skins" Default="" Mode="rw" Description="Optional: map a folder here to persist custom skins across image updates." Type="Path" Display="advanced" Required="false" Mask="false"/>
+  <Config Name="PHP upload max size" Target="PHP_UPLOAD_MAX_FILESIZE" Default="" Mode="" Description="Optional PHP override (e.g. 64M) for larger uploads. Also raise $wgMaxUploadSize in LocalSettings.php." Type="Variable" Display="advanced" Required="false" Mask="false"/>
+</Container>
