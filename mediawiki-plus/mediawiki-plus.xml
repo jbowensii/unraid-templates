@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Container version="2">
   <Name>mediawiki-plus</Name>
-  <Repository>ghcr.io/jbowensii/mediawiki-plus:1.43</Repository>
+  <Repository>ghcr.io/jbowensii/mediawiki-plus:latest</Repository>
   <Registry>https://github.com/jbowensii/unraid-templates/pkgs/container/mediawiki-plus</Registry>
   <Network>bridge</Network>
   <MyIP/>

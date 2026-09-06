@@ -23,8 +23,8 @@ Published automatically from [`Dockerfile`](./Dockerfile) by
 [`.github/workflows/mediawiki-plus.yml`](../.github/workflows/mediawiki-plus.yml):
 
 ```
-ghcr.io/jbowensii/mediawiki-plus:1.43
-ghcr.io/jbowensii/mediawiki-plus:latest
+ghcr.io/jbowensii/mediawiki-plus:latest   <- what the template uses
+ghcr.io/jbowensii/mediawiki-plus:1.43     <- pin to the 1.43 LTS line
 ```
 
 You do not need to build anything — Unraid pulls the published image like any other
@@ -180,15 +180,23 @@ own host port, and its own Site Server URL. With SQLite each wiki is fully indep
 
 ## Upgrading
 
-The `:1.43` tag tracks the 1.43 LTS line. When you pull a newer image, run
-`php maintenance/update.php --quick` once afterwards to apply any schema changes.
-Back up your appdata folder first.
+The template uses **`:latest`**, matching how most Unraid containers are set up:
+Docker -> **Check for Updates** compares your local image against the registry, and
+**Apply Update** pulls the new one. `:latest` follows this repository's Dockerfile, so
+it moves whenever the base image is bumped.
+
+If you would rather not move MediaWiki versions on your own schedule, set the
+container's **Repository** to **`ghcr.io/jbowensii/mediawiki-plus:1.43`**. That tag
+stays on the 1.43 LTS line and still receives extension and security rebuilds.
+
+Either way, after pulling a newer image run `php maintenance/update.php --quick` once
+to apply any schema changes, and back up your appdata folder first.
 
 ## Troubleshooting
 
 | Symptom | Cause / fix |
 |---|---|
-| `pull access denied` on Apply | The `Repository` field points at a local tag with no registry path. It must be `ghcr.io/jbowensii/mediawiki-plus:1.43`. |
+| `pull access denied` on Apply | The `Repository` field points at a local tag with no registry path. It must be `ghcr.io/jbowensii/mediawiki-plus:latest` (or `:1.43` to pin the LTS line). |
 | Wiki shows the setup wizard forever | Step 2 has not been run, or `LocalSettings.php` is mounted as a directory. Check with `ls -l /var/www/html/LocalSettings.php` in the container console; if it is a directory, stop the container, delete it, and blank the template field. |
 | `Cannot access the database: No database connection (localhost)` in the browser, while console commands work | The SQLite files are owned by `root` and Apache runs as `www-data`. Run the `chown` at the end of step 2. |
 | `Could not find a suitable database driver` | The Database (SQLite) path is not mapped, or `--dbpath` in step 2 did not match it. |
