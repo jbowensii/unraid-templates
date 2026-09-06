@@ -1,0 +1,37 @@
+name: Build and publish mediawiki-plus
+
+on:
+  push:
+    branches: ["**"]
+    paths:
+      - "mediawiki-plus/Dockerfile"
+      - ".github/workflows/mediawiki-plus.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/setup-buildx-action@v3
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: docker/build-push-action@v6
+        with:
+          context: ./mediawiki-plus
+          push: true
+          tags: |
+            ghcr.io/jbowensii/mediawiki-plus:1.43
+            ghcr.io/jbowensii/mediawiki-plus:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

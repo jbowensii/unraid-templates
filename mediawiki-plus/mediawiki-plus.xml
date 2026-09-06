@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>mediawiki-plus</Name>
+  <Repository>ghcr.io/jbowensii/mediawiki-plus:1.43</Repository>
+  <Registry>https://github.com/jbowensii/unraid-templates/pkgs/container/mediawiki-plus</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <MyMAC/>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/jbowensii/unraid-templates/issues</Support>
+  <Project>https://www.mediawiki.org/</Project>
+  <ReadMe>https://github.com/jbowensii/unraid-templates/blob/main/mediawiki-plus/README.md</ReadMe>
+  <Overview>MediaWiki-Plus runs the official MediaWiki 1.43 LTS image extended with three extensions that are NOT bundled upstream:&#13;&#10;&#13;&#10;  * Variables - {{#var}} / {{#vardefine}} dynamic variables, needed by many template-heavy wikis.&#13;&#10;  * PluggableAuth + OpenID Connect - optional single sign-on against any OIDC provider (Authelia, Keycloak, Authentik, Entra ID...). Both stay switched OFF unless you enable them.&#13;&#10;&#13;&#10;Self-contained by default: the wiki stores its data in an integrated SQLite database inside the mapped "Database (SQLite)" folder, so no separate database container is required. An external MySQL/MariaDB server is supported too - see LocalSettings.example.php in the support repo.&#13;&#10;&#13;&#10;The image is published at ghcr.io/jbowensii/mediawiki-plus and is pulled automatically. You do not need to build anything.&#13;&#10;&#13;&#10;=== FIRST RUN: a one-time bootstrap is required ===&#13;&#10;The official MediaWiki image has no environment-based database setup, so a brand new wiki has to be initialised once before it will serve pages. This is normal and takes about a minute. Full copy-and-paste walkthrough in the support README; the short version:&#13;&#10;&#13;&#10;1) Fill in the Site Name, Site Server URL and Wiki Admin Password fields. Leave the "LocalSettings.php" path EMPTY. Click Apply.&#13;&#10;   (Mounting LocalSettings.php before the file exists makes Docker create a DIRECTORY by that name, which breaks the wiki - that is why it starts blank.)&#13;&#10;2) Open a console on the container and run maintenance/install.php once. This creates the SQLite schema and the admin account.&#13;&#10;3) Copy LocalSettings.example.php from the support repo into your appdata folder as LocalSettings.php, point the container's "LocalSettings.php" field at it, and restart.&#13;&#10;4) Run maintenance/update.php once to register the bundled and extra extensions.&#13;&#10;&#13;&#10;=== REVERSE PROXY NOTE ===&#13;&#10;This template defaults to bridge networking on host port 8080, which suits most setups. If your reverse proxy runs as an ipvlan container on a custom Docker network, it cannot reach published bridge ports on its own host - in that case switch Network to that custom network and give this container its own static IP instead.</Overview>
+  <Category>Productivity: Tools: Other:</Category>
+  <WebUI>http://[IP]:[PORT:8080]/</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/mediawiki-plus/mediawiki-plus.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/wikimedia/mediawiki/master/resources/assets/mediawiki.png</Icon>
+  <ExtraParams/>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>Nothing. The integrated SQLite database is used by default; an external MySQL/MariaDB server is optional.</Requires>
+  <Config Name="WebUI Port" Target="80" Default="8080" Mode="tcp" Description="Host port mapped to the container HTTP port (80). Put your reverse proxy in front of this." Type="Port" Display="always" Required="true" Mask="false">8080</Config>
+  <Config Name="Uploads (images)" Target="/var/www/html/images" Default="/mnt/user/appdata/mediawiki-plus/images" Mode="rw" Description="Persistent storage for uploaded files and images." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/mediawiki-plus/images</Config>
+  <Config Name="Database (SQLite)" Target="/var/www/html/data" Default="/mnt/user/appdata/mediawiki-plus/data" Mode="rw" Description="Integrated SQLite database directory (self-contained; holds the .sqlite file). Harmless to keep mapped even if you switch to MySQL/MariaDB." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/mediawiki-plus/data</Config>
+  <Config Name="Site Name" Target="MW_SITE_NAME" Default="Wiki" Mode="" Description="The name of your wiki, shown in the page title and the top-left of every page, e.g. My Project Wiki." Type="Variable" Display="always" Required="true" Mask="false">Wiki</Config>
+  <Config Name="Site Server URL" Target="MW_SITE_SERVER" Default="" Mode="" Description="Canonical URL of your wiki, e.g. https://wiki.example.com (no trailing slash). Use http://TOWER-IP:8080 if you are not using a reverse proxy." Type="Variable" Display="always" Required="true" Mask="false"></Config>
+  <Config Name="DB Name" Target="MW_DB_NAME" Default="wiki" Mode="" Description="Database name. With SQLite the file will be this name plus .sqlite inside the Database folder." Type="Variable" Display="always" Required="true" Mask="false">wiki</Config>
+  <Config Name="Wiki Admin User" Target="MW_ADMIN_USER" Default="Admin" Mode="" Description="Local administrator username, created during the one-time bootstrap." Type="Variable" Display="always" Required="true" Mask="false">Admin</Config>
+  <Config Name="Wiki Admin Password" Target="MW_ADMIN_PASSWORD" Default="" Mode="" Description="SET THIS. Password for the local administrator account. MediaWiki requires at least 10 characters." Type="Variable" Display="always" Required="true" Mask="true"></Config>
+  <Config Name="LocalSettings.php (leave BLANK on first run)" Target="/var/www/html/LocalSettings.php" Default="" Mode="rw" Description="Leave EMPTY for the very first start. After the one-time bootstrap, set this to your LocalSettings.php in appdata, e.g. /mnt/user/appdata/mediawiki-plus/LocalSettings.php" Type="Path" Display="always" Required="false" Mask="false"></Config>
+  <Config Name="TZ" Target="TZ" Default="UTC" Mode="" Description="Timezone, e.g. America/New_York." Type="Variable" Display="advanced" Required="true" Mask="false">UTC</Config>
+  <Config Name="Secret Key" Target="MW_SECRET_KEY" Default="" Mode="" Description="MediaWiki $wgSecretKey. Leave blank to let the bootstrap generate one, or paste a 64-character hex value to pin it." Type="Variable" Display="advanced" Required="false" Mask="true"></Config>
+  <Config Name="Upgrade Key" Target="MW_UPGRADE_KEY" Default="" Mode="" Description="MediaWiki $wgUpgradeKey. Leave blank to let the bootstrap generate one, or paste a 16-character value to pin it." Type="Variable" Display="advanced" Required="false" Mask="true"></Config>
+  <Config Name="PHP upload max size" Target="PHP_UPLOAD_MAX_FILESIZE" Default="" Mode="" Description="Optional PHP override (e.g. 64M) for larger uploads. Also raise $wgMaxUploadSize in LocalSettings.php." Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+  <TailscaleStateDir/>
+</Container>
