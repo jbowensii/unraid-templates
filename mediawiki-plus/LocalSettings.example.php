@@ -115,6 +115,7 @@ wfLoadExtension( 'PageImages' );
 # Discussion and notifications
 wfLoadExtension( 'Echo' );                   # notifications
 wfLoadExtension( 'Thanks' );
+wfLoadExtension( 'Linter' );                 # hard dependency of DiscussionTools
 wfLoadExtension( 'DiscussionTools' );        # modern talk-page replies
 
 # Administration and anti-abuse
@@ -131,9 +132,8 @@ wfLoadExtension( 'SecureLinkFixer' );
 $wgDefaultUserOptions['visualeditor-enable'] = 1;
 
 # Also present in the image but left off because they need extra setup:
-#   Math      - needs a renderer configured ($wgMathValidModes / a Mathoid or
-#               RESTBase endpoint) before <math> tags will render.
-#   Linter    - only useful with a Parsoid linting backend feeding it.
+#   Math        - needs a renderer configured ($wgMathValidModes / a Mathoid or
+#                 RESTBase endpoint) before <math> tags will render.
 #   LoginNotify - depends on Echo delivery being configured.
 # NOTE: CodeMirror and CharInsert are NOT bundled in the official 1.43 image.
 # Loading an extension that is not present is a fatal error, so check
