@@ -9,7 +9,7 @@ image that the official upstream image does not bundle:
 | **PluggableAuth** | Pluggable authentication framework. Off by default. |
 | **OpenID Connect** | SSO against any OIDC provider (Authelia, Keycloak, Authentik, Entra ID). Off by default. |
 
-Everything else people usually want — VisualEditor, WikiEditor, CodeMirror, Cite,
+Everything else people usually want — VisualEditor, WikiEditor, CodeEditor, Cite,
 ParserFunctions, Scribunto, TemplateData, SyntaxHighlight, PdfHandler and friends —
 is already in the official image and is switched on for you by the example config.
 

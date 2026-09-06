@@ -63,7 +63,7 @@ you just enable it with `wfLoadExtension()`:
 |---|---|
 | **VisualEditor** | WYSIWYG, Word-like editing. Uses the built-in Parsoid. |
 | **WikiEditor** | Enhanced wikitext toolbar. |
-| **CodeMirror** | Live syntax highlighting while editing wikitext. |
+| **CodeEditor** | Syntax highlighting in the wikitext editor. |
 | **Cite** | Footnotes / `<ref>` references and reference lists. |
 | **ParserFunctions** | Conditional logic and string functions in templates. |
 | **Scribunto** | Lua modules for advanced templates. |

@@ -87,26 +87,57 @@ $wgLocaltimezone = mwp_env( 'TZ', 'UTC' );
 # =============================================================================
 # BUNDLED EXTENSIONS - already inside the official image, just switched on
 # =============================================================================
-wfLoadExtension( 'ParserFunctions' );        # #if / #switch / #expr
+# Editing
 wfLoadExtension( 'VisualEditor' );           # WYSIWYG editing
 wfLoadExtension( 'WikiEditor' );             # enhanced wikitext toolbar
-wfLoadExtension( 'CodeMirror' );             # live syntax highlighting
-wfLoadExtension( 'Cite' );                   # <ref> footnotes
+wfLoadExtension( 'CodeEditor' );             # syntax highlighting in the editor
+wfLoadExtension( 'ParserFunctions' );        # #if / #switch / #expr
 wfLoadExtension( 'Scribunto' );              # Lua modules
 $wgScribuntoDefaultEngine = 'luastandalone';
 wfLoadExtension( 'TemplateData' );           # template docs for VisualEditor
-wfLoadExtension( 'SyntaxHighlight_GeSHi' );
+wfLoadExtension( 'ReplaceText' );            # site-wide search and replace
+
+# Content and formatting
+wfLoadExtension( 'Cite' );                   # <ref> footnotes
+wfLoadExtension( 'CiteThisPage' );
+wfLoadExtension( 'SyntaxHighlight_GeSHi' );  # code blocks
 wfLoadExtension( 'ImageMap' );
 wfLoadExtension( 'InputBox' );
 wfLoadExtension( 'Poem' );
-wfLoadExtension( 'CharInsert' );
-wfLoadExtension( 'PdfHandler' );
+wfLoadExtension( 'CategoryTree' );
+wfLoadExtension( 'TextExtracts' );
+
+# Media
+wfLoadExtension( 'PdfHandler' );             # PDF thumbnails
+wfLoadExtension( 'MultimediaViewer' );       # lightbox image viewer
+wfLoadExtension( 'PageImages' );
+
+# Discussion and notifications
+wfLoadExtension( 'Echo' );                   # notifications
+wfLoadExtension( 'Thanks' );
+wfLoadExtension( 'DiscussionTools' );        # modern talk-page replies
+
+# Administration and anti-abuse
 wfLoadExtension( 'Gadgets' );
 wfLoadExtension( 'Interwiki' );
-wfLoadExtension( 'Nuke' );
+wfLoadExtension( 'Nuke' );                   # mass-delete a spammer's pages
 wfLoadExtension( 'ConfirmEdit' );            # CAPTCHA
+wfLoadExtension( 'SpamBlacklist' );
+wfLoadExtension( 'TitleBlacklist' );
+wfLoadExtension( 'AbuseFilter' );
+wfLoadExtension( 'OATHAuth' );               # two-factor auth for local accounts
+wfLoadExtension( 'SecureLinkFixer' );
 
 $wgDefaultUserOptions['visualeditor-enable'] = 1;
+
+# Also present in the image but left off because they need extra setup:
+#   Math      - needs a renderer configured ($wgMathValidModes / a Mathoid or
+#               RESTBase endpoint) before <math> tags will render.
+#   Linter    - only useful with a Parsoid linting backend feeding it.
+#   LoginNotify - depends on Echo delivery being configured.
+# NOTE: CodeMirror and CharInsert are NOT bundled in the official 1.43 image.
+# Loading an extension that is not present is a fatal error, so check
+# /var/www/html/extensions before adding to this list.
 
 # =============================================================================
 # NON-BUNDLED EXTENSIONS - baked into the mediawiki-plus image
