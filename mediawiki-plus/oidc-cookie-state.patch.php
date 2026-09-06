@@ -12,7 +12,7 @@
  * cross-site round trip, and read it back when the PHP session is empty.
  *
  * This runs at image-build time so the fix ships in the image and survives
- * container recreation. It is idempotent (the /*COOKIEPATCH*/ marker) and
+ * container recreation. It is idempotent (guarded by the COOKIEPATCH marker) and
  * FAILS THE BUILD if the upstream jumbojett anchors have moved, so an
  * unpatched image is never published silently.
  */
