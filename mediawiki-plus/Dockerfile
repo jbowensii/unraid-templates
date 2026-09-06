@@ -43,4 +43,15 @@ RUN git clone --depth 1 -b REL1_43 https://github.com/wikimedia/mediawiki-extens
 COPY oidc-cookie-state.patch.php /tmp/oidc-cookie-state.patch.php
 RUN php /tmp/oidc-cookie-state.patch.php && rm /tmp/oidc-cookie-state.patch.php
 
+# --- Aurebesh display font -------------------------------------------------
+# silvesti.wiki's MediaWiki:Common.css uses an Aurebesh @font-face that used to
+# load from a now-retired external host. Ship the OFL-1.1 Aurebesh font
+# (silvinor/font-aurebesh, pinned) at /fonts/ so the CSS resolves locally.
+RUN set -eux; mkdir -p /var/www/html/fonts; \
+    php -r "copy('https://cdn.jsdelivr.net/gh/silvinor/font-aurebesh@1aeb227950f2555923485fb586534cbba8c4a979/dist/Aurebesh.ttf','/var/www/html/fonts/Aurebesh.ttf');"; \
+    php -r "copy('https://cdn.jsdelivr.net/gh/silvinor/font-aurebesh@1aeb227950f2555923485fb586534cbba8c4a979/dist/AurebeshNL.ttf','/var/www/html/fonts/AurebeshNL.ttf');"; \
+    [ "$(stat -c%s /var/www/html/fonts/Aurebesh.ttf)" -gt 1000 ]; \
+    [ "$(stat -c%s /var/www/html/fonts/AurebeshNL.ttf)" -gt 1000 ]; \
+    chown -R www-data:www-data /var/www/html/fonts
+
 WORKDIR /var/www/html
