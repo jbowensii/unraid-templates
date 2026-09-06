@@ -103,6 +103,19 @@ mapped Database folder, creates your admin account, and writes a starter
 
 If it complains the password is too short, raise it in the template and re-run.
 
+**Now hand the files to the web server — do not skip this:**
+
+```bash
+chown -R www-data:www-data /var/www/html/data /var/www/html/images
+```
+
+The console runs as `root`, so `install.php` creates the database files owned by
+`root` with mode `0600`. Apache serves as `www-data` and cannot open them. Command-line
+maintenance scripts keep working, so the wiki looks fine until you load a page in a
+browser and get **`Cannot access the database: No database connection (localhost)`** —
+a misleading message, since nothing is wrong with the database itself. The `chown`
+fixes it permanently; you only need it this once.
+
 ### 3. Install the real config
 
 Copy [`LocalSettings.example.php`](./LocalSettings.example.php) into your appdata
@@ -177,7 +190,10 @@ Back up your appdata folder first.
 |---|---|
 | `pull access denied` on Apply | The `Repository` field points at a local tag with no registry path. It must be `ghcr.io/jbowensii/mediawiki-plus:1.43`. |
 | Wiki shows the setup wizard forever | Step 2 has not been run, or `LocalSettings.php` is mounted as a directory. Check with `ls -l /var/www/html/LocalSettings.php` in the container console; if it is a directory, stop the container, delete it, and blank the template field. |
+| `Cannot access the database: No database connection (localhost)` in the browser, while console commands work | The SQLite files are owned by `root` and Apache runs as `www-data`. Run the `chown` at the end of step 2. |
 | `Could not find a suitable database driver` | The Database (SQLite) path is not mapped, or `--dbpath` in step 2 did not match it. |
+| `<extension> requires <other> to be installed` | An extension in `LocalSettings.php` has a dependency that is not loaded. `DiscussionTools` needs `Linter`, for example. |
+| `Unable to open file .../extension.json` | `LocalSettings.php` loads an extension that is not in the image. Check `ls /var/www/html/extensions` in the container console — a missing extension is a fatal error, not a warning. |
 | Uploads fail | The Uploads path is not mapped, or the folder is not writable by the container. |
 | Extensions missing from `Special:Version` | Step 4 was skipped. Run `php maintenance/update.php --quick`. |
 
