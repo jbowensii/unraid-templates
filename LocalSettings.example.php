@@ -1,9 +1,9 @@
 <?php
 # =============================================================================
-# LocalSettings.example.php  —  reference config for silvesti.wiki
+# LocalSettings.example.php  —  reference config for a MediaWiki wiki
 # Official MediaWiki image on Unraid, behind Cloudflare + NGINX Proxy Manager.
 #
-# Auth model (per John): ANYONE can READ. No self-registration. The ONLY way to
+# Example auth model: ANYONE can READ. No self-registration. The ONLY way to
 # log in / edit is via Authelia, and edit rights are granted only to members of
 # the approved AD/Authelia "wiki" group.
 #
@@ -15,10 +15,10 @@
 if ( !defined( 'MEDIAWIKI' ) ) { exit; }
 
 # --- Identity / URLs ---------------------------------------------------------
-$wgSitename        = "Silvesti";
-$wgMetaNamespace   = "Silvesti";
-$wgServer          = "https://silvesti.wiki";
-$wgCanonicalServer = "https://silvesti.wiki";
+$wgSitename        = "Example Wiki";
+$wgMetaNamespace   = "Example_Wiki";
+$wgServer          = "https://wiki.example.com";
+$wgCanonicalServer = "https://wiki.example.com";
 $wgScriptPath      = "";
 $wgArticlePath     = "/wiki/$1";
 $wgUsePathInfo     = true;
@@ -26,11 +26,11 @@ $wgUsePathInfo     = true;
 # Trust the reverse proxy (NPM) so logins / IPs / https detection work
 $wgUsePrivateIPs = true;
 
-# --- Database (shared MariaDB on Tower04, one DB per wiki) --------------------
+# --- Database (shared MariaDB server, one DB per wiki) --------------------
 $wgDBtype     = "mysql";
-$wgDBserver   = "10.47.40.59";
-$wgDBname     = "silvesti";
-$wgDBuser     = "silvesti";
+$wgDBserver   = "db.example.com";
+$wgDBname     = "wiki";
+$wgDBuser     = "wiki";
 # $wgDBpassword is set by the installer — keep the wizard's value.
 $wgDBTableOptions = "ENGINE=InnoDB, DEFAULT CHARSET=utf8mb4";
 
@@ -44,7 +44,7 @@ $wgFileExtensions  = array_merge( $wgFileExtensions,
 # =============================================================================
 # BUNDLED EXTENSIONS (already in the official image — just enable)
 # =============================================================================
-wfLoadExtension( 'ParserFunctions' );   # #if/#switch/#expr — used heavily by silvesti
+wfLoadExtension( 'ParserFunctions' );   # #if/#switch/#expr — used heavily by template-driven wikis
 wfLoadExtension( 'VisualEditor' );      # WYSIWYG editing
 wfLoadExtension( 'WikiEditor' );        # enhanced wikitext toolbar
 wfLoadExtension( 'CodeMirror' );        # live wikitext syntax highlighting
@@ -67,8 +67,8 @@ $wgDefaultUserOptions['visualeditor-enable'] = 1;
 
 # =============================================================================
 # NON-BUNDLED EXTENSIONS  (baked in by the repo Dockerfile — see README)
-#   REQUIRED: Variables — silvesti templates/content use {{#var}}/{{#vardefine}}
-#   65x in templates + 268x in content. The wiki breaks without it.
+#   REQUIRED: Variables — wikis whose templates use {{#var}}/{{#vardefine}}
+#   Such wikis will not render correctly without it.
 # =============================================================================
 wfLoadExtension( 'Variables' );
 
@@ -85,8 +85,8 @@ $wgPluggableAuth_ButtonLabelMessage    = 'Log in with Authelia';
 
 # Authelia OIDC client — create the matching client in Authelia configuration.yml.
 # Request the 'groups' scope so the AD/Authelia "wiki" group comes through.
-$wgOpenIDConnect_Config['https://auth.owenshomeonline.com'] = [
-    'clientID'     => 'mediawiki-silvesti',
+$wgOpenIDConnect_Config['https://auth.example.com'] = [
+    'clientID'     => 'mediawiki',
     'clientsecret' => 'REPLACE-WITH-CLIENT-SECRET',
     'scope'        => [ 'openid', 'email', 'profile', 'groups' ],
 ];
@@ -143,4 +143,4 @@ $wgDefaultSkin = 'vector-2022';   # old wiki used legacy Vector; 2022 is the mod
 # --- Misc --------------------------------------------------------------------
 $wgEnableEmail          = false;
 $wgShowExceptionDetails = false;   # true only while debugging
-$wgRightsText           = "Creative Commons Attribution";   # matches the old wiki
+$wgRightsText           = "Creative Commons Attribution";   # set this to your chosen licence

@@ -2,126 +2,171 @@
 
 Self-maintained [Unraid](https://unraid.net/) Community Applications Docker templates.
 
-Currently ships one template:
-
 | Template | Image | Notes |
 |---|---|---|
-| **MediaWiki** | official [`mediawiki`](https://hub.docker.com/_/mediawiki) | Runs the newest stable MediaWiki (`stable` = 1.46; `lts` = 1.43). |
+| **[MediaWiki](./mediawiki.xml)** | official [`mediawiki`](https://hub.docker.com/_/mediawiki) | Stock MediaWiki, nothing added. `stable` = 1.46, `lts` = 1.43. Bring your own database. |
+| **[mediawiki-plus](./mediawiki-plus/)** | [`ghcr.io/jbowensii/mediawiki-plus`](https://github.com/jbowensii/unraid-templates/pkgs/container/mediawiki-plus) | MediaWiki 1.43 LTS **plus** the Variables, PluggableAuth and OpenID Connect extensions. Self-contained on SQLite — no database container. |
 
-## Why the official image (not the old CA one)
+## Which one do I want?
 
-The existing Community Applications MediaWiki template (`d8sychain`) ships MediaWiki **1.33 (2019, end-of-life)**. This template uses the **official, actively-maintained** `mediawiki` Docker image instead — current stable **1.46**, LTS **1.43.9**.
+Start with **mediawiki-plus** unless you have a reason not to. It is the same official
+MediaWiki, built on top of, with the three most commonly-missed extensions already
+inside the image and a working SQLite database out of the box. Its full setup guide
+lives in [`mediawiki-plus/README.md`](./mediawiki-plus/README.md).
 
-## Install on Unraid (personal use)
+Use the plain **MediaWiki** template if you want the untouched upstream image and
+intend to point it at your own MySQL/MariaDB server.
 
-Unraid removed the old "private template repositories" feature from Community Applications, so drop the XML into the user-templates folder directly:
+## Why these and not the old Community Applications template
+
+The existing CA MediaWiki template (`d8sychain`) ships MediaWiki **1.33 (2019, end of
+life)**. These templates use the **official, actively-maintained** `mediawiki` image
+instead — current stable **1.46**, LTS **1.43**.
+
+## Install a template on Unraid
+
+Unraid 7.x removed Community Applications' private-template-repository feature, so
+drop the XML straight into the user-templates folder. Run in the Unraid web terminal
+(**Docker** tab → `>_`) or over SSH:
 
 ```bash
+# mediawiki-plus (recommended)
+wget -O /boot/config/plugins/dockerMan/templates-user/my-mediawiki-plus.xml \
+  https://raw.githubusercontent.com/jbowensii/unraid-templates/main/mediawiki-plus/mediawiki-plus.xml
+
+# stock MediaWiki
 wget -O /boot/config/plugins/dockerMan/templates-user/my-mediawiki.xml \
   https://raw.githubusercontent.com/jbowensii/unraid-templates/main/mediawiki.xml
 ```
 
-It then appears under **Docker → Add Container → User Templates → MediaWiki**.
+They then appear under **Docker → Add Container → Template → User Templates**.
 
-## First run (important)
+## First run (important, both templates)
 
-The official image has **no env-based DB config** — you complete a short web wizard that generates `LocalSettings.php`. And bind-mounting that file *before it exists* makes Docker create a **folder** by that name, which breaks the wiki. So:
+The official image has **no environment-based database configuration**, so a new wiki
+must be initialised once. Bind-mounting `LocalSettings.php` *before that file exists*
+makes Docker create a **directory** by that name, which breaks the wiki. So in both
+cases: **leave the LocalSettings.php field blank on the first start.**
 
-1. Leave the **LocalSettings.php** path **blank** on the first start.
-2. Open the WebUI, complete the setup wizard (pick SQLite or point it at MariaDB).
-3. Download the generated `LocalSettings.php`, save it to appdata (e.g. `/mnt/user/appdata/<wiki>/LocalSettings.php`).
-4. Set the LocalSettings.php path on the container → restart.
+- **mediawiki-plus** — run `maintenance/install.php` once from the container console,
+  then mount the supplied config. Step-by-step in
+  [`mediawiki-plus/README.md`](./mediawiki-plus/README.md).
+- **MediaWiki** — open the WebUI, complete the web setup wizard, download the
+  generated `LocalSettings.php` to appdata, then set the path and restart.
 
-## Recommended extensions (user-friendly editing + bells and whistles)
+## Extensions
 
-Most of what makes MediaWiki pleasant is **already bundled in the image** — you just enable it in `LocalSettings.php`:
-
-**Bundled (enable with `wfLoadExtension('...')`):**
+Most of what makes MediaWiki pleasant is **already bundled in the official image** —
+you just enable it with `wfLoadExtension()`:
 
 | Extension | What it does |
 |---|---|
-| **VisualEditor** | WYSIWYG, Word-like editing — the big one. Uses the built-in Parsoid. |
+| **VisualEditor** | WYSIWYG, Word-like editing. Uses the built-in Parsoid. |
 | **WikiEditor** | Enhanced wikitext toolbar. |
 | **CodeMirror** | Live syntax highlighting while editing wikitext. |
 | **Cite** | Footnotes / `<ref>` references and reference lists. |
-| **ParserFunctions** | Conditional logic / string functions in templates. |
+| **ParserFunctions** | Conditional logic and string functions in templates. |
 | **Scribunto** | Lua modules for advanced templates. |
 | **TemplateData** | Structured template docs (drives VisualEditor's template dialog). |
-| **SyntaxHighlight** | Colour-coded code blocks for hundreds of languages. |
+| **SyntaxHighlight** | Colour-coded code blocks. |
 | **ImageMap / InputBox / Poem / PdfHandler** | Clickable image regions, search/create boxes, poems, PDF thumbnails. |
-| **ConfirmEdit** | CAPTCHA (mostly moot on an SSO-locked wiki). |
+| **ConfirmEdit** | CAPTCHA. |
 
-**Not bundled — REQUIRED for silvesti, baked into the image by the [`Dockerfile`](./Dockerfile):**
+Three commonly-wanted extensions are **not** bundled upstream. `mediawiki-plus` bakes
+them into its image so they survive image updates instead of living in a mapped volume:
 
-| Extension | What it does | Install |
-|---|---|---|
-| **Variables** | `{{#var}}`/`{{#vardefine}}` dynamic variables. **Required** — silvesti's templates use it 65× and its content 268×; the wiki breaks without it. | git clone (in Dockerfile) |
-| **PluggableAuth** + **OpenID Connect** | SSO against Authelia (see below). | Composer (in Dockerfile) |
+| Extension | What it does |
+|---|---|
+| **Variables** | `{{#var}}` / `{{#vardefine}}` dynamic variables. Template-heavy wikis do not render correctly without it. |
+| **PluggableAuth** + **OpenID Connect** | Optional SSO against any OIDC provider. Off by default. |
 
-**Optional extras (only if a wiki actually needs them):**
+Other extensions worth knowing about, none of which are included here: **Mermaid**
+(diagrams), **Charts** (Wikimedia's 2025 replacement for the deprecated Graph),
+**Math** (LaTeX), **Maps** (Leaflet), **Page Forms** + **Semantic MediaWiki**
+(form-based editing and structured data). Tables need nothing extra — VisualEditor
+edits native wikitables directly.
 
-| Extension | What it does | Install |
-|---|---|---|
-| **Mermaid** | Flowcharts / sequence / gantt diagrams from code fences. | git clone |
-| **Charts** (or legacy **Graph**) | Data-driven charts. Charts is Wikimedia's 2025 replacement for the deprecated Graph. | git clone / Composer |
-| **Math** | LaTeX math rendering. | git clone |
-| **Maps** | Leaflet maps. | Composer |
-| **Page Forms** + **Semantic MediaWiki** | Form-based editing + structured/queryable data. | Composer |
+## Single sign-on (OIDC)
 
-Tables need nothing extra — VisualEditor edits native wikitables directly.
+`mediawiki-plus` ships PluggableAuth and OpenIDConnect, disabled. Enable them by
+uncommenting the OIDC block in
+[`mediawiki-plus/LocalSettings.example.php`](./mediawiki-plus/LocalSettings.example.php)
+and filling in your provider's issuer URL, client ID and secret. Register a
+confidential client in your identity provider with redirect URI
+`<your site URL>/index.php/Special:PluggableAuthLogin` and scopes
+`openid email profile groups`.
 
-### Baking in the required extensions (the repeatable way)
-
-The [`Dockerfile`](./Dockerfile) here builds `FROM mediawiki:1.43` and adds **Variables**, **PluggableAuth** and **OpenIDConnect**, so they survive image updates instead of living in a mapped volume:
-
-```bash
-docker build -t ghcr.io/jbowensii/mediawiki-silvesti:latest .
-docker push  ghcr.io/jbowensii/mediawiki-silvesti:latest
-```
-
-Then set the Unraid template's **Repository** to `ghcr.io/jbowensii/mediawiki-silvesti:latest`. (For a quick test you can instead run the stock `mediawiki:stable` and `git clone` Variables into a mapped Extensions volume, but the image is cleaner for production.)
-
-## Authelia SSO — public read, edit only for the "wiki" group
-
-silvesti's model: **anyone can READ; nobody can self-register; the only way to log in and edit is via Authelia, and edit rights are granted only to members of the approved AD/Authelia `wiki` group.**
-
-1. **Authelia** — add an OIDC client in `configuration.yml` under `identity_providers.oidc.clients` (client_id `mediawiki-silvesti`, hashed secret, redirect URI `https://silvesti.wiki/index.php/Special:PluggableAuthLogin`, scopes `openid email profile groups`). Put the approved editors in an AD/Authelia group named **`wiki`** and include it in this client's `groups` claim.
-2. **MediaWiki `LocalSettings.php`** — see [`LocalSettings.example.php`](./LocalSettings.example.php) for the full block. The key permissions:
+A common permission model — public read, no self-registration, editing restricted to
+one group:
 
 ```php
-$wgGroupPermissions['*']['read']          = true;    // public read
-$wgGroupPermissions['*']['edit']          = false;
-$wgGroupPermissions['*']['createaccount'] = false;   // no self-registration
-$wgGroupPermissions['*']['autocreateaccount'] = true;// OIDC provisions accounts on Authelia login
-$wgGroupPermissions['user']['edit']       = false;   // logged in ≠ editor
-$wgGroupPermissions['wiki']['edit']       = true;    // only the "wiki" group edits
-$wgGroupPermissions['wiki']['upload']     = true;
+$wgGroupPermissions['*']['read']              = true;   // public read
+$wgGroupPermissions['*']['edit']              = false;
+$wgGroupPermissions['*']['createaccount']     = false;  // no self-registration
+$wgGroupPermissions['*']['autocreateaccount'] = true;   // OIDC provisions accounts
+$wgGroupPermissions['user']['edit']           = false;  // logged in != editor
+$wgGroupPermissions['editor']['edit']         = true;   // only this group edits
+$wgGroupPermissions['editor']['upload']       = true;
 ```
 
-Map the Authelia `wiki` group → the MediaWiki `wiki` group via the OIDC `groups` claim (recent OpenIDConnect builds), or, for a small editor list, promote each editor once after their first login with `php maintenance/createAndPromote.php --group=wiki "Username"`.
+Map your provider's group to the MediaWiki group via the `groups` claim, or promote
+each editor once after their first login:
+`php maintenance/createAndPromote.php --group=editor "Their Username"`.
 
-> Because **read is public**, do **not** put Authelia forward-auth in front of the whole site at NPM — that would block anonymous readers. Access control lives entirely in the permission rules above.
+> If read is public, do **not** put forward-auth in front of the whole site at your
+> reverse proxy — that blocks anonymous readers. Access control belongs in the
+> permission rules above.
 
-## MariaDB (shared server, one DB per wiki)
+## MariaDB (shared server, one database per wiki)
 
-Several low-traffic wikis can share your existing MariaDB. Create one database + user per wiki:
+Several low-traffic wikis can share one MariaDB. Create one database and user per wiki:
 
 ```sql
-CREATE DATABASE silvesti CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-CREATE USER 'silvesti'@'%' IDENTIFIED BY 'a-strong-password';
-GRANT ALL PRIVILEGES ON silvesti.* TO 'silvesti'@'%';
+CREATE DATABASE mywiki CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER 'mywiki'@'%' IDENTIFIED BY 'a-strong-password';
+GRANT ALL PRIVILEGES ON mywiki.* TO 'mywiki'@'%';
 FLUSH PRIVILEGES;
 ```
 
-Point the setup wizard (or `LocalSettings.php`) at `host = <mariadb-host>`, `db = silvesti`, matching user/password.
+Point the setup wizard (or `LocalSettings.php`) at that host, database, user and
+password. See [`LocalSettings.example.php`](./LocalSettings.example.php) for a full
+MySQL/MariaDB reference config.
+
+`mediawiki-plus` does not need this — it uses an integrated SQLite database by default.
 
 ## Running several wikis
 
-One container **per** wiki: each with its own appdata folder (`mediawiki-silvesti`, `mediawiki-<next>`), its own host port, its own database on the shared MariaDB, and its own reverse-proxy URL. First planned wiki: **`silvesti.wiki`** (external; public read, edit gated to the Authelia `wiki` group). A second will follow.
+One container per wiki: its own appdata folder, its own host port, its own database
+(or its own SQLite file), and its own reverse-proxy URL.
 
-## Listing this in Community Applications (later)
+## Reverse proxy note
 
-CA no longer supports private template repos, but you can get this public repo indexed by CA. Their rules: a real GitHub account with history, a quality template, an icon, a support link, and templates that aren't fully machine-generated boilerplate. Keep this repo tidy (README, LICENSE, working template) and submit it per the current CA process.
+Both templates default to bridge networking on host port 8080. If your reverse proxy
+runs as an **ipvlan** container on a custom Docker network, it cannot reach published
+bridge ports on its own host — that is inherent to ipvlan. In that case put the wiki on
+the same custom network with its own static IP and proxy to that IP on port 80.
+
+## Building the mediawiki-plus image yourself
+
+You should not need to — [`.github/workflows/mediawiki-plus.yml`](./.github/workflows/mediawiki-plus.yml)
+builds and publishes it to GHCR whenever
+[`mediawiki-plus/Dockerfile`](./mediawiki-plus/Dockerfile) changes, and the template
+pulls the published image. If you want your own copy:
+
+```bash
+docker build -t ghcr.io/<you>/mediawiki-plus:1.43 ./mediawiki-plus
+docker push  ghcr.io/<you>/mediawiki-plus:1.43
+```
+
+Then point the template's `Repository` at your image. Note that a **bare local tag**
+with no registry path cannot work: Unraid's Docker cleanup prunes an unused local
+image, and the next Apply fails with `pull access denied`.
+
+## Listing in Community Applications (later)
+
+CA no longer supports private template repos, but a public repo can be indexed by CA.
+Their rules: a real GitHub account with history, a quality template, an icon, a support
+link, and templates that are not machine-generated boilerplate.
 
 ## License
 
