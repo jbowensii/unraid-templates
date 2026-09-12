@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>aios-face</Name>
+  <Repository>ghcr.io/jbowensii/aios-face:latest</Repository>
+  <Registry>https://github.com/jbowensii/aios-face/pkgs/container/aios-face</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <MyMAC/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/jbowensii/unraid-templates/issues</Support>
+  <Project>https://github.com/jbowensii/aios-face</Project>
+  <ReadMe>https://github.com/jbowensii/unraid-templates/blob/main/aios-face/README.md</ReadMe>
+  <Overview>aios-face is a JARVIS-style web front end for a self-hosted AI stack: chat with tool calling, push-to-talk and hands-free voice, image / image-edit / 3D-model generation, an arc-reactor landing screen, a particle hologram, and live server metrics.&#13;&#10;&#13;&#10;It is a THIN CLIENT. It holds no models, memory or tools of its own. It talks to services you already run:&#13;&#10;&#13;&#10;  * LibreChat (required) - chat and every tool, through LibreChat's Agents API. You need a saved agent (model + tools) and an Agent API key from LibreChat Settings > Data &amp; Privacy > Agent API Keys.&#13;&#10;  * imagegen-mcp bridge (required for images/3D) - an MCP server over streamable-http exposing generate_image, edit_image and generate_3d_model (backed by ComfyUI).&#13;&#10;  * kokoro-fastapi (text to speech) and speaches (speech to text) - OpenAI-compatible voice services on your LAN. The face works as text-only if these are missing.&#13;&#10;  * Unraid API (optional) - CPU / memory / array gauges in the status bar. Create a read-only key under Settings > Management Access > API Keys.&#13;&#10;&#13;&#10;The image is published at ghcr.io/jbowensii/aios-face and is pulled automatically; Unraid shows updates in the Docker tab like any other container.&#13;&#10;&#13;&#10;=== HTTPS IS REQUIRED FOR THE MICROPHONE ===&#13;&#10;Browsers only allow microphone access on https:// (or localhost). Put this container behind your reverse proxy with a valid certificate and open it by that hostname. Plain http://TOWER-IP:3055 works for text and images but the mic button will not.&#13;&#10;&#13;&#10;=== SECURITY ===&#13;&#10;The LibreChat API key acts as the user who created it. Keep this container LAN-only; do not expose it to the internet.&#13;&#10;&#13;&#10;=== REVERSE PROXY NOTE ===&#13;&#10;Bridge networking on host port 3055 suits most setups. If your reverse proxy runs as an ipvlan container on a custom Docker network, it cannot reach published bridge ports on its own host - switch Network to that custom network and give this container its own static IP instead.</Overview>
+  <Category>AI: Productivity:</Category>
+  <WebUI>http://[IP]:[PORT:3000]/</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/aios-face/aios-face.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/aios-face/icon.png</Icon>
+  <ExtraParams/>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>A running LibreChat with a saved agent and an Agent API key. Optional: imagegen-mcp bridge, kokoro-fastapi, speaches, Unraid API key. See the README.</Requires>
+  <Config Name="WebUI Port" Target="3000" Default="3055" Mode="tcp" Description="Host port mapped to the container HTTP port (3000). Put your HTTPS reverse proxy in front of this." Type="Port" Display="always" Required="true" Mask="false">3055</Config>
+  <Config Name="LibreChat URL" Target="LIBRECHAT_URL" Default="" Mode="" Description="Base URL of your LibreChat, reachable from this container, e.g. http://192.168.1.43:3080 (no trailing slash)." Type="Variable" Display="always" Required="true" Mask="false"></Config>
+  <Config Name="LibreChat Agent API key" Target="LIBRECHAT_API_KEY" Default="" Mode="" Description="SET THIS. Create it in LibreChat under Settings > Data &amp; Privacy > Agent API Keys. It acts as your LibreChat user." Type="Variable" Display="always" Required="true" Mask="true"></Config>
+  <Config Name="LibreChat Agent ID" Target="LIBRECHAT_AGENT_ID" Default="" Mode="" Description="The saved agent the face talks to, e.g. agent_AbC123... (shown in the agent builder / returned by GET /api/agents/v1/models). Give it a tool-capable model and only the tools you need; huge tool sets exceed small models' context." Type="Variable" Display="always" Required="true" Mask="false"></Config>
+  <Config Name="Image bridge MCP URL" Target="IMAGEGEN_MCP_URL" Default="" Mode="" Description="Streamable-http MCP endpoint of the imagegen-mcp bridge, e.g. http://192.168.1.43:8195/mcp. Leave blank to disable image/3D generation." Type="Variable" Display="always" Required="false" Mask="false"></Config>
+  <Config Name="Speech-to-text URL" Target="STT_URL" Default="" Mode="" Description="OpenAI-compatible base URL of your STT service (speaches / faster-whisper-server), e.g. http://192.168.1.43:8790/v1. Leave blank for text-only." Type="Variable" Display="always" Required="false" Mask="false"></Config>
+  <Config Name="Speech-to-text model" Target="STT_MODEL" Default="Systran/faster-whisper-small" Mode="" Description="Whisper model id installed on the STT service. Small is fast on CPU (~3 s per sentence); large models are far slower." Type="Variable" Display="advanced" Required="false" Mask="false">Systran/faster-whisper-small</Config>
+  <Config Name="Text-to-speech URL" Target="TTS_URL" Default="" Mode="" Description="OpenAI-compatible base URL of your TTS service (kokoro-fastapi), e.g. http://192.168.1.43:8880/v1. Leave blank for text-only." Type="Variable" Display="always" Required="false" Mask="false"></Config>
+  <Config Name="Text-to-speech voice" Target="TTS_VOICE" Default="bm_george" Mode="" Description="Kokoro voice id. bm_george / bm_lewis are British male, am_michael American male, af_heart female. GET /v1/audio/voices on the TTS service lists them." Type="Variable" Display="advanced" Required="false" Mask="false">bm_george</Config>
+  <Config Name="Unraid GraphQL URL" Target="UNRAID_GRAPHQL_URL" Default="" Mode="" Description="Optional. http://TOWER-IP/graphql of the Unraid server whose CPU/memory/array you want in the status bar." Type="Variable" Display="always" Required="false" Mask="false"></Config>
+  <Config Name="Unraid API key" Target="UNRAID_API_KEY" Default="" Mode="" Description="Optional read-only key from Settings > Management Access > API Keys. Blank hides the metrics panel." Type="Variable" Display="always" Required="false" Mask="true"></Config>
+  <TailscaleStateDir/>
+</Container>

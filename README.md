@@ -6,6 +6,7 @@ Self-maintained [Unraid](https://unraid.net/) Community Applications Docker temp
 |---|---|---|
 | **[MediaWiki](./mediawiki.xml)** | official [`mediawiki`](https://hub.docker.com/_/mediawiki) | Stock MediaWiki, nothing added. `stable` = 1.46, `lts` = 1.43. Bring your own database. |
 | **[mediawiki-plus](./mediawiki-plus/)** | [`ghcr.io/jbowensii/mediawiki-plus`](https://github.com/jbowensii/unraid-templates/pkgs/container/mediawiki-plus) | MediaWiki 1.43 LTS **plus** the Variables, PluggableAuth and OpenID Connect extensions. Self-contained on SQLite — no database container. |
+| **[aios-face](./aios-face/)** | [`ghcr.io/jbowensii/aios-face`](https://github.com/jbowensii/aios-face/pkgs/container/aios-face) | JARVIS-style voice + chat + image/3D front end for a self-hosted AI stack (LibreChat, ComfyUI bridge, kokoro, speaches). Thin client, LAN-only, HTTPS needed for the mic. |
 
 ## Which one do I want?
 
