@@ -69,11 +69,10 @@ everything except the mic works.
 
 ## Startup sound
 
-Pressing **INITIALIZE** plays a startup sound. By default it is a short line generated with
-the bundled voice. To use your own clip, map a host folder to `/config` in the template and put
-`boot.wav` (or `.mp3`/`.ogg`) in it; `BOOT_SOUND_PATH` can point elsewhere inside the container.
-It can be switched off in the gear settings. Keep copyrighted clips to yourself: the image itself
-never contains them.
+Pressing **INITIALIZE** plays the bundled JARVIS startup clip (`/sounds/boot.wav`, shipped in
+the image). To use a different clip, map a host folder to `/config` and put `boot.wav` (or
+`.mp3`/`.ogg`) in it; `BOOT_SOUND_PATH` can point elsewhere inside the container. It can be
+switched off in the gear settings.
 
 ## Using it
 
