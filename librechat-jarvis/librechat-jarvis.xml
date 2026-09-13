@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>librechat-jarvis</Name>
+  <Repository>ghcr.io/jbowensii/librechat-jarvis:latest</Repository>
+  <Registry>https://github.com/jbowensii/librechat-jarvis/pkgs/container/librechat-jarvis</Registry>
+  <Network>librechat_default</Network>
+  <MyIP/>
+  <MyMAC/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/jbowensii/unraid-templates/issues</Support>
+  <Project>https://github.com/jbowensii/librechat-jarvis</Project>
+  <ReadMe>https://github.com/jbowensii/unraid-templates/blob/main/librechat-jarvis/README.md</ReadMe>
+  <Overview>librechat-jarvis is LibreChat with a JARVIS face. It is a pinned LibreChat release (the tag is in the repo's upstream.lock) with a small overlay built on top: an arc-reactor boot screen with the JARVIS startup sound, a blue HUD theme, a JARVIS status bar with a gear for the face settings, the JARVIS reactor / ring HUD in a right-hand panel, hands-free continuous listening, and the JARVIS voice packs for kokoro bundled in the image. Everything else IS LibreChat: your agents, MCP tools, files, presets, history, speech settings and users are untouched, and the overlay can be switched off at build time to get stock LibreChat from the same tree.&#13;&#10;&#13;&#10;This container REPLACES the LibreChat api container in an existing LibreChat stack. It needs the rest of that stack already running on the same Docker network: MongoDB, Meilisearch, the RAG API and pgvector (the standard LibreChat docker-compose). Point the variables below at those services and mount your existing .env, librechat.yaml and data folders. Nothing about your LibreChat configuration changes.&#13;&#10;&#13;&#10;=== VOICE ===&#13;&#10;Speech-to-text and text-to-speech are configured in librechat.yaml (speech: block) exactly as in LibreChat, e.g. speaches for STT and kokoro-fastapi for TTS. LibreChat blocks private-IP speech targets unless they are listed under allowedAddresses in that block. The JARVIS kokoro voice packs ship inside this image at /app/voices/kokoro; the README shows the one-line docker cp to install them into kokoro. Voice choice lives in LibreChat Settings > Speech.&#13;&#10;&#13;&#10;=== HTTPS IS REQUIRED FOR THE MICROPHONE ===&#13;&#10;Browsers only allow microphone access on https:// (or localhost). Put this container behind your reverse proxy with a valid certificate and set DOMAIN_CLIENT / DOMAIN_SERVER to that https hostname.&#13;&#10;&#13;&#10;=== SECURITY ===&#13;&#10;Same rules as LibreChat. Keep it LAN-only unless you have hardened LibreChat for the internet.</Overview>
+  <Category>AI: Productivity:</Category>
+  <WebUI>http://[IP]:[PORT:3080]/</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/librechat-jarvis/librechat-jarvis.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/librechat-jarvis/icon.png</Icon>
+  <ExtraParams>--user 0:0</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>A running LibreChat stack (MongoDB, Meilisearch, RAG API, pgvector) on the Docker network selected above, plus its .env and librechat.yaml. Stop or remove the stock LibreChat api container first if it uses the same host port. See the README.</Requires>
+  <Config Name="WebUI Port" Target="3080" Default="3080" Mode="tcp" Description="Host port mapped to LibreChat's port 3080. Put your HTTPS reverse proxy in front of this." Type="Port" Display="always" Required="true" Mask="false">3080</Config>
+  <Config Name="LibreChat .env" Target="/app/.env" Default="/mnt/user/appdata/librechat/.env" Mode="rw" Description="Your existing LibreChat .env file (secrets stay in this file, never in the template)." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/librechat/.env</Config>
+  <Config Name="librechat.yaml" Target="/app/librechat.yaml" Default="/mnt/user/appdata/librechat/librechat.yaml" Mode="rw" Description="Your existing librechat.yaml (endpoints, MCP servers, speech block)." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/librechat/librechat.yaml</Config>
+  <Config Name="Images" Target="/app/client/public/images" Default="/mnt/user/appdata/librechat/images" Mode="rw" Description="LibreChat generated/uploaded images folder." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/librechat/images</Config>
+  <Config Name="Uploads" Target="/app/uploads" Default="/mnt/user/appdata/librechat/uploads" Mode="rw" Description="LibreChat uploads folder." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/librechat/uploads</Config>
+  <Config Name="Logs" Target="/app/logs" Default="/mnt/user/appdata/librechat/logs" Mode="rw" Description="LibreChat logs folder." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/librechat/logs</Config>
+  <Config Name="Data" Target="/app/data" Default="/mnt/user/appdata/librechat/data" Mode="rw" Description="LibreChat data folder (temp credentials etc.). If your compose stack used the named volume librechat_librechat-data, copy its contents here once or keep using the compose stack instead of this template." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/librechat/data</Config>
+  <Config Name="Skills" Target="/app/skill" Default="/mnt/user/appdata/librechat/skill" Mode="rw" Description="LibreChat skills folder (optional in older configs)." Type="Path" Display="advanced" Required="false" Mask="false">/mnt/user/appdata/librechat/skill</Config>
+  <Config Name="HOST" Target="HOST" Default="0.0.0.0" Mode="" Description="Bind address inside the container. Leave as is." Type="Variable" Display="advanced" Required="true" Mask="false">0.0.0.0</Config>
+  <Config Name="MongoDB URI" Target="MONGO_URI" Default="mongodb://mongodb:27017/LibreChat" Mode="" Description="Your LibreChat MongoDB, by container name on the shared network (the compose stack sets this as an override, so it is usually NOT in .env)." Type="Variable" Display="always" Required="true" Mask="false">mongodb://mongodb:27017/LibreChat</Config>
+  <Config Name="Meilisearch host" Target="MEILI_HOST" Default="http://meilisearch:7700" Mode="" Description="Your LibreChat Meilisearch, by container name on the shared network." Type="Variable" Display="always" Required="true" Mask="false">http://meilisearch:7700</Config>
+  <Config Name="RAG API URL" Target="RAG_API_URL" Default="http://rag_api:8000" Mode="" Description="Your LibreChat RAG API, by container name on the shared network." Type="Variable" Display="always" Required="true" Mask="false">http://rag_api:8000</Config>
+  <Config Name="RAG port" Target="RAG_PORT" Default="8000" Mode="" Description="Port of the RAG API." Type="Variable" Display="advanced" Required="false" Mask="false">8000</Config>
+  <Config Name="Domain (client)" Target="DOMAIN_CLIENT" Default="" Mode="" Description="Public https URL users open, e.g. https://jarvis.example.lan. Must be https for the microphone." Type="Variable" Display="always" Required="true" Mask="false"></Config>
+  <Config Name="Domain (server)" Target="DOMAIN_SERVER" Default="" Mode="" Description="Usually the same value as Domain (client)." Type="Variable" Display="always" Required="true" Mask="false"></Config>
+  <TailscaleStateDir/>
+</Container>

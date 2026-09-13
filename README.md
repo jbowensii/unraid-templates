@@ -6,6 +6,7 @@ Self-maintained [Unraid](https://unraid.net/) Community Applications Docker temp
 |---|---|---|
 | **[MediaWiki](./mediawiki.xml)** | official [`mediawiki`](https://hub.docker.com/_/mediawiki) | Stock MediaWiki, nothing added. `stable` = 1.46, `lts` = 1.43. Bring your own database. |
 | **[mediawiki-plus](./mediawiki-plus/)** | [`ghcr.io/jbowensii/mediawiki-plus`](https://github.com/jbowensii/unraid-templates/pkgs/container/mediawiki-plus) | MediaWiki 1.43 LTS **plus** the Variables, PluggableAuth and OpenID Connect extensions. Self-contained on SQLite — no database container. |
+| **[librechat-jarvis](./librechat-jarvis/)** | [`ghcr.io/jbowensii/librechat-jarvis`](https://github.com/jbowensii/librechat-jarvis/pkgs/container/librechat-jarvis) | **LibreChat with the JARVIS face.** A pinned LibreChat release plus a thin overlay: boot screen + startup sound, blue HUD theme, JARVIS bar and gear, reactor / ring HUD panel, hands-free listening, kokoro voice packs in the image. Drop-in replacement for the LibreChat `api` container; your LibreChat config is used unchanged. Successor to aios-face. |
 | **[aios-face](./aios-face/)** | [`ghcr.io/jbowensii/aios-face`](https://github.com/jbowensii/aios-face/pkgs/container/aios-face) | JARVIS-style voice + chat + image/3D front end for a self-hosted AI stack (LibreChat, ComfyUI bridge, kokoro, speaches). Desktop-chat layout with saved chats and a task panel, selectable voices and visuals. Thin client, LAN-only, HTTPS needed for the mic. |
 
 ## Which one do I want?
