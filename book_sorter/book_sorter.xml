@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>book_sorter</Name>
+  <Repository>ghcr.io/jbowensii/book-sorter:latest</Repository>
+  <Registry>https://github.com/jbowensii/book_sorter/pkgs/container/book-sorter</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/jbowensii/book_sorter</Support>
+  <Project>https://github.com/jbowensii/book_sorter</Project>
+  <Overview>Read-only scanner/indexer for a large game-book collection. Walks a directory tree, indexes every file into an embedded Postgres database, and extracts metadata (content MD5, type, embedded-text flag, page count, first-page thumbnail, language, and heuristic ISBN/SKU/game/company) for txt/md/doc/docx/pdf. Includes a small web dashboard with live scan progress and a searchable table. The collection is mounted read-only; Postgres data and thumbnails live on appdata.</Overview>
+  <Category>Productivity: Tools: Other:</Category>
+  <WebUI>http://[IP]:[PORT:8000]/</WebUI>
+  <TemplateURL/>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/book_sorter/book_sorter.png</Icon>
+  <ExtraParams/>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled/>
+  <DonateText/>
+  <DonateLink/>
+  <Description>Read-only game-book collection indexer (embedded Postgres + FastAPI dashboard). Single container; database and thumbnails persist on appdata; the collection is mounted read-only.</Description>
+  <Config Name="WebUI Port" Target="8000" Default="8087" Mode="tcp" Description="Host port for the dashboard" Type="Port" Display="always" Required="true" Mask="false">8087</Config>
+  <Config Name="Collection (read-only)" Target="/data" Default="/mnt/user/cloudfiles/games" Mode="ro" Description="The game-book collection to index. Mounted READ-ONLY." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/cloudfiles/games</Config>
+  <Config Name="Postgres data" Target="/var/lib/postgresql/data" Default="/mnt/user/appdata/book_sorter/pgdata" Mode="rw" Description="Embedded Postgres data dir (persist on appdata)" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/book_sorter/pgdata</Config>
+  <Config Name="Thumbnails" Target="/thumbs" Default="/mnt/user/appdata/book_sorter/thumbs" Mode="rw" Description="First-page thumbnail store (persist on appdata)" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/book_sorter/thumbs</Config>
+  <Config Name="Scan on start" Target="SCAN_ON_START" Default="true" Mode="" Description="Begin scanning automatically when the container starts" Type="Variable" Display="always" Required="false" Mask="false">true</Config>
+  <Config Name="Scan workers" Target="SCAN_WORKERS" Default="6" Mode="" Description="Concurrent extraction workers" Type="Variable" Display="always" Required="false" Mask="false">6</Config>
+  <Config Name="Hash all types" Target="HASH_ALL_TYPES" Default="false" Mode="" Description="Also MD5 non-target files (videos/images/archives). Heavy I/O; off by default." Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="Force rescan" Target="FORCE_RESCAN" Default="false" Mode="" Description="Re-extract every file even if unchanged" Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="Log level" Target="LOG_LEVEL" Default="INFO" Mode="" Description="Logging level" Type="Variable" Display="advanced" Required="false" Mask="false">INFO</Config>
+</Container>
