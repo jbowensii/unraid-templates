@@ -35,3 +35,27 @@ docker run -d --init -p 8480:80 \
   -v /path/to/library:/data/library \
   ghcr.io/jbowensii/chummer-anarchy2:latest
 ```
+
+## Updating
+
+Docker tab → the container's **apply update** link (shown when a new
+`:latest` is published) pulls the new image and recreates the container.
+**Edit → Apply** alone recreates the container from the image already on
+the server and does *not* pull a new one. To update that way, pull first
+in the web terminal, then Edit → Apply:
+
+```bash
+docker pull ghcr.io/jbowensii/chummer-anarchy2:latest
+```
+
+Your runners, edits, books and settings live in the three volumes and are
+kept across updates.
+
+## Backup and restore
+
+In the app: Settings → **Backup**. **Download backup** saves one zip with
+everything in the three volumes (API keys only if you tick "Include my API
+keys"). **Restore from backup** shows what's in a zip, then replaces the
+server's data; the server first saves its current state to
+`Library/.backups` (the newest 3 are kept). Backups up to 20 GB can be
+restored.
