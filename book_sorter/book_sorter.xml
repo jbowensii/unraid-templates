@@ -9,10 +9,10 @@
   <Privileged>false</Privileged>
   <Support>https://github.com/jbowensii/book_sorter</Support>
   <Project>https://github.com/jbowensii/book_sorter</Project>
-  <Overview>Read-only scanner/indexer for a large game-book collection. Walks a directory tree, indexes every file into an embedded Postgres database, and extracts metadata (content MD5, type, embedded-text flag, page count, first-page thumbnail, language, and heuristic ISBN/SKU/game/company) for txt/md/doc/docx/pdf. Includes a small web dashboard with live scan progress and a searchable table. The collection is mounted read-only; Postgres data and thumbnails live on appdata.</Overview>
+  <Overview>Read-only scanner/indexer for a large game-book collection. Walks a directory tree, indexes every file into an embedded Postgres database, and extracts metadata (content MD5, type, embedded-text flag, page count, first-page thumbnail, language, and heuristic ISBN/SKU/game/company) for txt/md/doc/docx/pdf. Includes a small web dashboard with live scan progress and a searchable table. The collection is mounted read-only; Postgres data lives on appdata, and scratch/thumbnails/OCR live on a data pool (/work).</Overview>
   <Category>Productivity: Tools: Other:</Category>
   <WebUI>http://[IP]:[PORT:8000]/</WebUI>
-  <TemplateURL/>
+  <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/book_sorter/book_sorter.xml</TemplateURL>
   <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/book_sorter/book_sorter.png</Icon>
   <ExtraParams/>
   <PostArgs/>
@@ -20,12 +20,14 @@
   <DateInstalled/>
   <DonateText/>
   <DonateLink/>
-  <Description>Read-only game-book collection indexer (embedded Postgres + FastAPI dashboard). Single container; database and thumbnails persist on appdata; the collection is mounted read-only.</Description>
+  <Description>Read-only game-book collection indexer (embedded Postgres + FastAPI dashboard). Single container; the collection is mounted read-only, Postgres persists on appdata, and scratch/thumbnails/OCR staging live on a data pool (/work) to keep them off the docker SSD.</Description>
   <Config Name="WebUI Port" Target="8000" Default="8087" Mode="tcp" Description="Host port for the dashboard" Type="Port" Display="always" Required="true" Mask="false">8087</Config>
   <Config Name="Collection (read-only)" Target="/data" Default="/mnt/user/cloudfiles/games" Mode="ro" Description="The game-book collection to index. Mounted READ-ONLY." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/cloudfiles/games</Config>
   <Config Name="Postgres data" Target="/var/lib/postgresql/data" Default="/mnt/user/appdata/book_sorter/postgres" Mode="rw" Description="Embedded Postgres data dir (persist on appdata)" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/book_sorter/postgres</Config>
-  <Config Name="Thumbnails" Target="/thumbs" Default="/mnt/user/appdata/book_sorter/thumbs" Mode="rw" Description="First-page thumbnail store (persist on appdata)" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/book_sorter/thumbs</Config>
-  <Config Name="OCR store" Target="/ocr" Default="/mnt/user/appdata/book_sorter/ocr" Mode="rw" Description="Searchable pdfa copies produced by the OCR pass (persist on appdata)" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/book_sorter/ocr</Config>
+  <Config Name="Work dir (scratch/thumbs/ocr)" Target="/work" Default="/mnt/cache_virtual_ssd/booksorter" Mode="rw" Description="Scratch, thumbnails and OCR staging live here on a data pool, kept OFF the small docker SSD. Subdirs: tmp/ thumbs/ ocr/." Type="Path" Display="always" Required="true" Mask="false">/mnt/cache_virtual_ssd/booksorter</Config>
+  <Config Name="Temp dir (TMPDIR)" Target="TMPDIR" Default="/work/tmp" Mode="" Description="OCR scratch (ocrmypdf.io.*) is written here — on the work pool, never the docker SSD. Cleaned on startup." Type="Variable" Display="advanced" Required="false" Mask="false">/work/tmp</Config>
+  <Config Name="Thumbnail dir" Target="THUMB_DIR" Default="/work/thumbs" Mode="" Description="First-page thumbnail store (JPEG), on the work pool." Type="Variable" Display="advanced" Required="false" Mask="false">/work/thumbs</Config>
+  <Config Name="OCR staging dir" Target="OCR_DIR" Default="/work/ocr" Mode="" Description="Transient OCR output staging, on the work pool." Type="Variable" Display="advanced" Required="false" Mask="false">/work/ocr</Config>
   <Config Name="OCR languages" Target="OCR_LANGS" Default="eng+deu" Mode="" Description="Tesseract languages (installed: eng deu fra spa por ita pol rus)" Type="Variable" Display="advanced" Required="false" Mask="false">eng+deu</Config>
   <Config Name="OCR workers (default)" Target="OCR_WORKERS" Default="2" Mode="" Description="Default concurrent OCR tasks (also adjustable per-run in the dashboard)" Type="Variable" Display="always" Required="false" Mask="false">2</Config>
   <Config Name="OCR during scan" Target="OCR_ON_SCAN" Default="true" Mode="" Description="Queue + OCR image-only PDFs/djvu automatically while scanning" Type="Variable" Display="advanced" Required="false" Mask="false">true</Config>
