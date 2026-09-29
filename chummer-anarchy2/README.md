@@ -36,6 +36,19 @@ docker run -d --init -p 8480:80 \
   ghcr.io/jbowensii/chummer-anarchy2:latest
 ```
 
+## Accounts (0.4.0 and later)
+
+Sign-in is required from 0.4.0. On first start the container log shows a
+one-time setup code (`docker logs chummer-anarchy2`); open the web UI and
+use it to create the admin account. Existing runners move into that
+account. Behind a reverse proxy, set **Trusted proxy** (every proxy hop's
+IP) and **Public address** (the https URL people use). Authelia sign-in is
+optional; see the app's README.
+
+The core rules data isn't in the image: importing the core rulebook on the
+Books page builds it (an upgraded server does this on first start), or the
+admin uploads a data pack.
+
 ## Updating
 
 Docker tab → the container's **apply update** link (shown when a new
