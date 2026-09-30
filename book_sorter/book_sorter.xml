@@ -9,7 +9,7 @@
   <Privileged>false</Privileged>
   <Support>https://github.com/jbowensii/book_sorter</Support>
   <Project>https://github.com/jbowensii/book_sorter</Project>
-  <Overview>Read-only scanner/indexer for a large game-book collection. Walks a directory tree, indexes every file into an embedded Postgres database, and extracts metadata (content MD5, type, embedded-text flag, page count, first-page thumbnail, language, and heuristic ISBN/SKU/game/company) for txt/md/doc/docx/pdf. Includes a small web dashboard with live scan progress and a searchable table. The collection is mounted read-only; Postgres data lives on appdata, and scratch/thumbnails/OCR live on a data pool (/work).</Overview>
+  <Overview>Read-only scanner/indexer for a large game-book collection. Walks a directory tree, indexes every file into an embedded Postgres database, and catalogs each book locally (title, publisher, authors, game line and system, catalog number, ISBN incl. cover barcode, year, edition, printing), OCRs image-only PDFs, cleans scanned covers for thumbnails with perceptual hashes, then verifies with a self-hosted AI and — last resort — DriveThruRPG / Open Library / Google Books / RPGGeek. Found data is never overwritten by online sources. Includes a web dashboard with live progress and a searchable table. The collection is mounted read-only.</Overview>
   <Category>Productivity: Tools: Other:</Category>
   <WebUI>http://[IP]:[PORT:8000]/</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/book_sorter/book_sorter.xml</TemplateURL>
@@ -20,7 +20,7 @@
   <DateInstalled/>
   <DonateText/>
   <DonateLink/>
-  <Description>Read-only game-book collection indexer (embedded Postgres + FastAPI dashboard). Single container; the collection is mounted read-only, Postgres persists on appdata, and scratch/thumbnails/OCR staging live on a data pool (/work) to keep them off the docker SSD.</Description>
+  <Description>Read-only game-book collection indexer (embedded Postgres + FastAPI dashboard). Single container; database and thumbnails persist on appdata; the collection is mounted read-only.</Description>
   <Config Name="WebUI Port" Target="8000" Default="8087" Mode="tcp" Description="Host port for the dashboard" Type="Port" Display="always" Required="true" Mask="false">8087</Config>
   <Config Name="Collection (read-only)" Target="/data" Default="/mnt/user/cloudfiles/games" Mode="ro" Description="The game-book collection to index. Mounted READ-ONLY." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/cloudfiles/games</Config>
   <Config Name="Postgres data" Target="/var/lib/postgresql/data" Default="/mnt/user/appdata/book_sorter/postgres" Mode="rw" Description="Embedded Postgres data dir (persist on appdata)" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/book_sorter/postgres</Config>
@@ -36,5 +36,11 @@
   <Config Name="Scan workers" Target="SCAN_WORKERS" Default="6" Mode="" Description="Concurrent extraction workers" Type="Variable" Display="always" Required="false" Mask="false">6</Config>
   <Config Name="Hash all types" Target="HASH_ALL_TYPES" Default="false" Mode="" Description="Also MD5 non-target files (videos/images/archives). Heavy I/O; off by default." Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
   <Config Name="Force rescan" Target="FORCE_RESCAN" Default="false" Mode="" Description="Re-extract every file even if unchanged" Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="Barcode dir" Target="BARCODE_DIR" Default="/work/barcodes" Mode="" Description="Clean barcode crops (PNG), on the work pool." Type="Variable" Display="advanced" Required="false" Mask="false">/work/barcodes</Config>
+  <Config Name="Clean scanned covers" Target="COVER_CLEAN" Default="true" Mode="" Description="Dust removal / border trim / levels on SCANNED covers before thumbnailing. Born-digital covers are never touched." Type="Variable" Display="advanced" Required="false" Mask="false">true</Config>
+  <Config Name="Ollama URL (local AI verification)" Target="OLLAMA_URL" Default="" Mode="" Description="Self-hosted Ollama that checks found fields against each book's credits pages, e.g. http://10.47.40.43:11434. Empty = skip the AI stage." Type="Variable" Display="always" Required="false" Mask="false">http://10.47.40.43:11434</Config>
+  <Config Name="Ollama model" Target="OLLAMA_MODEL" Default="qwen2.5:14b-instruct-q6_K" Mode="" Description="Model used for verification (JSON output)." Type="Variable" Display="advanced" Required="false" Mask="false">qwen2.5:14b-instruct-q6_K</Config>
+  <Config Name="DriveThruRPG API key" Target="DTRPG_API_KEY" Default="" Mode="" Description="Your DriveThruRPG library API key (read-only, verification only). Empty = skip." Type="Variable" Display="always" Required="false" Mask="true"></Config>
+  <Config Name="RPGGeek (BGG) app token" Target="BGG_TOKEN" Default="" Mode="" Description="BoardGameGeek XML API application token (boardgamegeek.com/applications). Empty = skip. Non-commercial use; data credited to BoardGameGeek." Type="Variable" Display="always" Required="false" Mask="true"></Config>
   <Config Name="Log level" Target="LOG_LEVEL" Default="INFO" Mode="" Description="Logging level" Type="Variable" Display="advanced" Required="false" Mask="false">INFO</Config>
 </Container>
