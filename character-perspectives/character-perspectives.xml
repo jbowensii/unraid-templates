@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>CharacterPerspectives</Name>
+  <Repository>ghcr.io/jbowensii/character-perspectives:latest</Repository>
+  <Registry>https://github.com/jbowensii/character-perspectives/pkgs/container/character-perspectives</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/jbowensii/character-perspectives</Support>
+  <Project>https://github.com/jbowensii/character-perspectives</Project>
+  <Overview>Character turnaround generator. From one reference image (or a text description) it makes front, back, side, action, portrait, sitting, top-down and downed views plus a rotatable 3D model. Runs on a self-hosted ComfyUI (FLUX.1 Kontext, FLUX.2, Chroma, SD3.5, SDXL, SD1.5, with LoRAs; Pixal3D / TRELLIS-2 for 3D) or Gemini 2.5 Flash Image in the cloud. Models, LoRAs and API keys are set in the app's Settings and stored in models.xml in the Config path.</Overview>
+  <Category>Tools: MediaApp:Photos</Category>
+  <WebUI>http://[IP]:[PORT:8196]/</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/character-perspectives/character-perspectives.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/character-perspectives/character-perspectives.png</Icon>
+  <ExtraParams/>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>A reachable ComfyUI instance (set COMFYUI_BASE) for local models and 3D. The 3D workflow needs the ComfyUI-TRELLIS2 / Pixal3D nodes and models.</Requires>
+  <Description>Character turnaround views and 3D models from one reference image, via ComfyUI or Gemini.</Description>
+  <Config Name="WebUI Port" Target="8196" Default="8196" Mode="tcp" Description="Port the web UI listens on." Type="Port" Display="always" Required="true" Mask="false">8196</Config>
+  <Config Name="Data Path" Target="/data" Default="/mnt/user/appdata/character-perspectives/data" Mode="rw" Description="Uploaded references, every generated view and 3D model, and saved workspaces." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/character-perspectives/data</Config>
+  <Config Name="Config Path" Target="/config" Default="/mnt/user/appdata/character-perspectives/config" Mode="rw" Description="models.xml: models, LoRAs, per-model switches and API keys (owner-only file). Never baked into the image." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/character-perspectives/config</Config>
+  <Config Name="COMFYUI_BASE" Target="COMFYUI_BASE" Default="http://10.47.40.43:8188" Mode="" Description="Base URL of the ComfyUI instance used for local models and 3D generation." Type="Variable" Display="always" Required="true" Mask="false">http://10.47.40.43:8188</Config>
+  <Config Name="TZ" Target="TZ" Default="America/New_York" Mode="" Description="Time zone for log timestamps." Type="Variable" Display="advanced" Required="false" Mask="false">America/New_York</Config>
+</Container>
