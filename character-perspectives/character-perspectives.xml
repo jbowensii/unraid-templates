@@ -9,7 +9,7 @@
   <Privileged>false</Privileged>
   <Support>https://github.com/jbowensii/character-perspectives</Support>
   <Project>https://github.com/jbowensii/character-perspectives</Project>
-  <Overview>Character turnaround generator. From one reference image (or a text description) it makes front, back, side, action, portrait, sitting, top-down and downed views plus a rotatable 3D model. Runs on a self-hosted ComfyUI (FLUX.1 Kontext, FLUX.2, Chroma, SD3.5, SDXL, SD1.5, with LoRAs; Pixal3D / TRELLIS-2 for 3D) or Gemini 2.5 Flash Image in the cloud. Models, LoRAs and API keys are set in the app's Settings and stored in models.xml in the Config path.</Overview>
+  <Overview>Character turnaround generator. From one reference image (or a text description) it makes front, back, side, action, portrait, sitting, top-down and downed views plus a rotatable 3D model. Runs on a self-hosted ComfyUI (FLUX.1 Kontext, FLUX.2, Chroma, SD3.5, SDXL, SD1.5, with LoRAs; Pixal3D / TRELLIS-2 for 3D) or Gemini 2.5 Flash Image in the cloud. Models, LoRAs and API keys are set in the app's Settings and stored in models.xml in the Config path. Download All Characters backs up every character (a folder each, with views, 3D model, readable prompts and a restorable JSON); Import Character(s) restores them.</Overview>
   <Category>Tools: MediaApp:Photos</Category>
   <WebUI>http://[IP]:[PORT:8196]/</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/character-perspectives/character-perspectives.xml</TemplateURL>

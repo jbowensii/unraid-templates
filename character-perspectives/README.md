@@ -26,3 +26,13 @@ newest `latest` image; data and config live in the mapped paths and are kept.
 |---|---|
 | Data | References, generated views, 3D models, saved workspaces |
 | Config | `models.xml`: models, LoRAs, per-model switches, API keys (owner-only) |
+
+## Backup and restore
+
+In the app, **Download All Characters** gives one zip with a folder per character: the original,
+every view, the 3D model, a readable `Prompts.txt` and a `character.json`. **Import Character(s)**
+restores one character's folder, or the top folder to restore all of them. Copying the Data and
+Config folders backs up the whole install.
+
+Full setup guide, including the ComfyUI models and nodes it needs:
+<https://github.com/jbowensii/character-perspectives#setup>
