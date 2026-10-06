@@ -43,5 +43,6 @@
   <Config Name="Min free GB" Target="IAT_MIN_FREE_GB" Default="50" Mode="" Description="Processing pauses while Output has less free space than this." Type="Variable" Display="advanced" Required="false" Mask="false">50</Config>
   <Config Name="PUID" Target="PUID" Default="99" Mode="" Description="Run as this user (99 = nobody) so files on the shares stay accessible over SMB." Type="Variable" Display="advanced" Required="false" Mask="false">99</Config>
   <Config Name="PGID" Target="PGID" Default="100" Mode="" Description="Run as this group (100 = users)." Type="Variable" Display="advanced" Required="false" Mask="false">100</Config>
+  <Config Name="UMASK" Target="UMASK" Default="000" Mode="" Description="File-creation mask. 000 keeps tagged copies and moved originals writable by every share user (needed when the share belongs to AD/SMB users rather than nobody:users)." Type="Variable" Display="advanced" Required="false" Mask="false">000</Config>
   <Config Name="TZ" Target="TZ" Default="America/New_York" Mode="" Description="Time zone for log timestamps and batch ids." Type="Variable" Display="advanced" Required="false" Mask="false">America/New_York</Config>
 </Container>
