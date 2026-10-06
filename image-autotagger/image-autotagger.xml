@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>image-autotagger</Name>
+  <Repository>ghcr.io/jbowensii/image-autotagger:latest</Repository>
+  <Registry>https://github.com/jbowensii/image-autotagger/pkgs/container/image-autotagger</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/jbowensii/image-autotagger</Support>
+  <Project>https://github.com/jbowensii/image-autotagger</Project>
+  <Overview>Offline tagging, renaming and organizing for very large art collections. Reads each image with a local ONNX tagger plus a vision model served by Ollama, embeds the tags, caption and title in the file itself (XMP, plus IPTC/EXIF for JPEG/WebP), renames it to something readable, and files it into folders you define by tag in the web UI. Originals are never modified: a tagged copy is written to Output and validated, and only then is the original moved to Complete. Resumable: safe to stop and restart at any time.</Overview>
+  <Category>MediaApp:Photos Tools:</Category>
+  <WebUI>http://[IP]:[PORT:8099]/</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/image-autotagger/image-autotagger.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/image-autotagger/image-autotagger.png</Icon>
+  <ExtraParams/>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>An Ollama endpoint serving a vision model (default qwen3-vl:8b). For keyword tags, put an ONNX tagger (kagami-24k model_prob.onnx renamed to model.onnx, plus selected_tags.csv) in Models/tagger/. Without it, fast tags come from filenames and folders only. Plan about 2x the collection size in free space.</Requires>
+  <Description>Offline AI tagging, renaming and organizing for large image collections. Tags are embedded in the files.</Description>
+
+  <Config Name="WebUI Port" Target="8099" Default="8099" Mode="tcp" Description="Web interface port." Type="Port" Display="always" Required="true" Mask="false">8099</Config>
+
+  <Config Name="Input (drop batches here)" Target="/data/input" Default="/mnt/user/art/input" Mode="rw" Description="Drop image batches here, sub-folders welcome (folder names become tags). Originals are never written to; they are moved to Complete after their tagged copy validates." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/art/input</Config>
+  <Config Name="Output (tagged + organized)" Target="/data/output" Default="/mnt/user/art/output" Mode="rw" Description="Tagged, renamed copies. New files land in _unsorted/ and the organizer moves them into your folders." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/art/output</Config>
+  <Config Name="Complete (originals)" Target="/data/complete" Default="/mnt/user/art/complete" Mode="rw" Description="Originals are moved here, keeping their sub-folders, once the tagged copy is validated." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/art/complete</Config>
+  <Config Name="Errors" Target="/data/errors" Default="/mnt/user/art/errors" Mode="rw" Description="Only used when Error handling is 'move'." Type="Path" Display="advanced" Required="false" Mask="false">/mnt/user/art/errors</Config>
+  <Config Name="App data" Target="/appdata" Default="/mnt/user/appdata/image-autotagger" Mode="rw" Description="State database (state.sqlite), thumbnail cache, optional config.yaml." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/image-autotagger</Config>
+  <Config Name="Models" Target="/models" Default="/mnt/user/appdata/image-autotagger/models" Mode="ro" Description="ONNX tagger weights: tagger/model.onnx + tagger/selected_tags.csv." Type="Path" Display="always" Required="false" Mask="false">/mnt/user/appdata/image-autotagger/models</Config>
+
+  <Config Name="Ollama URL" Target="IAT_OLLAMA_URL" Default="http://10.47.40.43:11434" Mode="" Description="Ollama endpoint serving the vision model." Type="Variable" Display="always" Required="true" Mask="false">http://10.47.40.43:11434</Config>
+  <Config Name="Vision model" Target="IAT_VLM_MODEL" Default="qwen3-vl:8b" Mode="" Description="Ollama vision model id (qwen3-vl:8b, gemma4:12b, llama3.2-vision:11b, moondream)." Type="Variable" Display="always" Required="true" Mask="false">qwen3-vl:8b</Config>
+  <Config Name="Caption pass enabled" Target="IAT_VLM_ENABLED" Default="true" Mode="" Description="false = fast tags only (no caption/title; names come from top tags)." Type="Variable" Display="advanced" Required="false" Mask="false">true</Config>
+  <Config Name="VLM timeout (s)" Target="IAT_VLM_TIMEOUT" Default="120" Mode="" Description="Per-image request timeout. A timeout is recorded as warn:no_caption and the file keeps its fast tags." Type="Variable" Display="advanced" Required="false" Mask="false">120</Config>
+  <Config Name="Tagger model path" Target="IAT_TAGGER_MODEL_PATH" Default="/models/tagger/model.onnx" Mode="" Description="ONNX tagger file; selected_tags.csv must sit next to it." Type="Variable" Display="advanced" Required="false" Mask="false">/models/tagger/model.onnx</Config>
+  <Config Name="Tagger threshold" Target="IAT_TAGGER_THRESHOLD" Default="0.35" Mode="" Description="Keep tagger tags at or above this confidence." Type="Variable" Display="advanced" Required="false" Mask="false">0.35</Config>
+  <Config Name="Auto-watch input" Target="IAT_WATCH" Default="true" Mode="" Description="Scan Input every 30 s. false = only when you click 'Scan input now'." Type="Variable" Display="always" Required="false" Mask="false">true</Config>
+  <Config Name="Error handling" Target="IAT_ERROR_MODE" Default="flag" Mode="" Description="flag = leave failed originals in Input and list them on the dashboard; move = move them to Errors." Type="Variable" Display="advanced" Required="false" Mask="false">flag</Config>
+  <Config Name="Min free GB" Target="IAT_MIN_FREE_GB" Default="50" Mode="" Description="Processing pauses while Output has less free space than this." Type="Variable" Display="advanced" Required="false" Mask="false">50</Config>
+  <Config Name="PUID" Target="PUID" Default="99" Mode="" Description="Run as this user (99 = nobody) so files on the shares stay accessible over SMB." Type="Variable" Display="advanced" Required="false" Mask="false">99</Config>
+  <Config Name="PGID" Target="PGID" Default="100" Mode="" Description="Run as this group (100 = users)." Type="Variable" Display="advanced" Required="false" Mask="false">100</Config>
+  <Config Name="TZ" Target="TZ" Default="America/New_York" Mode="" Description="Time zone for log timestamps and batch ids." Type="Variable" Display="advanced" Required="false" Mask="false">America/New_York</Config>
+</Container>
