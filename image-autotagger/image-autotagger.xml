@@ -14,7 +14,7 @@
   <WebUI>http://[IP]:[PORT:8099]/</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/image-autotagger/image-autotagger.xml</TemplateURL>
   <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/image-autotagger/image-autotagger.png</Icon>
-  <ExtraParams>--runtime=nvidia</ExtraParams>
+  <ExtraParams/>
   <PostArgs/>
   <CPUset/>
   <DateInstalled/>
@@ -32,14 +32,14 @@
   <Config Name="App data" Target="/appdata" Default="/mnt/user/appdata/image-autotagger" Mode="rw" Description="State database (state.sqlite), thumbnail cache, optional config.yaml." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/image-autotagger</Config>
   <Config Name="Models" Target="/models" Default="/mnt/user/appdata/image-autotagger/models" Mode="ro" Description="ONNX tagger weights: tagger/model.onnx + tagger/selected_tags.csv." Type="Path" Display="always" Required="false" Mask="false">/mnt/user/appdata/image-autotagger/models</Config>
 
-  <Config Name="Ollama URL" Target="IAT_OLLAMA_URL" Default="http://10.47.40.43:11434" Mode="" Description="Ollama endpoint serving the vision model." Type="Variable" Display="always" Required="true" Mask="false">http://10.47.40.43:11434</Config>
+  <Config Name="Ollama URL" Target="IAT_OLLAMA_URL" Default="http://10.47.40.43:11435" Mode="" Description="Ollama endpoint serving the vision model. Give it its own Ollama/GPU: qwen3-vl:8b needs about 7.4 GB of VRAM and gets evicted when it shares a card with other large models." Type="Variable" Display="always" Required="true" Mask="false">http://10.47.40.43:11435</Config>
   <Config Name="Vision model" Target="IAT_VLM_MODEL" Default="qwen3-vl:8b" Mode="" Description="Ollama vision model id (qwen3-vl:8b, gemma4:12b, llama3.2-vision:11b, moondream)." Type="Variable" Display="always" Required="true" Mask="false">qwen3-vl:8b</Config>
   <Config Name="Caption pass enabled" Target="IAT_VLM_ENABLED" Default="true" Mode="" Description="false = fast tags only (no caption/title; names come from top tags)." Type="Variable" Display="advanced" Required="false" Mask="false">true</Config>
   <Config Name="VLM timeout (s)" Target="IAT_VLM_TIMEOUT" Default="180" Mode="" Description="Per-image request timeout. A timeout is recorded as warn:no_caption and the file keeps its fast tags." Type="Variable" Display="advanced" Required="false" Mask="false">180</Config>
   <Config Name="Tagger model path" Target="IAT_TAGGER_MODEL_PATH" Default="/models/tagger/model.onnx" Mode="" Description="ONNX tagger file; selected_tags.csv must sit next to it." Type="Variable" Display="advanced" Required="false" Mask="false">/models/tagger/model.onnx</Config>
-  <Config Name="GPU for the tagger" Target="NVIDIA_VISIBLE_DEVICES" Default="all" Mode="" Description="GPU the ONNX tagger runs on: a card UUID from 'nvidia-smi -L' (e.g. GPU-77564dab-...), or 'all'. Leave the Tagger device at cuda:0 - inside the container the chosen card is device 0. Needs the Nvidia Driver plugin; remove --runtime=nvidia from Extra Parameters to run CPU-only." Type="Variable" Display="always" Required="false" Mask="false">all</Config>
+  <Config Name="GPU for the tagger" Target="NVIDIA_VISIBLE_DEVICES" Default="" Mode="" Description="Optional, off by default (the tagger runs on the CPU, ~0.8 s/image, a small part of the ~20 s per image). To use a GPU: put a card UUID from 'nvidia-smi -L' here AND add --runtime=nvidia to Extra Parameters (needs the Nvidia Driver plugin)." Type="Variable" Display="always" Required="false" Mask="false"></Config>
   <Config Name="NVIDIA_DRIVER_CAPABILITIES" Target="NVIDIA_DRIVER_CAPABILITIES" Default="compute,utility" Mode="" Description="Driver features exposed to the container." Type="Variable" Display="advanced" Required="false" Mask="false">compute,utility</Config>
-  <Config Name="Tagger device" Target="IAT_TAGGER_DEVICE" Default="cuda:0" Mode="" Description="cuda:0 = the GPU chosen above; cpu = never use a GPU. Falls back to the CPU automatically if no GPU is available." Type="Variable" Display="advanced" Required="false" Mask="false">cuda:0</Config>
+  <Config Name="Tagger device" Target="IAT_TAGGER_DEVICE" Default="auto" Mode="" Description="auto = GPU if one is passed through, else CPU; cpu = never use a GPU." Type="Variable" Display="advanced" Required="false" Mask="false">auto</Config>
   <Config Name="Tagger VRAM cap (MB)" Target="IAT_TAGGER_GPU_MEM_MB" Default="2048" Mode="" Description="Upper limit on the tagger's GPU memory so it can share a card with Ollama (kagami-24k uses about 1.2 GB)." Type="Variable" Display="advanced" Required="false" Mask="false">2048</Config>
   <Config Name="Tagger threshold" Target="IAT_TAGGER_THRESHOLD" Default="0.35" Mode="" Description="Keep tagger tags at or above this confidence." Type="Variable" Display="advanced" Required="false" Mask="false">0.35</Config>
   <Config Name="Auto-watch input" Target="IAT_WATCH" Default="true" Mode="" Description="Scan Input every 30 s. false = only when you click 'Scan input now'." Type="Variable" Display="always" Required="false" Mask="false">true</Config>
