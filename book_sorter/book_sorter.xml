@@ -14,7 +14,7 @@
   <WebUI>http://[IP]:[PORT:8000]/</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/book_sorter/book_sorter.xml</TemplateURL>
   <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/book_sorter/book_sorter.png</Icon>
-  <ExtraParams/>
+  <ExtraParams>--shm-size=512m</ExtraParams>
   <PostArgs/>
   <CPUset/>
   <DateInstalled/>
