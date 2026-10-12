@@ -1,0 +1,11 @@
+# One-off operational / scratch scripts (contain tokens, internal paths, generated keys)
+# Not template material — never publish.
+register-runner.sh
+setup-forgejo-crypt.sh
+fix-smtp.sh
+enable-actions.sh
+portcheck.sh
+schedule-forgejo-backup.sh
+forgejo-backup.sh
+*.key
+*.bak-*

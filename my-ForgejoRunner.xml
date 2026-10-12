@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>ForgejoRunner</Name>
+  <Repository>data.forgejo.org/forgejo/runner:12</Repository>
+  <Registry>https://data.forgejo.org/forgejo/runner</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <MyMAC/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://code.forgejo.org/forgejo/runner/issues</Support>
+  <Project>https://code.forgejo.org/forgejo/runner</Project>
+  <ReadMe>https://forgejo.org/docs/latest/admin/actions/</ReadMe>
+  <Overview>Forgejo Runner executes Forgejo Actions (CI/CD) workflows for a Forgejo instance. It uses the official Forgejo runner image.&#13;
+&#13;
+SETUP ORDER:&#13;
+1. Forgejo must be running and you must have an admin account.&#13;
+2. Generate a registration token: docker exec -u git Forgejo forgejo forgejo-cli actions generate-runner-token&#13;
+3. Register this runner (one-time, as root so it can write .runner): docker run --rm --user 0:0 -v /mnt/cache_virtual_ssd/appdata/forgejo-runner/data:/data -w /data data.forgejo.org/forgejo/runner:12 forgejo-runner register --no-interactive --instance http://10.47.40.45:3100 --token YOUR_TOKEN --name tower05-runner --labels "ubuntu-latest:docker://ghcr.io/catthehacker/ubuntu:act-latest,docker:docker://ghcr.io/catthehacker/ubuntu:act-latest"&#13;
+4. chown -R 99:100 the data dir, then start this container. It will appear online in Forgejo's Runners list.&#13;
+&#13;
+NOTE: Runs as root (--user 0:0) so the daemon can access the host Docker socket to spin up job containers. The container command is 'forgejo-runner daemon'. Acceptable for a private single-user instance.</Overview>
+  <Category>Tools: Network:Other</Category>
+  <WebUI/>
+  <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/my-ForgejoRunner.xml</TemplateURL>
+  <Icon>https://forgejo.org/_astro/logo.D33RzxQb.svg</Icon>
+  <ExtraParams>--restart=unless-stopped --user 0:0 -w /data</ExtraParams>
+  <PostArgs>forgejo-runner daemon</PostArgs>
+  <CPUset/>
+  <DateInstalled>1789053600</DateInstalled>
+  <DonateText>Donate to Forgejo</DonateText>
+  <DonateLink>https://liberapay.com/forgejo</DonateLink>
+  <Requires/>
+  <Config Name="Config/Data Path" Target="/data" Default="/mnt/cache_virtual_ssd/appdata/forgejo-runner/data" Mode="rw" Description="Persistent storage for the runner's registration file (.runner) and config.yml." Type="Path" Display="always" Required="true" Mask="false">/mnt/cache_virtual_ssd/appdata/forgejo-runner/data</Config>
+  <Config Name="Docker Socket" Target="/var/run/docker.sock" Default="/var/run/docker.sock" Mode="rw" Description="Allows the runner to create job containers on the host Docker daemon. Required for docker:// workflow labels." Type="Path" Display="always" Required="true" Mask="false">/var/run/docker.sock</Config>
+  <Config Name="Timezone (host)" Target="/etc/localtime" Default="/etc/localtime" Mode="ro" Description="Mounts the host timezone file so container timestamps match the Unraid timezone." Type="Path" Display="advanced" Required="false" Mask="false">/etc/localtime</Config>
+  <Config Name="Timezone" Target="TZ" Default="America/New_York" Mode="" Description="Timezone setting (e.g., America/New_York)." Type="Variable" Display="advanced" Required="false" Mask="false">America/New_York</Config>
+</Container>

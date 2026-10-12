@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>Forgejo</Name>
+  <Repository>codeberg.org/forgejo/forgejo:16</Repository>
+  <Registry>https://codeberg.org/forgejo/-/packages/container/forgejo/versions</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <MyMAC/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://codeberg.org/forgejo/forgejo/issues</Support>
+  <Project>https://forgejo.org/</Project>
+  <ReadMe>https://forgejo.org/docs/latest/</ReadMe>
+  <Overview>Forgejo is a self-hosted lightweight software forge - a community-governed hard fork of Gitea, published by the non-profit Codeberg e.V. It provides Git repositories, issues, pull requests, a wiki, a package/container registry, Git LFS, and Forgejo Actions (CI/CD compatible with GitHub Actions YAML).&#13;
+&#13;
+SETUP: After first start, open the WebUI on port 3000 and complete the initial installation wizard. Set the Server Domain and Base URL to your external hostname, enable Git LFS, create your admin account, and disable open registration for a private instance.&#13;
+&#13;
+NOTE: Forgejo does not use a rolling 'latest' tag by design. This template is pinned to major version 16. To move to the next major version, manually edit the tag in Repository. See https://forgejo.org/faq/</Overview>
+  <Category>Cloud: Network:Other Tools:</Category>
+  <WebUI>http://[IP]:[PORT:3100]/</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/my-Forgejo.xml</TemplateURL>
+  <Icon>https://forgejo.org/_astro/logo.D33RzxQb.svg</Icon>
+  <ExtraParams>--restart=unless-stopped</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled>1789053600</DateInstalled>
+  <DonateText>Donate to Forgejo</DonateText>
+  <DonateLink>https://liberapay.com/forgejo</DonateLink>
+  <Requires/>
+  <Config Name="WebUI Port" Target="3000" Default="3100" Mode="tcp" Description="HTTP port for the Forgejo web interface. Host 3100 avoids a conflict with GluetunVPN which already publishes 3000 on Tower05." Type="Port" Display="always" Required="true" Mask="false">3100</Config>
+  <Config Name="SSH Port" Target="22" Default="2222" Mode="tcp" Description="Git over SSH. Host port 2222 avoids Unraid's own SSH (22) and the GluetunVPN port range on Tower05." Type="Port" Display="always" Required="true" Mask="false">2222</Config>
+  <Config Name="Data Path" Target="/data" Default="/mnt/cache_virtual_ssd/appdata/forgejo/data" Mode="rw" Description="Persistent storage for repositories, the SQLite database, configuration (app.ini), LFS objects, and attachments. Back up this directory regularly." Type="Path" Display="always" Required="true" Mask="false">/mnt/cache_virtual_ssd/appdata/forgejo/data</Config>
+  <Config Name="Timezone (host)" Target="/etc/localtime" Default="/etc/localtime" Mode="ro" Description="Mounts the host timezone file so container timestamps match the Unraid timezone." Type="Path" Display="advanced" Required="false" Mask="false">/etc/localtime</Config>
+  <Config Name="User ID" Target="USER_UID" Default="99" Mode="" Description="User ID for file permissions (99 = nobody on Unraid)." Type="Variable" Display="advanced" Required="false" Mask="false">99</Config>
+  <Config Name="Group ID" Target="USER_GID" Default="100" Mode="" Description="Group ID for file permissions (100 = users on Unraid)." Type="Variable" Display="advanced" Required="false" Mask="false">100</Config>
+  <Config Name="Timezone" Target="TZ" Default="America/New_York" Mode="" Description="Timezone setting (e.g., America/New_York)." Type="Variable" Display="advanced" Required="false" Mask="false">America/New_York</Config>
+</Container>
