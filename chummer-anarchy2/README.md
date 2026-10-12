@@ -1,5 +1,8 @@
 # chummer-anarchy2 on Unraid
 
+> **Renamed:** this app is now **Nova Prime Chummer**. New installs use [`nova-prime-chummer/`](../nova-prime-chummer/README.md); see "Moving from chummer-anarchy2" there.
+
+
 A character generator and career tracker for **Shadowrun: Anarchy 2.0**. The app ships the rules
 engine only — no book content — you upload your own PDFs on the Books page after install. Source
 and build: <https://github.com/jbowensii/chummer-anarchy2>. Image:
