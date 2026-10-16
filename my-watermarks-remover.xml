@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>watermarks-remover</Name>
+  <Repository>ghcr.io/guillaumemeyer/watermarks-remover:latest</Repository>
+  <Registry>https://github.com/guillaumemeyer/watermarks-remover/pkgs/container/watermarks-remover</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <MyMAC/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/guillaumemeyer/watermarks-remover/issues</Support>
+  <Project>https://github.com/guillaumemeyer/watermarks-remover</Project>
+  <ReadMe>https://github.com/guillaumemeyer/watermarks-remover#readme</ReadMe>
+  <Overview>HTTP service behind the watermarks-remover Claude skills (remove-ai-marks). Strips AI provenance marks from files: invisible Unicode in text, and C2PA / EXIF / XMP / container metadata on PNG, JPEG, WebP, GIF, TIFF, SVG, PDF, DOCX, ODT, EPUB, HTML and Markdown. The skill POSTs base64 payloads to /clean, /inspect and /detect; check /health and /capabilities.&#13;
+&#13;
+Stateless: no volumes, no database. Runs read-only with a tmpfs /tmp as a non-root user (10001). No API key by default - set WATERMARKS_SERVER_API_KEY to require a Bearer token (fine to leave empty on a LAN that is not exposed).&#13;
+&#13;
+The heavy pixel-domain backends (CtrlRegen, MarkDiffusion, SynthID scorer) are NOT in this image by upstream design (non-redistributable licenses); /capabilities reports them absent and the skill will not offer pixel removal.&#13;
+&#13;
+Client side: the skill reads WATERMARKS_SERVICE_URL, e.g. http://10.47.40.43:8765 - see remove-ai-marks SKILL.md.</Overview>
+  <Category>Tools:Utilities Productivity:</Category>
+  <WebUI>http://[IP]:[PORT:8765]/health</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/my-watermarks-remover.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/watermarks-remover/icon.svg</Icon>
+  <ExtraParams>--restart=unless-stopped --read-only --tmpfs /tmp --init --user 10001:10001</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled>1792497600</DateInstalled>
+  <DonateText/>
+  <DonateLink/>
+  <Requires/>
+  <Config Name="Service Port" Target="8765" Default="8765" Mode="tcp" Description="HTTP port of the cleaning service (health check at /health, JSON API at /clean, /inspect, /detect, /capabilities)." Type="Port" Display="always" Required="true" Mask="false">8765</Config>
+  <Config Name="API key (optional)" Target="WATERMARKS_SERVER_API_KEY" Default="" Mode="" Description="Leave empty for no auth (LAN-only). If set, every request must send 'Authorization: Bearer &lt;this key&gt;' - and the skill's client must be given the same value." Type="Variable" Display="always" Required="false" Mask="true"></Config>
+  <Config Name="SynthID scorer URL (optional)" Target="WATERMARKS_SYNTHID_SCORER_URL" Default="" Mode="" Description="URL of a separately-run reverse-SynthID scorer sidecar (heavy profile, not published to GHCR - build locally if you ever want it)." Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="SynthID scorer API key" Target="WATERMARKS_SYNTHID_SCORER_API_KEY" Default="" Mode="" Description="Bearer key for the scorer sidecar, if one is configured." Type="Variable" Display="advanced" Required="false" Mask="true"></Config>
+</Container>
