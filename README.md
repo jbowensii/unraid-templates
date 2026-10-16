@@ -13,6 +13,7 @@ Self-maintained [Unraid](https://unraid.net/) Community Applications Docker temp
 | **[image-autotagger](./image-autotagger/)** | [`ghcr.io/jbowensii/image-autotagger`](https://github.com/jbowensii/image-autotagger/pkgs/container/image-autotagger) | Offline tagging, renaming and organizing for large art collections. A local ONNX tagger and an Ollama vision model write tags, caption and title **into the files** (XMP/IPTC/EXIF). A web organizer files images into folders by tag. Originals are never modified. |
 | **[Forgejo](./my-Forgejo.xml)** | official [`codeberg.org/forgejo/forgejo:16`](https://codeberg.org/forgejo/-/packages/container/forgejo/versions) | Self-hosted Git forge (GitHub alternative) with Git LFS, issues, PRs and Forgejo Actions. Web on host port 3100, SSH on 2222 (defaults 3000/222 moved to dodge a busy-host port clash). One `/data` volume. No rolling `latest` tag by design — pinned to major v16. |
 | **[ForgejoRunner](./my-ForgejoRunner.xml)** | official [`data.forgejo.org/forgejo/runner:12`](https://code.forgejo.org/forgejo/runner) | Forgejo Actions CI/CD runner. Runs as root so the daemon can reach the host Docker socket; container command is `forgejo-runner daemon`. Register once against a Forgejo instance (steps in the template Overview). Pairs with the `ghcr.io/catthehacker/ubuntu` images for GitHub-Actions parity. See also [`UE-gitattributes.txt`](./UE-gitattributes.txt) for Unreal Engine Git LFS rules. |
+| **[watermarks-remover](./my-watermarks-remover.xml)** | upstream [`ghcr.io/guillaumemeyer/watermarks-remover`](https://github.com/guillaumemeyer/watermarks-remover/pkgs/container/watermarks-remover) | HTTP backend for the `remove-ai-marks` Claude skill — strips invisible Unicode and C2PA/EXIF/XMP metadata from images, PDF, DOCX, EPUB, SVG, HTML/MD. Stateless, read-only, non-root, port 8765, no API key by default. Heavy pixel-domain backends not included (upstream licensing). |
 
 ## Which one do I want?
 
@@ -44,6 +45,10 @@ wget -O /boot/config/plugins/dockerMan/templates-user/my-mediawiki-plus.xml \
 # stock MediaWiki
 wget -O /boot/config/plugins/dockerMan/templates-user/my-mediawiki.xml \
   https://raw.githubusercontent.com/jbowensii/unraid-templates/main/mediawiki.xml
+
+# watermarks-remover
+wget -O /boot/config/plugins/dockerMan/templates-user/my-watermarks-remover.xml \
+  https://raw.githubusercontent.com/jbowensii/unraid-templates/main/my-watermarks-remover.xml
 ```
 
 They then appear under **Docker → Add Container → Template → User Templates**.
