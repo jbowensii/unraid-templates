@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>strata</Name>
+  <Repository>ghcr.io/niko1221/strata:0.2.1-cuda13</Repository>
+  <Registry>https://ghcr.io/niko1221/strata</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/Niko1221/Strata</Support>
+  <Project>https://github.com/Niko1221/Strata</Project>
+  <Overview>Strata inference engine running Qwen3.8-Flash-Next (125B MoE) locally. Exposes OpenAI-compatible API at :8081/v1 and Anthropic-compatible API at :8081. Default model: Coder IQ1_M quant on the RTX 5060 Ti.</Overview>
+  <Category>AI:</Category>
+  <WebUI>http://[IP]:[PORT:8081]/</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/my-Strata.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/strata.png</Icon>
+  <ExtraParams>--gpus "device=GPU-b50f8351-6281-76b6-ebe6-b16d2dcc1f36" --ulimit memlock=-1:-1 --shm-size 2g --stop-timeout 120 --restart unless-stopped</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>NVIDIA Container Toolkit; RTX 5060 Ti (GPU-b50f8351-6281-76b6-ebe6-b16d2dcc1f36); Driver 580+</Requires>
+  <Config Name="Port" Target="8080" Default="8081" Mode="tcp" Description="Strata API port (OpenAI + Anthropic compatible at /v1)" Type="Port" Display="always" Required="true" Mask="false">8081</Config>
+  <Config Name="Data Volume" Target="/data" Default="/mnt/user/appdata/strata" Mode="rw" Description="Persistent store for model files, prepared pack, preset and API key." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/strata</Config>
+  <Config Name="MODEL" Target="MODEL" Default="IQ1_M" Mode="" Description="Strata model quant. coder family: IQ1_M only. unsloth family: UD-IQ4_XS, UD-Q4_K_XL, UD-Q5_K_XL, UD-Q6_K_XL. base: Q2_0, IQ2_XS, IQ3_XXS, IQ3_S. swift: IQ2_XS, IQ3_S." Type="Variable" Display="always" Required="true" Mask="false">IQ1_M</Config>
+  <Config Name="FAMILY" Target="FAMILY" Default="coder" Mode="" Description="Model family: coder (Qwen3.8-Flash-Next Coder, 256 active experts, code-focused), unsloth (high-quality quants), swift (1.5 fine-tune), qwen (base)" Type="Variable" Display="always" Required="true" Mask="false">coder</Config>
+  <Config Name="API_KEY_FILE" Target="API_KEY_FILE" Default="/data/.api_key" Mode="" Description="Path inside container to the API key file. Key is in /mnt/user/appdata/strata/.api_key on the host." Type="Variable" Display="always" Required="true" Mask="false">/data/.api_key</Config>
+  <Config Name="PARALLEL" Target="PARALLEL" Default="1" Mode="" Description="Max concurrent requests. 1 is fine for personal use; raise to 2-4 for agentic/multi-call workloads (costs memory)." Type="Variable" Display="advanced" Required="false" Mask="false">1</Config>
+  <Config Name="CONTEXT" Target="CONTEXT" Default="32k" Mode="" Description="Context window. 32k balances memory vs capability for dev use. Max supported is 262k." Type="Variable" Display="advanced" Required="false" Mask="false">32k</Config>
+  <Config Name="VISION" Target="VISION" Default="off" Mode="" Description="Enable image input (off/on/gpu/cpu). Downloads extra ~0.9 GB vision reader." Type="Variable" Display="advanced" Required="false" Mask="false">off</Config>
+  <Config Name="KV" Target="KV" Default="int8" Mode="" Description="KV cache format: int8 (default), q4_0 (half memory), k8v4, fp16" Type="Variable" Display="advanced" Required="false" Mask="false">int8</Config>
+</Container>
