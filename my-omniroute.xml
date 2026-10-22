@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>omniroute</Name>
+  <Repository>diegosouzapw/omniroute:latest</Repository>
+  <Registry>https://hub.docker.com/r/diegosouzapw/omniroute</Registry>
+  <Network>br0</Network>
+  <MyIP>10.47.40.121</MyIP>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/cheaper-inference/OmniRoute</Support>
+  <Project>https://github.com/cheaper-inference/OmniRoute</Project>
+  <Overview>OmniRoute — unified AI gateway. One OpenAI- and Anthropic-compatible endpoint in front of 375+ providers / 1400+ models. Dashboard + API at :20128 on this container's own LAN IP. Secured: REQUIRE_API_KEY=true, so /v1 clients need an OmniRoute key (made in the dashboard). Config store is the encrypted storage.sqlite in the data volume; it is decrypted with STORAGE_ENCRYPTION_KEY (set below). Runs standalone (no Redis) for single-user use.</Overview>
+  <Category>AI:</Category>
+  <WebUI>http://[IP]:[PORT:20128]/</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/my-omniroute.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/omniroute.png</Icon>
+  <ExtraParams>--stop-timeout 45 --restart unless-stopped</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>storage.sqlite placed in the data volume and the matching STORAGE_ENCRYPTION_KEY, or start fresh and onboard in the dashboard.</Requires>
+  <Config Name="Dashboard Port" Target="20128" Default="20128" Mode="tcp" Description="Dashboard + primary /v1 endpoint. Served on this container's own IP (10.47.40.121)." Type="Port" Display="always" Required="true" Mask="false">20128</Config>
+  <Config Name="API Port" Target="20129" Default="20129" Mode="tcp" Description="Secondary API port." Type="Port" Display="always" Required="true" Mask="false">20129</Config>
+  <Config Name="Live WS Port" Target="20132" Default="20132" Mode="tcp" Description="Live dashboard websocket port." Type="Port" Display="always" Required="true" Mask="false">20132</Config>
+  <Config Name="Data Volume" Target="/app/data" Default="/mnt/user/appdata/omniroute" Mode="rw" Description="Persistent config store. Holds the encrypted storage.sqlite (providers, keys, model aliases, routing)." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/omniroute</Config>
+  <Config Name="DATA_DIR" Target="DATA_DIR" Default="/app/data" Mode="" Description="Where OmniRoute reads/writes its sqlite store inside the container. Must match the data volume target." Type="Variable" Display="advanced" Required="true" Mask="false">/app/data</Config>
+  <Config Name="STORAGE_ENCRYPTION_KEY" Target="STORAGE_ENCRYPTION_KEY" Default="" Mode="" Description="Master key that decrypts storage.sqlite. Paste the value from C:\Users\johnb\.omniroute\.env on the PC. Required to read the migrated config; without the exact key the existing store will not decrypt." Type="Variable" Display="always" Required="true" Mask="true"></Config>
+  <Config Name="REQUIRE_API_KEY" Target="REQUIRE_API_KEY" Default="true" Mode="" Description="true = /v1 and dashboard require auth (an OmniRoute API key, or a logged-in dashboard session). Keep true: this container is reachable on the LAN." Type="Variable" Display="always" Required="true" Mask="false">true</Config>
+  <Config Name="APP_BIND_HOST" Target="APP_BIND_HOST" Default="0.0.0.0" Mode="" Description="Bind address inside the container. 0.0.0.0 = listen on the container's own LAN IP (10.47.40.121). Safe only because REQUIRE_API_KEY=true." Type="Variable" Display="advanced" Required="true" Mask="false">0.0.0.0</Config>
+  <Config Name="OMNIROUTE_MEMORY_MB" Target="OMNIROUTE_MEMORY_MB" Default="2048" Mode="" Description="V8 old-space ceiling. 2048 is the maintainer's recommended size for a single user running Claude Code / Codex through the gateway." Type="Variable" Display="advanced" Required="false" Mask="false">2048</Config>
+</Container>
