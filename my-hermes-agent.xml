@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>hermes-agent</Name>
+  <Repository>nousresearch/hermes-agent:latest</Repository>
+  <Registry>https://hub.docker.com/r/nousresearch/hermes-agent</Registry>
+  <Network>bridge</Network>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://forums.unraid.net/topic/199030-support-medzin-hermes-agent/</Support>
+  <Project>https://github.com/NousResearch/hermes-agent</Project>
+  <ReadMe>https://hermes-agent.nousresearch.com/docs/user-guide/docker/</ReadMe>
+  <Overview>Nous Research Hermes Agent on Tower03. Based on medzin's CA template (official image). Model, memory (Hindsight on Tower04) and other settings live in /opt/data/config.yaml; secrets go in /opt/data/.env or the masked fields below. Dashboard and API server ship OFF: set HERMES_DASHBOARD=1 only after setting the dashboard password, and API_SERVER_ENABLED=true only after setting API_SERVER_KEY.</Overview>
+  <Category>AI:</Category>
+  <WebUI>http://[IP]:[PORT:9119]</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/my-hermes-agent.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/medzin/docker-templates/main/images/hermes-agent-icon.png</Icon>
+  <PostArgs>gateway run</PostArgs>
+  <Config Name="Appdata" Target="/opt/data" Default="/mnt/cache_docker_ssd/appdata/hermes-agent" Mode="rw" Description="All Hermes state (config.yaml, .env, hindsight/config.json). Real disk path, not /mnt/user, so the 10000:10000 ownership sticks." Type="Path" Display="always" Required="true" Mask="false">/mnt/cache_docker_ssd/appdata/hermes-agent</Config>
+  <Config Name="Dashboard" Target="9119" Default="9119" Mode="tcp" Description="Dashboard port (only listens when HERMES_DASHBOARD=1)." Type="Port" Display="always" Required="true" Mask="false">9119</Config>
+  <Config Name="API" Target="8642" Default="8642" Mode="tcp" Description="OpenAI-compatible API server port (only listens when API_SERVER_ENABLED=true)." Type="Port" Display="always" Required="true" Mask="false">8642</Config>
+  <Config Name="HERMES_DASHBOARD" Target="HERMES_DASHBOARD" Default="0" Mode="" Description="1 = run the dashboard. Set the password below first." Type="Variable" Display="always" Required="true" Mask="false">0</Config>
+  <Config Name="HERMES_DASHBOARD_HOST" Target="HERMES_DASHBOARD_HOST" Default="0.0.0.0" Mode="" Description="Dashboard bind address." Type="Variable" Display="advanced" Required="true" Mask="false">0.0.0.0</Config>
+  <Config Name="HERMES_DASHBOARD_PORT" Target="HERMES_DASHBOARD_PORT" Default="9119" Mode="" Description="Dashboard port inside the container." Type="Variable" Display="advanced-hide" Required="true" Mask="false">9119</Config>
+  <Config Name="HERMES_DASHBOARD_BASIC_AUTH_USERNAME" Target="HERMES_DASHBOARD_BASIC_AUTH_USERNAME" Default="john" Mode="" Description="Dashboard login username." Type="Variable" Display="always" Required="false" Mask="false">john</Config>
+  <Config Name="HERMES_DASHBOARD_BASIC_AUTH_PASSWORD" Target="HERMES_DASHBOARD_BASIC_AUTH_PASSWORD" Default="" Mode="" Description="Dashboard login password. Required before HERMES_DASHBOARD=1. LAN/VPN only." Type="Variable" Display="always" Required="false" Mask="true"></Config>
+  <Config Name="HERMES_DASHBOARD_BASIC_AUTH_SECRET" Target="HERMES_DASHBOARD_BASIC_AUTH_SECRET" Default="" Mode="" Description="Optional session signing secret (openssl rand -hex 32) so logins survive restarts." Type="Variable" Display="advanced" Required="false" Mask="true"></Config>
+  <Config Name="API_SERVER_ENABLED" Target="API_SERVER_ENABLED" Default="false" Mode="" Description="true = run the OpenAI-compatible API on 8642. Set API_SERVER_KEY first." Type="Variable" Display="always" Required="false" Mask="false">false</Config>
+  <Config Name="API_SERVER_HOST" Target="API_SERVER_HOST" Default="0.0.0.0" Mode="" Description="API bind address." Type="Variable" Display="advanced" Required="false" Mask="false">0.0.0.0</Config>
+  <Config Name="API_SERVER_KEY" Target="API_SERVER_KEY" Default="" Mode="" Description="Bearer token for the API server (8+ characters)." Type="Variable" Display="always" Required="false" Mask="true"></Config>
+  <Config Name="HERMES_UID" Target="HERMES_UID" Default="10000" Mode="" Description="Must be 1000-65534; appdata must be owned by it." Type="Variable" Display="advanced" Required="false" Mask="false">10000</Config>
+  <Config Name="HERMES_GID" Target="HERMES_GID" Default="10000" Mode="" Description="Must be 1000-65534; appdata must be owned by it." Type="Variable" Display="advanced" Required="false" Mask="false">10000</Config>
+</Container>
