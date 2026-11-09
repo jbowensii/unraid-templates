@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>speaches</Name>
+  <Repository>ghcr.io/speaches-ai/speaches:latest-cpu</Repository>
+  <Registry/>
+  <Network>bridge</Network>
+  <MyIP/>
+  <MyMAC/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support/>
+  <Project/>
+  <ReadMe/>
+  <Overview/>
+  <Category/>
+  <WebUI>http://[IP]:[PORT:8790]/</WebUI>
+  <TemplateURL/>
+  <Icon>https://cdn.jsdelivr.net/gh/selfhst/icons/png/speaches.png</Icon>
+  <ExtraParams>-p 8790:8000 -v /mnt/user/appdata/speaches/cache:/home/ubuntu/.cache/huggingface/hub -e CHAT_COMPLETION_BASE_URL=http://10.47.40.121:20128/v1 -e CHAT_COMPLETION_API_KEY=</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled>1794261206</DateInstalled>
+  <DonateText/>
+  <DonateLink/>
+  <Requires/>
+  <TailscaleStateDir/>
+</Container>

@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>immich-power-tools</Name>
+  <Repository>ghcr.io/immich-power-tools/immich-power-tools:latest</Repository>
+  <Registry>https://github.com/immich-power-tools/immich-power-tools/pkgs/container/immich-power-tools</Registry>
+  <Network>immich</Network>
+  <MyIP/>
+  <MyMAC/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/immich-power-tools/immich-power-tools/issues</Support>
+  <Project>https://github.com/immich-power-tools/immich-power-tools</Project>
+  <ReadMe/>
+  <Overview>Unofficial Immich client for advanced library management. Features include bulk people management, smart face merge, location enrichment, album discovery, library analytics, natural language search, and bulk date adjustment.&#13;
+&#13;
+Connects to your Immich server via API and directly to the PostgreSQL database for advanced operations.&#13;
+&#13;
+Must be on the same Docker network as immich-server and immich-vectorchord-db.</Overview>
+  <Category>MediaApp:Photos Tools:Utilities</Category>
+  <WebUI>http://[IP]:[PORT:8009]</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/rorar/unraid-templates/main/templates/immich-power-tools.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/rorar/unraid-templates/main/templates/docker_icons/immich-power-tools-logo.png</Icon>
+  <ExtraParams>--user 99:100</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled>1794261246</DateInstalled>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>Requires immich-server and immich-vectorchord-db on the same Docker network (immich_internal). Create an API key in Immich with ALL permissions: Account Icon &#x2192; Account Settings &#x2192; API Keys &#x2192; New API Key &#x2192; Select All &#x2192; Create.&#13;
+&#13;
+Full setup guide: https://rorar.github.io/immich-unraid-manual/</Requires>
+  <Config Name="Port: Web UI" Target="3000" Default="3000" Mode="tcp" Description="Power Tools web interface port." Type="Port" Display="always" Required="true" Mask="false">8009</Config>
+  <Config Name="Path: Data" Target="/app/data" Default="/mnt/user/appdata/immich-power-tools/" Mode="rw" Description="Persistent data directory for Power Tools." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/immich-power-tools/</Config>
+  <Config Name="--- Immich Connection ---" Target="" Default="" Mode="" Description="Connection to your Immich server." Type="Variable" Display="always" Required="false" Mask="false"/>
+  <Config Name="IMMICH_URL" Target="IMMICH_URL" Default="http://immich-server:2283" Mode="" Description="Internal Immich server URL. Uses container name on immich_internal network." Type="Variable" Display="always" Required="true" Mask="false">http://immich-server:2283</Config>
+  <Config Name="IMMICH_API_KEY" Target="IMMICH_API_KEY" Default="" Mode="" Description="Immich API key with ALL permissions. Create in Immich: Account Icon &#x2192; Account Settings &#x2192; API Keys." Type="Variable" Display="always" Required="true" Mask="true"></Config>
+  <Config Name="--- Database ---" Target="" Default="" Mode="" Description="PostgreSQL connection. Must match your immich-vectorchord-db configuration." Type="Variable" Display="always" Required="false" Mask="false"/>
+  <Config Name="DB_HOST" Target="DB_HOST" Default="immich-vectorchord-db" Mode="" Description="Database container name (must match your DB container on immich_internal)." Type="Variable" Display="always" Required="true" Mask="false">immich-postgres</Config>
+  <Config Name="DB_PORT" Target="DB_PORT" Default="5432" Mode="" Description="Database port." Type="Variable" Display="always" Required="true" Mask="false">5432</Config>
+  <Config Name="DB_USERNAME" Target="DB_USERNAME" Default="postgres" Mode="" Description="Database username (must match DB container)." Type="Variable" Display="always" Required="true" Mask="false">postgres</Config>
+  <Config Name="DB_PASSWORD" Target="DB_PASSWORD" Default="" Mode="" Description="Database password (must match DB container)." Type="Variable" Display="always" Required="true" Mask="true"></Config>
+  <Config Name="DB_DATABASE_NAME" Target="DB_DATABASE_NAME" Default="immich" Mode="" Description="Database name (must match DB container)." Type="Variable" Display="always" Required="true" Mask="false">immich</Config>
+  <Config Name="--- System ---" Target="" Default="" Mode="" Description="General settings." Type="Variable" Display="always" Required="false" Mask="false"/>
+  <Config Name="Variable: TZ" Target="TZ" Default="Europe/Berlin" Mode="" Description="Timezone. See: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List" Type="Variable" Display="always" Required="false" Mask="false">America/New_York</Config>
+  <Config Name="--- Advanced (AI Search) ---" Target="" Default="" Mode="" Description="Optional: Enable natural language search via AI provider (OpenAI, Ollama, etc.). No personal data is sent - only search query text." Type="Variable" Display="advanced" Required="false" Mask="false"/>
+  <Config Name="EXTERNAL_IMMICH_URL" Target="EXTERNAL_IMMICH_URL" Default="" Mode="" Description="External Immich URL for links in the Power Tools UI (e.g. https://photos.example.com). Leave empty to use IMMICH_URL." Type="Variable" Display="advanced" Required="false" Mask="false"/>
+  <Config Name="AI_API_KEY" Target="AI_API_KEY" Default="" Mode="" Description="AI provider API key for natural language search (e.g. OpenAI key)." Type="Variable" Display="advanced" Required="false" Mask="true"></Config>
+  <Config Name="AI_BASE_URL" Target="AI_BASE_URL" Default="" Mode="" Description="AI provider base URL. OpenAI: https://api.openai.com/v1, Ollama: http://host.docker.internal:11434/v1" Type="Variable" Display="advanced" Required="false" Mask="false">http://10.47.40.121:20128/v1</Config>
+  <Config Name="AI_MODEL" Target="AI_MODEL" Default="" Mode="" Description="AI model name. Examples: gpt-4o-mini, llama-3.1-8b-instant" Type="Variable" Display="advanced" Required="false" Mask="false">llamacpp/qwen3:14b</Config>
+  <TailscaleStateDir/>
+</Container>
