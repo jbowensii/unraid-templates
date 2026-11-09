@@ -4,6 +4,7 @@ Self-maintained [Unraid](https://unraid.net/) Community Applications Docker temp
 
 | Template | Image | Notes |
 |---|---|---|
+| **[chatterbox-voice](./chatterbox-voice/)** | [`ghcr.io/jbowensii/chatterbox-voice`](https://github.com/jbowensii/unraid-templates/pkgs/container/chatterbox-voice) | John's cloned voice for script voiceovers: Chatterbox-Turbo + a LoRA fine-tuned on his recordings. `POST /v1/audio/speech` returns WAV. Loads on demand and frees the shared GPU when idle. Model files mount at `/models`. |
 | **[MediaWiki](./mediawiki.xml)** | official [`mediawiki`](https://hub.docker.com/_/mediawiki) | Stock MediaWiki, nothing added. `stable` = 1.46, `lts` = 1.43. Bring your own database. |
 | **[mediawiki-plus](./mediawiki-plus/)** | [`ghcr.io/jbowensii/mediawiki-plus`](https://github.com/jbowensii/unraid-templates/pkgs/container/mediawiki-plus) | MediaWiki 1.43 LTS **plus** the Variables, PluggableAuth and OpenID Connect extensions. Self-contained on SQLite — no database container. |
 | **[librechat-jarvis](./librechat-jarvis/)** | [`ghcr.io/jbowensii/librechat-jarvis`](https://github.com/jbowensii/librechat-jarvis/pkgs/container/librechat-jarvis) | **LibreChat with the JARVIS face.** A pinned LibreChat release plus a thin overlay: boot screen + startup sound, blue HUD theme, JARVIS bar and gear, reactor / ring HUD panel, hands-free listening, kokoro voice packs in the image. Drop-in replacement for the LibreChat `api` container; your LibreChat config is used unchanged. Successor to aios-face. |

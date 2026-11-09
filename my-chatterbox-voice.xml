@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>chatterbox-voice</Name>
+  <Repository>ghcr.io/jbowensii/chatterbox-voice:latest</Repository>
+  <Registry>https://github.com/jbowensii/unraid-templates/pkgs/container/chatterbox-voice</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <MyMAC/>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/jbowensii/unraid-templates/issues</Support>
+  <Project>https://github.com/jbowensii/unraid-templates/tree/main/chatterbox-voice</Project>
+  <ReadMe>https://github.com/jbowensii/unraid-templates/blob/main/chatterbox-voice/README.md</ReadMe>
+  <Overview>John's cloned voice for script voiceovers: Chatterbox-Turbo with a LoRA fine-tuned on John's recordings (merged into one T3 file). POST {"input": "text"} to /v1/audio/speech and get a 24 kHz WAV back; /health shows whether the model is loaded.&#13;
+&#13;
+GPU is shared with llama-swap, so the model loads on the first request (about 20 s) and frees the card after IDLE_UNLOAD_S seconds idle (default 300; 0 keeps it loaded). Needs about 5 GB VRAM. One request at a time.&#13;
+&#13;
+Model files are not in the image: put base/ (Chatterbox-Turbo files), t3_turbo_finetuned_merged.safetensors and ref.wav in the Models folder. LAN only, no auth.</Overview>
+  <Category>AI: Tools:</Category>
+  <WebUI>http://[IP]:[PORT:8880]/health</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/my-chatterbox-voice.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/chatterbox-voice/icon.svg</Icon>
+  <ExtraParams>--runtime=nvidia --restart=unless-stopped</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled>1794268800</DateInstalled>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>Nvidia-Driver plugin; model files in the Models folder.</Requires>
+  <Config Name="API Port" Target="8880" Default="8880" Mode="tcp" Description="HTTP port: /v1/audio/speech (POST) and /health." Type="Port" Display="always" Required="true" Mask="false">8880</Config>
+  <Config Name="Models" Target="/models" Default="/mnt/user/appdata/chatterbox-voice/models" Mode="rw" Description="Holds base/, t3_turbo_finetuned_merged.safetensors, ref.wav (and lora/ as a backup copy)." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/chatterbox-voice/models</Config>
+  <Config Name="NVIDIA_VISIBLE_DEVICES" Target="NVIDIA_VISIBLE_DEVICES" Default="GPU-77564dab-5c31-8093-0292-ee27eeca7735" Mode="" Description="GPU UUID (nvidia-smi -L). Default = tower03 RTX 3060 Ti. Tower04 Quadro: use its UUID." Type="Variable" Display="always" Required="true" Mask="false">GPU-77564dab-5c31-8093-0292-ee27eeca7735</Config>
+  <Config Name="NVIDIA_DRIVER_CAPABILITIES" Target="NVIDIA_DRIVER_CAPABILITIES" Default="compute,utility" Mode="" Description="" Type="Variable" Display="advanced" Required="true" Mask="false">compute,utility</Config>
+  <Config Name="Idle unload (seconds)" Target="IDLE_UNLOAD_S" Default="300" Mode="" Description="Free the GPU after this many idle seconds. 0 = keep the model loaded." Type="Variable" Display="always" Required="false" Mask="false">300</Config>
+  <Config Name="Temperature" Target="TEMPERATURE" Default="0.8" Mode="" Description="Sampling temperature (0.8 = the approved voice)." Type="Variable" Display="advanced" Required="false" Mask="false">0.8</Config>
+  <Config Name="Name temperature" Target="NAME_TEMPERATURE" Default="0.5" Mode="" Description="Temperature for sentences that contain John's name (steadier pronunciation)." Type="Variable" Display="advanced" Required="false" Mask="false">0.5</Config>
+</Container>
