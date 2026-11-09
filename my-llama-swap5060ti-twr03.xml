@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>llama-swap5060ti-twr03</Name>
+  <Repository>ghcr.io/mostlygeek/llama-swap:cuda</Repository>
+  <Registry>https://github.com/mostlygeek/llama-swap/pkgs/container/llama-swap</Registry>
+  <Network>br0</Network>
+  <MyIP>10.47.40.122</MyIP>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/mostlygeek/llama-swap</Support>
+  <Project>https://github.com/mostlygeek/llama-swap</Project>
+  <Overview>llama-swap (llama.cpp model swapper) on Tower03's RTX 5060 Ti. Primary general/chat/code backend. OpenAI-compatible API at http://10.47.40.122:8080/v1. Fronted by OmniRoute (10.47.40.121:20128).</Overview>
+  <Category>AI:</Category>
+  <WebUI>http://[IP]:[PORT:8080]/ui</WebUI>
+  <Icon>https://raw.githubusercontent.com/mostlygeek/llama-swap/main/ui/public/favicon.svg</Icon>
+  <ExtraParams>--runtime=nvidia --restart=unless-stopped</ExtraParams>
+  <PostArgs>-config /app/config.yaml -watch-config</PostArgs>
+  <Config Name="API Port" Target="8080" Default="8080" Mode="tcp" Description="llama-swap listens here on the container's own IP (10.47.40.122)." Type="Port" Display="always" Required="true" Mask="false">8080</Config>
+  <Config Name="Config file" Target="/app/config.yaml" Default="/mnt/cache_docker_ssd/appdata/llama-swap/config.yaml" Mode="rw" Description="llama-swap model config for the 5060 Ti." Type="Path" Display="always" Required="true" Mask="false">/mnt/cache_docker_ssd/appdata/llama-swap/config.yaml</Config>
+  <Config Name="Models" Target="/models" Default="/mnt/cache_docker_ssd/appdata/llama-swap/models" Mode="rw" Description="Shared GGUF model store (also used by the 3060 Ti server)." Type="Path" Display="always" Required="true" Mask="false">/mnt/cache_docker_ssd/appdata/llama-swap/models</Config>
+  <Config Name="NVIDIA_VISIBLE_DEVICES" Target="NVIDIA_VISIBLE_DEVICES" Default="GPU-b50f8351-6281-76b6-ebe6-b16d2dcc1f36" Mode="" Description="RTX 5060 Ti UUID (nvidia-smi -L)." Type="Variable" Display="always" Required="true" Mask="false">GPU-b50f8351-6281-76b6-ebe6-b16d2dcc1f36</Config>
+  <Config Name="NVIDIA_DRIVER_CAPABILITIES" Target="NVIDIA_DRIVER_CAPABILITIES" Default="compute,utility" Mode="" Description="" Type="Variable" Display="advanced" Required="true" Mask="false">compute,utility</Config>
+</Container>

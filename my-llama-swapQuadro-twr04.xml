@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>llama-swapQuadro-twr04</Name>
+  <Repository>ghcr.io/mostlygeek/llama-swap:cuda</Repository>
+  <Registry>https://github.com/mostlygeek/llama-swap/pkgs/container/llama-swap</Registry>
+  <Network>dockernet</Network>
+  <MyIP>10.47.40.124</MyIP>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/mostlygeek/llama-swap</Support>
+  <Project>https://github.com/mostlygeek/llama-swap</Project>
+  <Overview>llama-swap (llama.cpp model swapper) on Tower04's Quadro RTX 4000. Extraction backend for Hindsight (granite4-micro, alias granite4:3b). OpenAI-compatible API at http://10.47.40.124:8080/v1. Moved off 10.47.40.81, which is the SittingRoomRoku's DHCP reservation.</Overview>
+  <Category>AI:</Category>
+  <WebUI>http://[IP]:[PORT:8080]/ui</WebUI>
+  <Icon>https://raw.githubusercontent.com/mostlygeek/llama-swap/main/ui/public/favicon.svg</Icon>
+  <ExtraParams>--runtime=nvidia --restart=unless-stopped</ExtraParams>
+  <PostArgs>-config /app/config.yaml -watch-config</PostArgs>
+  <Config Name="API Port" Target="8080" Default="8080" Mode="tcp" Description="llama-swap listens here on the container's own IP (10.47.40.124)." Type="Port" Display="always" Required="true" Mask="false">8080</Config>
+  <Config Name="Config file" Target="/app/config.yaml" Default="/mnt/cache_docker_ssd/appdata/llama-swap/config.yaml" Mode="rw" Description="llama-swap model config for the Quadro." Type="Path" Display="always" Required="true" Mask="false">/mnt/cache_docker_ssd/appdata/llama-swap/config.yaml</Config>
+  <Config Name="Models" Target="/models" Default="/mnt/cache_docker_ssd/appdata/llama-swap/models" Mode="rw" Description="GGUF model store." Type="Path" Display="always" Required="true" Mask="false">/mnt/cache_docker_ssd/appdata/llama-swap/models</Config>
+  <Config Name="NVIDIA_VISIBLE_DEVICES" Target="NVIDIA_VISIBLE_DEVICES" Default="all" Mode="" Description="Tower04 has one GPU (Quadro RTX 4000)." Type="Variable" Display="always" Required="true" Mask="false">all</Config>
+  <Config Name="NVIDIA_DRIVER_CAPABILITIES" Target="NVIDIA_DRIVER_CAPABILITIES" Default="compute,utility" Mode="" Description="" Type="Variable" Display="advanced" Required="true" Mask="false">compute,utility</Config>
+</Container>
