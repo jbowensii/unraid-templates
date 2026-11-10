@@ -31,3 +31,9 @@ Every request goes through `pronounce.py`: rules from `/models/pronunciation.txt
 (`script text = what to say`, one per line, re-read on change, no restart), then numbers
 are written out as words ("10,000" -> "ten thousand"). Master copy lives on John's PC at
 `C:\dev\voice-model-john\pronunciation.txt` and is synced to tower03 and tower04.
+
+## Paragraph options (v0.3.0)
+
+Optional request fields: `max_words` (5-75, default 30: words per generated piece; longer pieces keep
+tone and inflection together, ~70 is the safe max because the model stops at ~40 s), `temperature`
+(0.1-1.5), `seed` (same seed for every piece = consistent delivery across a paragraph).

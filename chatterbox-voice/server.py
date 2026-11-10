@@ -43,13 +43,17 @@ class Voice:
                        "repetition_penalty": float(os.environ.get("REP_PENALTY", 1.2))}
         self.lock = threading.Lock()  # ponytail: one generation at a time on the 8 GB card
 
-    def speak(self, text):
+    def speak(self, text, max_words=30, temperature=None, seed=None):
         parts = []
         with self.lock:
-            for c in chunks(spoken(text)):
+            for c in chunks(spoken(text), max_words):
                 p = dict(self.params)
-                if "maryak" in c.lower():  # ponytail: invented name is a coin flip at 0.8; 0.5 lands it more often, not always
+                if temperature is not None:
+                    p["temperature"] = temperature
+                elif "maryak" in c.lower():  # ponytail: invented name is a coin flip at 0.8; 0.5 lands it more often, not always
                     p["temperature"] = float(os.environ.get("NAME_TEMPERATURE", 0.5))
+                if seed is not None:  # same seed for every piece = same delivery style across the paragraph
+                    self.inf.set_seed(seed)
                 sr, a = self.inf.generate_sentence_audio(self.eng, c, self.ref, **p)
                 if len(a):
                     parts += [a.astype(np.float32), np.zeros(int(0.25 * sr), dtype=np.float32)]
@@ -76,6 +80,9 @@ def make_app():
         model: str | None = None
         voice: str | None = None
         response_format: str | None = "wav"
+        max_words: int = 30         # words per generated piece; ~70 is the safe max (model stops at ~40 s)
+        temperature: float | None = None
+        seed: int | None = None
 
     import gc, time
     app = FastAPI()
@@ -102,11 +109,13 @@ def make_app():
         text = r.input.strip()
         if not text or len(text) > MAX_CHARS:
             raise HTTPException(400, f"input must be 1..{MAX_CHARS} characters")
+        if not 5 <= r.max_words <= 75 or (r.temperature is not None and not 0.1 <= r.temperature <= 1.5):
+            raise HTTPException(400, "max_words must be 5..75, temperature 0.1..1.5")
         with gate:  # ponytail: requests serialize; fine for one-person batch VO
             if state["v"] is None:
                 state["v"] = Voice()
             state["last"] = time.time()
-            wav = state["v"].speak(text)
+            wav = state["v"].speak(text, r.max_words, r.temperature, r.seed)
             state["last"] = time.time()
         return Response(wav, media_type="audio/wav")
 
