@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>open-webui</Name>
+  <Repository>ghcr.io/open-webui/open-webui:main</Repository>
+  <Registry>https://github.com/open-webui/open-webui/pkgs/container/open-webui</Registry>
+  <Network>br0</Network>
+  <MyIP>10.47.40.59</MyIP>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/open-webui/open-webui/issues</Support>
+  <Project>https://github.com/open-webui/open-webui</Project>
+  <Overview>Open WebUI on Tower03 for the AIOS stack. Based on Joly0's CA template (github.com/Joly0/unraid-templates, official image). Pre-seeded on FIRST start only with: the three llama-swap servers (keyless), OmniRoute (key added later in Admin, Connections) and Hermes (key added later). After first start, change settings in Admin Settings, not here. WEBUI_SECRET_KEY left empty: the image generates one and keeps it in /app/backend/data/.webui_secret_key.</Overview>
+  <Category>AI: Tools: Network:Web</Category>
+  <WebUI>http://[IP]:[PORT:8080]/</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/my-open-webui.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/open-webui/open-webui/main/static/favicon.png</Icon>
+  <ExtraParams/>
+  <PostArgs/>
+  <CPUset/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires/>
+  <Config Name="Data" Target="/app/backend/data" Default="/mnt/user/appdata/open-webui" Mode="rw" Description="Database, uploads, secret key." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/open-webui</Config>
+  <Config Name="WebUI Port" Target="8080" Default="8080" Mode="tcp" Description="Web UI port (on its own br0 IP)." Type="Port" Display="always" Required="true" Mask="false">8080</Config>
+  <Config Name="WEBUI_SECRET_KEY" Target="WEBUI_SECRET_KEY" Default="" Mode="" Description="Leave empty to let the image generate and persist one in the data folder." Type="Variable" Display="advanced" Required="false" Mask="true"></Config>
+  <Config Name="WEBUI_AUTH" Target="WEBUI_AUTH" Default="True" Mode="" Description="Login required (LAN service). The first account created becomes admin." Type="Variable" Display="always" Required="true" Mask="false">True</Config>
+  <Config Name="WEBUI_NAME" Target="WEBUI_NAME" Default="AIOS" Mode="" Description="Name shown in the UI." Type="Variable" Display="advanced" Required="false" Mask="false">AIOS</Config>
+  <Config Name="ENABLE_SIGNUP" Target="ENABLE_SIGNUP" Default="False" Mode="" Description="Self sign-up after the first (admin) account. Admin adds users." Type="Variable" Display="advanced" Required="false" Mask="false">False</Config>
+  <Config Name="ENABLE_OLLAMA_API" Target="ENABLE_OLLAMA_API" Default="False" Mode="" Description="Ollama retired 2026-11-09." Type="Variable" Display="advanced" Required="false" Mask="false">False</Config>
+  <Config Name="ENABLE_OPENAI_API" Target="ENABLE_OPENAI_API" Default="True" Mode="" Description="OpenAI-compatible connections." Type="Variable" Display="advanced" Required="false" Mask="false">True</Config>
+  <Config Name="OPENAI_API_BASE_URLS" Target="OPENAI_API_BASE_URLS" Default="" Mode="" Description="First start only. 5060 Ti, 3060 Ti, Quadro llama-swap; OmniRoute; Hermes API." Type="Variable" Display="advanced" Required="false" Mask="false">http://10.47.40.122:8080/v1;http://10.47.40.123:8080/v1;http://10.47.40.124:8080/v1;http://10.47.40.121:20128/v1;http://10.47.40.43:8642/v1</Config>
+  <Config Name="OPENAI_API_KEYS" Target="OPENAI_API_KEYS" Default="" Mode="" Description="Placeholders only. Real OmniRoute/Hermes keys are set in Admin, Connections (stored in the DB, not here)." Type="Variable" Display="advanced" Required="false" Mask="false">sk-local;sk-local;sk-local;set-in-admin;set-in-admin</Config>
+  <Config Name="OPENAI_API_CONFIGS" Target="OPENAI_API_CONFIGS" Default="" Mode="" Description="First start only: model-name prefixes per connection." Type="Variable" Display="advanced" Required="false" Mask="false">{"0":{"enable":true,"prefix_id":"5060ti"},"1":{"enable":true,"prefix_id":"3060ti"},"2":{"enable":true,"prefix_id":"quadro"},"3":{"enable":true,"prefix_id":"omni","model_ids":["chat-local-first","agent-local-first","auto/best-chat","auto/best-coding","auto/best-reasoning","auto/best-free","auto/offline"]},"4":{"enable":true,"prefix_id":"hermes"}}</Config>
+  <Config Name="TASK_MODEL_EXTERNAL" Target="TASK_MODEL_EXTERNAL" Default="" Mode="" Description="Model for titles/tags/search queries." Type="Variable" Display="advanced" Required="false" Mask="false">5060ti.ministral3:14b</Config>
+  <Config Name="ENABLE_WEB_SEARCH" Target="ENABLE_WEB_SEARCH" Default="True" Mode="" Description="Web search." Type="Variable" Display="advanced" Required="false" Mask="false">True</Config>
+  <Config Name="WEB_SEARCH_ENGINE" Target="WEB_SEARCH_ENGINE" Default="duckduckgo" Mode="" Description="Keyless search engine." Type="Variable" Display="advanced" Required="false" Mask="false">duckduckgo</Config>
+  <Config Name="ENABLE_COMMUNITY_SHARING" Target="ENABLE_COMMUNITY_SHARING" Default="False" Mode="" Description="No sharing to openwebui.com." Type="Variable" Display="advanced" Required="false" Mask="false">False</Config>
+</Container>
