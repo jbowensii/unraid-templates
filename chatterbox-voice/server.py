@@ -4,6 +4,7 @@ POST /v1/audio/speech {"input": "text"} -> audio/wav (24 kHz, OpenAI-style)
 GET  /health
 Env: MODEL_DIR (/models/base: Turbo files from the toolkit's setup.py),
      T3_WEIGHTS (/models/t3_turbo_finetuned_merged.safetensors), REF_WAV (/models/ref.wav),
+     PRONUNCIATION_FILE (/models/pronunciation.txt, re-read on change),
      TEMPERATURE (0.8), REP_PENALTY (1.2), PORT (8880).
 Same text handling and sampling as the approved VO batch (voice-training/cbft_vo.py + cb_vo.py).
 """
@@ -14,16 +15,9 @@ import soundfile as sf
 
 sys.path.insert(0, os.environ.get("CBFT_DIR", "/opt/cbft"))
 
-SAY = [(r"\bMereak Firmaxe\b", "Mary-ack Firmax"), (r"\bMarryak firm axe\b", "Mary-ack Firmax"),
-       (r"\b(Mereak|Marryak)\b", "Mary-ack")]  # spoken spelling John approved
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from pronounce import spoken, parse  # guide file /models/pronunciation.txt + numbers to words
 MAX_CHARS = 5000  # ponytail: hard cap per request; split long scripts client-side
-
-
-def spoken(text):
-    text = text.replace("(...)", ",")
-    for a, b in SAY:
-        text = re.sub(a, b, text, flags=re.I)
-    return text
 
 
 def chunks(text, max_words=30):
@@ -54,7 +48,7 @@ class Voice:
         with self.lock:
             for c in chunks(spoken(text)):
                 p = dict(self.params)
-                if "Mary-ack" in c:  # ponytail: invented name is a coin flip at 0.8; 0.5 lands it more often, not always
+                if "maryak" in c.lower():  # ponytail: invented name is a coin flip at 0.8; 0.5 lands it more often, not always
                     p["temperature"] = float(os.environ.get("NAME_TEMPERATURE", 0.5))
                 sr, a = self.inf.generate_sentence_audio(self.eng, c, self.ref, **p)
                 if len(a):
@@ -67,7 +61,7 @@ class Voice:
 
 
 def _check():
-    assert spoken("this is Mereak Firmaxe. Marryak's char (...) ok") == "this is Mary-ack Firmax. Mary-ack's char , ok"
+    assert spoken("Mereak's 10,000 nuyen (...) ok", parse("Mereak = Maryak\nnuyen = new yen")) == "Maryak's ten thousand new yen , ok"
     assert len(chunks(" ".join(["w."] * 61))) == 3
 
 

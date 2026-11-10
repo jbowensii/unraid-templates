@@ -13,7 +13,7 @@ RUN git clone https://github.com/gokhaneraslan/chatterbox-finetuning.git /opt/cb
  && grep -q 'extend_vocab: bool = False' src/config.py \
  && pip install --no-cache-dir -r requirements.txt fastapi==0.115.6 "uvicorn[standard]==0.34.0"
 
-COPY server.py /app/server.py
+COPY server.py pronounce.py /app/
 RUN python /app/server.py --check
 
 ENV MODEL_DIR=/models/base \

@@ -6,6 +6,7 @@ on:
     paths:
       - "chatterbox-voice/Dockerfile"
       - "chatterbox-voice/server.py"
+      - "chatterbox-voice/pronounce.py"
       - ".github/workflows/chatterbox-voice.yml"
   workflow_dispatch:
 
@@ -35,5 +36,5 @@ jobs:
           context: ./chatterbox-voice
           push: true
           tags: |
-            ghcr.io/jbowensii/chatterbox-voice:0.1.0
+            ghcr.io/jbowensii/chatterbox-voice:0.2.0
             ghcr.io/jbowensii/chatterbox-voice:latest

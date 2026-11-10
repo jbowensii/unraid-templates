@@ -24,3 +24,10 @@ curl -s http://tower03:8880/v1/audio/speech -H "Content-Type: application/json" 
 ## Build
 
 The image is built by GitHub Actions and pushed to `ghcr.io/jbowensii/chatterbox-voice`. It pins [gokhaneraslan/chatterbox-finetuning](https://github.com/gokhaneraslan/chatterbox-finetuning) at a fixed commit, because that toolkit provides the loader. Training notes live in John's `voice-training` scripts.
+
+## Pronunciation guide (v0.2.0)
+
+Every request goes through `pronounce.py`: rules from `/models/pronunciation.txt`
+(`script text = what to say`, one per line, re-read on change, no restart), then numbers
+are written out as words ("10,000" -> "ten thousand"). Master copy lives on John's PC at
+`C:\dev\voice-model-john\pronunciation.txt` and is synced to tower03 and tower04.
