@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>mcp-auth-proxy</Name>
+  <Repository>ghcr.io/babs/mcp-auth-proxy:latest</Repository>
+  <Registry>https://github.com/babs/mcp-auth-proxy/pkgs/container/mcp-auth-proxy</Registry>
+  <Network>bridge</Network>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/babs/mcp-auth-proxy</Support>
+  <Project>https://github.com/babs/mcp-auth-proxy</Project>
+  <Overview>OAuth 2.1 bridge in front of MCPJungle group "cloud" for claude.ai, ChatGPT and Gemini. Login via Authelia (2FA, admins group).</Overview>
+  <Category>Network:Proxy Security:</Category>
+  <WebUI>https://mcp.owenshomeonline.com/.well-known/oauth-protected-resource</WebUI>
+  <Config Name="HTTP port" Target="8080" Default="8095" Mode="tcp" Type="Port" Display="always" Required="true" Mask="false">8095</Config>
+  <Config Name="OIDC_ISSUER_URL" Target="OIDC_ISSUER_URL" Default="" Mode="" Type="Variable" Display="always" Required="true" Mask="false">https://auth.owenshomeonline.com</Config>
+  <Config Name="OIDC_CLIENT_ID" Target="OIDC_CLIENT_ID" Default="" Mode="" Type="Variable" Display="always" Required="true" Mask="false">mcp-cloud</Config>
+  <Config Name="OIDC_CLIENT_SECRET" Target="OIDC_CLIENT_SECRET" Default="" Mode="" Type="Variable" Display="always" Required="true" Mask="true"></Config>
+  <Config Name="OIDC_EXTRA_SCOPES" Target="OIDC_EXTRA_SCOPES" Default="" Mode="" Type="Variable" Display="always" Required="false" Mask="false">groups</Config>
+  <Config Name="PROXY_BASE_URL" Target="PROXY_BASE_URL" Default="" Mode="" Type="Variable" Display="always" Required="true" Mask="false">https://mcp.owenshomeonline.com</Config>
+  <Config Name="UPSTREAM_MCP_URL" Target="UPSTREAM_MCP_URL" Default="" Mode="" Type="Variable" Display="always" Required="true" Mask="false">http://10.47.40.43:8090/v0/groups/cloud/mcp</Config>
+  <Config Name="UPSTREAM_AUTHORIZATION_HEADER" Target="UPSTREAM_AUTHORIZATION_HEADER" Default="" Mode="" Type="Variable" Display="always" Required="true" Mask="true"></Config>
+  <Config Name="TOKEN_SIGNING_SECRET" Target="TOKEN_SIGNING_SECRET" Default="" Mode="" Type="Variable" Display="always" Required="true" Mask="true"></Config>
+  <Config Name="REDIS_URL" Target="REDIS_URL" Default="" Mode="" Type="Variable" Display="always" Required="true" Mask="true"></Config>
+  <Config Name="ALLOWED_GROUPS" Target="ALLOWED_GROUPS" Default="" Mode="" Type="Variable" Display="always" Required="false" Mask="false">admins</Config>
+  <Config Name="PROD_MODE (false: John chose PKCE off for ChatGPT)" Target="PROD_MODE" Default="true" Mode="" Type="Variable" Display="always" Required="false" Mask="false">false</Config>
+  <Config Name="PKCE_REQUIRED" Target="PKCE_REQUIRED" Default="true" Mode="" Type="Variable" Display="always" Required="false" Mask="false">false</Config>
+  <Config Name="TRUSTED_PROXY_CIDRS" Target="TRUSTED_PROXY_CIDRS" Default="" Mode="" Type="Variable" Display="always" Required="false" Mask="false">10.47.40.0/24,192.168.1.0/24,172.16.0.0/12</Config>
+  <Config Name="MCP_RESOURCE_NAME" Target="MCP_RESOURCE_NAME" Default="" Mode="" Type="Variable" Display="always" Required="false" Mask="false">Owens Homelab</Config>
+  <Config Name="METRICS_ADDR" Target="METRICS_ADDR" Default="127.0.0.1:9090" Mode="" Type="Variable" Display="advanced" Required="false" Mask="false">127.0.0.1:9090</Config>
+</Container>

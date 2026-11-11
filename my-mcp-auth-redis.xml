@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>mcp-auth-redis</Name>
+  <Repository>redis:7-alpine</Repository>
+  <Registry>https://hub.docker.com/_/redis</Registry>
+  <Network>bridge</Network>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Overview>Redis for mcp-auth-proxy (single-use OAuth codes, refresh-token reuse detection). No persistence needed.</Overview>
+  <Category>Network:Proxy Security:</Category>
+  <PostArgs>redis-server --requirepass CHANGE_ME --save "" --appendonly no</PostArgs>
+  <Config Name="Redis port" Target="6379" Default="6390" Mode="tcp" Type="Port" Display="always" Required="true" Mask="false">6390</Config>
+</Container>
