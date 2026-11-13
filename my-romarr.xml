@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>romarr</Name>
+  <Repository>ghcr.io/blizzhacker/romarr:latest</Repository>
+  <Registry>https://ghcr.io/blizzhacker/romarr</Registry>
+  <Network>container:GluetunVPN</Network>
+  <MyIP/>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/blizzhacker/romarr</Support>
+  <Project>https://github.com/blizzhacker/romarr</Project>
+  <Overview>ROMarr - Retro ROM acquisition and library manager. Prowlarr for indexers, supports No-Intro/Redump DAT verification, 1G1R and full-set management. Runs behind GluetunVPN kill-switch. Port must be published on GluetunVPN AND in FIREWALL_INPUT_PORTS. NOTE: env vars are read-only on first start; configure API keys and paths in ROMarr Settings UI after first launch.</Overview>
+  <Category>Downloaders: MediaApp:Other</Category>
+  <WebUI>http://[IP]:[PORT:6868]/</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/my-romarr.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/romarr.png</Icon>
+  <ExtraParams>--restart unless-stopped</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>GluetunVPN container running; port 6868 published on GluetunVPN; 6868 in GluetunVPN FIREWALL_INPUT_PORTS</Requires>
+  <Config Name="Config" Target="/config" Default="/mnt/user/appdata/romarr" Mode="rw" Description="ROMarr config and database" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/romarr</Config>
+  <Config Name="ROMs Library" Target="/roms" Default="/mnt/user/roms" Mode="rw" Description="ROM library root. Set LIBRARY_PATH to /roms and LIBRARY_KIND to folder." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/roms</Config>
+  <Config Name="Downloads" Target="/downloads" Default="/mnt/user/downloads" Mode="rw" Description="Shared downloads path. Must match the path your download client (SABnzbd/Deluge) uses." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/downloads</Config>
+  <Config Name="PROWLARR_URL" Target="PROWLARR_URL" Default="http://localhost:9696" Mode="" Description="Prowlarr URL. Since both run behind GluetunVPN on the same network namespace, use localhost." Type="Variable" Display="always" Required="true" Mask="false">http://localhost:9696</Config>
+  <Config Name="PROWLARR_API_KEY" Target="PROWLARR_API_KEY" Default="" Mode="" Description="Prowlarr API key. Find in Prowlarr Settings > General > API Key." Type="Variable" Display="always" Required="true" Mask="true"></Config>
+  <Config Name="SABNZBD_URL" Target="SABNZBD_URL" Default="http://localhost:8080" Mode="" Description="SABnzbd URL. Runs on same GluetunVPN network namespace." Type="Variable" Display="always" Required="false" Mask="false">http://localhost:8080</Config>
+  <Config Name="SABNZBD_API_KEY" Target="SABNZBD_API_KEY" Default="" Mode="" Description="SABnzbd API key. Find in SABnzbd Config > General > API Key." Type="Variable" Display="advanced" Required="false" Mask="true"></Config>
+  <Config Name="LIBRARY_KIND" Target="LIBRARY_KIND" Default="folder" Mode="" Description="Library mode: folder (use existing folder structure) or romm (RomM-compatible). Use folder unless you run RomM." Type="Variable" Display="always" Required="true" Mask="false">folder</Config>
+  <Config Name="LIBRARY_PATH" Target="LIBRARY_PATH" Default="/roms" Mode="" Description="Path inside container to ROM library root. Must match the ROMs Library volume mount target." Type="Variable" Display="always" Required="true" Mask="false">/roms</Config>
+  <Config Name="PUID" Target="PUID" Default="99" Mode="" Description="Run as user ID (99 = nobody on Unraid)" Type="Variable" Display="advanced" Required="true" Mask="false">99</Config>
+  <Config Name="PGID" Target="PGID" Default="100" Mode="" Description="Run as group ID (100 = users on Unraid)" Type="Variable" Display="advanced" Required="true" Mask="false">100</Config>
+  <Config Name="TZ" Target="TZ" Default="America/New_York" Mode="" Description="Timezone" Type="Variable" Display="advanced" Required="true" Mask="false">America/New_York</Config>
+  <Config Name="LOG_LEVEL" Target="LOG_LEVEL" Default="INFO" Mode="" Description="Log verbosity: DEBUG, INFO, WARNING, ERROR" Type="Variable" Display="advanced" Required="false" Mask="false">INFO</Config>
+</Container>
