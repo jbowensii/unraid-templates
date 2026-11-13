@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>llama-swapV100-twr06</Name>
+  <Repository>ghcr.io/mostlygeek/llama-swap:cuda</Repository>
+  <Registry>https://github.com/mostlygeek/llama-swap/pkgs/container/llama-swap</Registry>
+  <Network>br0</Network>
+  <MyIP>10.47.40.125</MyIP>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/mostlygeek/llama-swap</Support>
+  <Project>https://github.com/mostlygeek/llama-swap</Project>
+  <Overview>llama-swap (llama.cpp model swapper) on Tower06's Tesla V100-SXM2-16GB. OpenAI-compatible API at http://10.47.40.125:8080/v1. Overflow text backend (ministral3:14b) to offload Book Sorter's AI stage from the Tower03 5060 Ti.</Overview>
+  <Category>AI:</Category>
+  <WebUI>http://[IP]:[PORT:8080]/ui</WebUI>
+  <Icon>https://raw.githubusercontent.com/mostlygeek/llama-swap/main/ui/public/favicon.svg</Icon>
+  <ExtraParams>--runtime=nvidia --restart=unless-stopped</ExtraParams>
+  <PostArgs>-config /app/config.yaml -watch-config</PostArgs>
+  <Config Name="API Port" Target="8080" Default="8080" Mode="tcp" Description="llama-swap listens here on the container's own IP (10.47.40.125)." Type="Port" Display="always" Required="true" Mask="false">8080</Config>
+  <Config Name="Config file" Target="/app/config.yaml" Default="/mnt/cache/appdata/llama-swap/config.yaml" Mode="rw" Description="llama-swap model config for the V100." Type="Path" Display="always" Required="true" Mask="false">/mnt/cache/appdata/llama-swap/config.yaml</Config>
+  <Config Name="Models" Target="/models" Default="/mnt/cache/appdata/llama-swap/models" Mode="rw" Description="GGUF model store (cache pool)." Type="Path" Display="always" Required="true" Mask="false">/mnt/cache/appdata/llama-swap/models</Config>
+  <Config Name="NVIDIA_VISIBLE_DEVICES" Target="NVIDIA_VISIBLE_DEVICES" Default="GPU-843f741b-9b99-5d5e-d424-68783dd52d15" Mode="" Description="Tesla V100-SXM2-16GB UUID (nvidia-smi -L)." Type="Variable" Display="always" Required="true" Mask="false">GPU-843f741b-9b99-5d5e-d424-68783dd52d15</Config>
+  <Config Name="NVIDIA_DRIVER_CAPABILITIES" Target="NVIDIA_DRIVER_CAPABILITIES" Default="compute,utility" Mode="" Description="" Type="Variable" Display="advanced" Required="true" Mask="false">compute,utility</Config>
+</Container>
