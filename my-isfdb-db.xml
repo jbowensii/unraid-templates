@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>isfdb-db</Name>
+  <Repository>mariadb:10.11</Repository>
+  <Registry>https://hub.docker.com/_/mariadb</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://hub.docker.com/_/mariadb</Support>
+  <Project>https://www.isfdb.org/wiki/index.php/ISFDB_Downloads</Project>
+  <Overview>MariaDB 10.11 holding a local copy of the ISFDB (Internet Speculative Fiction Database) dump for scraper-stack on Tower05. No published port: reachable only from containers on the default bridge. Root password is empty by design (local-only, no port exposed).</Overview>
+  <Category>Tools: Productivity:</Category>
+  <WebUI/>
+  <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/my-isfdb-db.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/docker-library/docs/master/mariadb/logo.png</Icon>
+  <ExtraParams>--restart unless-stopped</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires/>
+  <Config Name="Database" Target="/var/lib/mysql" Default="/mnt/cache_docker_ssd/appdata/isfdb-db" Mode="rw" Description="MariaDB data directory (about 3 GB). Keep on the SSD pool, not /mnt/user." Type="Path" Display="always" Required="true" Mask="false">/mnt/cache_docker_ssd/appdata/isfdb-db</Config>
+  <Config Name="Dump folder" Target="/dump" Default="/mnt/user/scraper/isfdb" Mode="rw" Description="Where the ISFDB SQL dumps live for import." Type="Path" Display="always" Required="false" Mask="false">/mnt/user/scraper/isfdb</Config>
+  <Config Name="MARIADB_ALLOW_EMPTY_ROOT_PASSWORD" Target="MARIADB_ALLOW_EMPTY_ROOT_PASSWORD" Default="1" Mode="" Description="Empty root password (matches the original container). Only safe because no port is published." Type="Variable" Display="advanced" Required="false" Mask="false">1</Config>
+</Container>
