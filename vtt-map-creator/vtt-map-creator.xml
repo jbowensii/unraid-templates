@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>vtt-map-creator</Name>
+  <Repository>ghcr.io/jbowensii/vtt-map-creator:latest</Repository>
+  <Registry>https://github.com/jbowensii/vtt-map-creator/pkgs/container/vtt-map-creator</Registry>
+  <Network>br0</Network>
+  <MyIP/>
+  <MyMAC/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/jbowensii/unraid-templates/issues</Support>
+  <Project>https://github.com/jbowensii/vtt-map-creator</Project>
+  <ReadMe>https://github.com/jbowensii/unraid-templates/blob/main/vtt-map-creator/README.md</ReadMe>
+  <Overview>VTT Map Creator is a browser editor for battle maps: sketch rooms, walls, doors and light, paint the map with a Gemini or ComfyUI back end, and export it for Foundry VTT, Universal VTT and image files.&#13;&#10;&#13;&#10;=== TWO WAYS TO RUN IT: PICK EXACTLY ONE ===&#13;&#10;Everyone signs in with an account. The first account is the owner; everyone else joins with an invite link the owner makes.&#13;&#10;&#13;&#10;1. Home network (LAN mode): set "LAN mode" to 1 and leave "Login proxy address" empty. People on your home network open http://[container address]:8000 and sign in. Only private addresses (192.168.x.x, 10.x.x.x, 172.16-31.x.x) are answered; anything else gets 403. Passwords travel unencrypted on your network, so use this only on a network you trust, and never port-forward it to the internet.&#13;&#10;2. Behind a login proxy (for the internet): leave "LAN mode" empty and set "Login proxy address" to the address your https proxy connects FROM, and "Allowed host names" to the name people type in the browser, for example maps.example.com (with the port if it is not 80 or 443). The app answers only the proxy.&#13;&#10;&#13;&#10;With neither set, the app listens only on the container's own loopback and nobody can reach it. With both set, the proxy wins.&#13;&#10;&#13;&#10;=== FIRST START: THE SETUP CODE ===&#13;&#10;Until the owner account exists, the app prints a one-time setup code in its log at every start. Open the container's log (the log icon in the Docker tab), copy the code, open the app and create the owner account with it.&#13;&#10;&#13;&#10;=== NETWORK ===&#13;&#10;Set Network to your custom network (br0) and give the container its own fixed address.&#13;&#10;&#13;&#10;=== THE GEMINI KEY ===&#13;&#10;Never type the key into this template. Put it alone in a text file only you can read, mount that file read-only in "Gemini key file", and set "Gemini key file path" (advanced view) to /run/gemini-key. Without a key or a ComfyUI address you can still sketch and export, but not paint.</Overview>
+  <Category>Tools:</Category>
+  <WebUI>http://[IP]:8000/</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/vtt-map-creator/vtt-map-creator.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/vtt-map-creator/icon.png</Icon>
+  <ExtraParams>--user 99:100</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>The Network set to a custom network with a fixed address, and either LAN mode (your home network) or a login proxy in front of this container (for example Nginx Proxy Manager with Authelia; needed for the internet). Optional: a Gemini key file, a ComfyUI server, a llama-swap server, a share holding your Dungeondraft packs. See the README.</Requires>
+  <Config Name="LAN mode" Target="VTT_LAN" Default="" Mode="" Description="Set 1 to let people on your home network sign in directly (private addresses only; passwords travel unencrypted, so only on a network you trust). Leave empty and set the login proxy address to run behind a login proxy for the internet. Set exactly one of the two." Type="Variable" Display="always" Required="false" Mask="false"></Config>
+  <Config Name="Login proxy address" Target="VTT_TRUSTED_PROXY" Default="" Mode="" Description="Behind a login proxy only: the address your proxy connects from, for example 192.0.2.10. The app then answers only this address. Leave empty in LAN mode. Set exactly one of this and LAN mode." Type="Variable" Display="always" Required="false" Mask="false"></Config>
+  <Config Name="Allowed host names" Target="VTT_ALLOWED_HOSTS" Default="" Mode="" Description="Behind a login proxy: the name people type in the browser, comma separated, for example maps.example.com (add the port only if it is not 80 or 443, maps.example.com:8443). In LAN mode leave it empty: the container address and a one-word computer name are accepted." Type="Variable" Display="always" Required="false" Mask="false"></Config>
+  <Config Name="Data folder" Target="/data" Default="/mnt/user/appdata/vtt-map-creator" Mode="rw" Description="Maps, renders, exports and settings. Back this up." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/vtt-map-creator</Config>
+  <Config Name="Dungeondraft packs" Target="/packs" Default="" Mode="ro" Description="Optional. A share holding your Dungeondraft asset packs, read only. Leave empty to run without stamps." Type="Path" Display="always" Required="false" Mask="false"></Config>
+  <Config Name="Gemini key file" Target="/run/gemini-key" Default="" Mode="ro" Description="Optional. A text file you create yourself holding only the Gemini key, readable by the container user (99:100). Mounted read-only." Type="Path" Display="always" Required="false" Mask="false"></Config>
+  <Config Name="Gemini key file path" Target="GEMINI_API_KEY_FILE" Default="" Mode="" Description="Leave empty unless you mounted a key file in 'Gemini key file'; then set this to /run/gemini-key. If it is set with no file mounted, Gemini shows as available and every paint fails." Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="Gemini model" Target="GEMINI_MODEL" Default="gemini-nano-banana-2.1" Mode="" Description="The model behind the Gemini back end. Empty means the app's default. Change it only if Google retires this one." Type="Variable" Display="advanced" Required="false" Mask="false">gemini-nano-banana-2.1</Config>
+  <Config Name="ComfyUI address" Target="COMFYUI_URL" Default="" Mode="" Description="Optional. Address of your ComfyUI server, for example http://192.0.2.20:8188. Turns on the two local painting back ends." Type="Variable" Display="always" Required="false" Mask="false"></Config>
+  <Config Name="llama-swap address" Target="LLAMA_SWAP_URL" Default="" Mode="" Description="Optional. Address of your llama-swap server, for example http://192.0.2.20:8080. Used to free the GPU before a paint job and for the optional text drafts." Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+  <TailscaleStateDir/>
+</Container>
