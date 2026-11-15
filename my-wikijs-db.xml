@@ -4,12 +4,12 @@
   <Repository>postgres:15-alpine</Repository>
   <Registry>https://hub.docker.com/_/postgres</Registry>
   <Network>dockernet</Network>
-  <MyIP>10.47.40.55</MyIP>
+  <MyIP>10.47.40.51</MyIP>
   <Shell>sh</Shell>
   <Privileged>false</Privileged>
   <Support>https://www.postgresql.org/docs/15/</Support>
   <Project>https://www.postgresql.org/</Project>
-  <Overview>PostgreSQL 15 database for Wiki.js (silvesti.wiki migration). Runs on Tower04 dockernet ipvlan with a fixed IP. Data persists on appdata.</Overview>
+  <Overview>PostgreSQL 15 database for Wiki.js (silvesti.wiki migration). Runs on Tower04 dockernet ipvlan at 10.47.40.51. Data persists on appdata.</Overview>
   <Category>Network:Other Tools:</Category>
   <WebUI/>
   <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/my-wikijs-db.xml</TemplateURL>
@@ -20,7 +20,7 @@
   <DateInstalled/>
   <DonateText/>
   <DonateLink/>
-  <Description>PostgreSQL 15 for Wiki.js on Tower04 dockernet (10.47.40.55).</Description>
+  <Description>PostgreSQL 15 for Wiki.js on Tower04 dockernet (10.47.40.51).</Description>
   <Config Name="Postgres data" Target="/var/lib/postgresql/data" Default="/mnt/user/appdata/wikijs-db/data" Mode="rw" Description="Persistent database storage" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/wikijs-db/data</Config>
   <Config Name="POSTGRES_DB" Target="POSTGRES_DB" Default="wikijs" Mode="" Description="Database name" Type="Variable" Display="always" Required="true" Mask="false">wikijs</Config>
   <Config Name="POSTGRES_USER" Target="POSTGRES_USER" Default="wikijs" Mode="" Description="Database user" Type="Variable" Display="always" Required="true" Mask="false">wikijs</Config>

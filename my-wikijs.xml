@@ -4,15 +4,15 @@
   <Repository>ghcr.io/requarks/wiki:2</Repository>
   <Registry>https://github.com/requarks/wiki/pkgs/container/wiki</Registry>
   <Network>dockernet</Network>
-  <MyIP>10.47.40.56</MyIP>
+  <MyIP>10.47.40.52</MyIP>
   <Shell>sh</Shell>
   <Privileged>false</Privileged>
   <Support>https://github.com/requarks/wiki/issues</Support>
   <Project>https://js.wiki/</Project>
   <ReadMe>https://docs.requarks.io/</ReadMe>
-  <Overview>Wiki.js — a modern wiki engine built on Node.js. This instance hosts the silvesti.wiki migration from MediaWiki. Runs on Tower04 dockernet ipvlan with PostgreSQL backend (wikijs-db container at 10.47.40.55).&#13;
+  <Overview>Wiki.js — a modern wiki engine built on Node.js. This instance hosts the silvesti.wiki migration from MediaWiki. Runs on Tower04 dockernet ipvlan with PostgreSQL backend (wikijs-db container at 10.47.40.51).&#13;
 &#13;
-FIRST RUN: After starting both wikijs-db and wikijs containers, open the WebUI at http://10.47.40.56:3000 and complete the setup wizard. Create your admin account. Then configure Authelia SSO under Administration > Authentication.</Overview>
+FIRST RUN: After starting both wikijs-db and wikijs containers, open the WebUI at http://10.47.40.52:3000 and complete the setup wizard. Create your admin account. Then configure Authelia SSO under Administration > Authentication.</Overview>
   <Category>Network:Other Tools:</Category>
   <WebUI>http://[IP]:[PORT:3000]/</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/my-wikijs.xml</TemplateURL>
@@ -23,9 +23,9 @@ FIRST RUN: After starting both wikijs-db and wikijs containers, open the WebUI a
   <DateInstalled/>
   <DonateText/>
   <DonateLink/>
-  <Description>Wiki.js 2.x wiki engine on Tower04 dockernet (10.47.40.56), backed by wikijs-db PostgreSQL.</Description>
+  <Description>Wiki.js 2.x wiki engine on Tower04 dockernet (10.47.40.52), backed by wikijs-db PostgreSQL.</Description>
   <Config Name="DB_TYPE" Target="DB_TYPE" Default="postgres" Mode="" Description="Database type" Type="Variable" Display="advanced" Required="true" Mask="false">postgres</Config>
-  <Config Name="DB_HOST" Target="DB_HOST" Default="10.47.40.55" Mode="" Description="PostgreSQL host (wikijs-db container IP on dockernet)" Type="Variable" Display="always" Required="true" Mask="false">10.47.40.55</Config>
+  <Config Name="DB_HOST" Target="DB_HOST" Default="10.47.40.51" Mode="" Description="PostgreSQL host (wikijs-db container IP on dockernet)" Type="Variable" Display="always" Required="true" Mask="false">10.47.40.51</Config>
   <Config Name="DB_PORT" Target="DB_PORT" Default="5432" Mode="" Description="PostgreSQL port" Type="Variable" Display="advanced" Required="true" Mask="false">5432</Config>
   <Config Name="DB_NAME" Target="DB_NAME" Default="wikijs" Mode="" Description="Database name (must match wikijs-db POSTGRES_DB)" Type="Variable" Display="always" Required="true" Mask="false">wikijs</Config>
   <Config Name="DB_USER" Target="DB_USER" Default="wikijs" Mode="" Description="Database user (must match wikijs-db POSTGRES_USER)" Type="Variable" Display="always" Required="true" Mask="false">wikijs</Config>
