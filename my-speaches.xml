@@ -1,27 +1,37 @@
 <?xml version="1.0"?>
 <Container version="2">
   <Name>speaches</Name>
-  <Repository>ghcr.io/speaches-ai/speaches:latest-cpu</Repository>
-  <Registry/>
-  <Network>bridge</Network>
-  <MyIP/>
+  <Repository>ghcr.io/speaches-ai/speaches:latest-cuda</Repository>
+  <Registry>https://github.com/speaches-ai/speaches/pkgs/container/speaches</Registry>
+  <Network>dockernet</Network>
+  <ExtraNetworks/>
+  <MyIP>10.47.40.130</MyIP>
   <MyMAC/>
   <Shell>sh</Shell>
   <Privileged>false</Privileged>
-  <Support/>
-  <Project/>
+  <Support>https://github.com/speaches-ai/speaches/issues</Support>
+  <Project>https://speaches.ai/</Project>
   <ReadMe/>
-  <Overview/>
-  <Category/>
-  <WebUI>http://[IP]:[PORT:8790]/</WebUI>
+  <Overview>Speech-to-text and text-to-speech server (OpenAI-compatible /v1/audio/transcriptions and /v1/audio/speech) on Tower04's RTX 3060 Ti, the fleet's speech card. Moved here from Tower03 (where it ran on the CPU at port 8790) on 2026-11-17. API at http://10.47.40.130:8000.</Overview>
+  <Category>AI: Tools:</Category>
+  <WebUI>http://[IP]:[PORT:8000]/</WebUI>
   <TemplateURL/>
   <Icon>https://cdn.jsdelivr.net/gh/selfhst/icons/png/speaches.png</Icon>
-  <ExtraParams>-p 8790:8000 -v /mnt/user/appdata/speaches/cache:/home/ubuntu/.cache/huggingface/hub -e CHAT_COMPLETION_BASE_URL=http://10.47.40.121:20128/v1 -e CHAT_COMPLETION_API_KEY=</ExtraParams>
+  <ExtraParams>--runtime=nvidia --restart=unless-stopped</ExtraParams>
   <PostArgs/>
   <CPUset/>
-  <DateInstalled>1794261206</DateInstalled>
+  <Memory/>
+  <DateInstalled>1794917599</DateInstalled>
   <DonateText/>
   <DonateLink/>
-  <Requires/>
+  <Requires>Nvidia-Driver plugin</Requires>
+  <Config Name="API Port" Target="8000" Default="8000" Mode="tcp" Description="speaches listens here on the container's own IP (10.47.40.130)." Type="Port" Display="always" Required="true" Mask="false">8000</Config>
+  <Config Name="Model cache" Target="/home/ubuntu/.cache/huggingface/hub" Default="/mnt/user/appdata/speaches/cache" Mode="rw" Description="Downloaded speech models (Hugging Face hub cache)." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/speaches/cache</Config>
+  <Config Name="NVIDIA_VISIBLE_DEVICES" Target="NVIDIA_VISIBLE_DEVICES" Default="GPU-77564dab-5c31-8093-0292-ee27eeca7735" Mode="" Description="GPU UUID (nvidia-smi -L). Default = Tower04 RTX 3060 Ti, the speech card. Never the Quadro: that card belongs to the Hindsight memory model." Type="Variable" Display="always" Required="true" Mask="false">GPU-77564dab-5c31-8093-0292-ee27eeca7735</Config>
+  <Config Name="Chat completion URL" Target="CHAT_COMPLETION_BASE_URL" Default="https://omniroute.local.owenshomeonline.com/v1" Mode="" Description="Only used by speaches' built-in voice-chat page. Transcription and speech work without it." Type="Variable" Display="always" Required="false" Mask="false">https://omniroute.local.owenshomeonline.com/v1</Config>
+  <Config Name="Chat completion API key" Target="CHAT_COMPLETION_API_KEY" Default="" Mode="" Description="OmniRoute key for the voice-chat page. Type it here yourself; leave empty if you do not use that page." Type="Variable" Display="always" Required="false" Mask="true"/>
+  <Config Name="Keep voice model loaded" Target="TTS_MODEL_TTL" Default="-1" Mode="" Description="Seconds a text-to-speech model (Kokoro) stays on the card after its last use. -1 = never unload (locked)." Type="Variable" Display="always" Required="false" Mask="false">-1</Config>
+  <Config Name="NVIDIA_DRIVER_CAPABILITIES" Target="NVIDIA_DRIVER_CAPABILITIES" Default="compute,utility" Mode="" Description="" Type="Variable" Display="advanced" Required="true" Mask="false">compute,utility</Config>
+  <Config Name="Timezone" Target="TZ" Default="America/New_York" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">America/New_York</Config>
   <TailscaleStateDir/>
 </Container>

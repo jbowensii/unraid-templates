@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>speaches-stt</Name>
+  <Repository>ghcr.io/speaches-ai/speaches:latest-cuda</Repository>
+  <Registry>https://github.com/speaches-ai/speaches/pkgs/container/speaches</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <MyMAC/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/speaches-ai/speaches/issues</Support>
+  <Project>https://speaches.ai/</Project>
+  <ReadMe/>
+  <Overview>The fleet's listener: speech-to-text (Whisper, OpenAI-compatible /v1/audio/transcriptions) on Tower01's RTX A2000. The model is kept loaded (STT_MODEL_TTL=-1) and takes about 1.6 GB of the card; Jellyfin transcoding keeps first claim on the rest. Voices (Chatterbox, Kokoro) run on Tower04, not here. API at http://tower01:8790. Added 2026-11-17.</Overview>
+  <Category>AI: Tools:</Category>
+  <WebUI>http://[IP]:[PORT:8790]/</WebUI>
+  <TemplateURL/>
+  <Icon>https://cdn.jsdelivr.net/gh/selfhst/icons/png/speaches.png</Icon>
+  <ExtraParams>--runtime=nvidia --restart=unless-stopped</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>Nvidia-Driver plugin</Requires>
+  <Config Name="API Port" Target="8000" Default="8790" Mode="tcp" Description="Host port for the speech-to-text API (same number the old Tower03 copy used)." Type="Port" Display="always" Required="true" Mask="false">8790</Config>
+  <Config Name="Model cache" Target="/home/ubuntu/.cache/huggingface/hub" Default="/mnt/user/appdata/speaches/cache" Mode="rw" Description="Downloaded speech models (Hugging Face hub cache)." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/speaches/cache</Config>
+  <Config Name="NVIDIA_VISIBLE_DEVICES" Target="NVIDIA_VISIBLE_DEVICES" Default="GPU-5b89e9ea-63b2-40ce-09a5-fa6fd81cefd7" Mode="" Description="GPU UUID (nvidia-smi -L). Default = Tower01 RTX A2000." Type="Variable" Display="always" Required="true" Mask="false">GPU-5b89e9ea-63b2-40ce-09a5-fa6fd81cefd7</Config>
+  <Config Name="NVIDIA_DRIVER_CAPABILITIES" Target="NVIDIA_DRIVER_CAPABILITIES" Default="compute,utility" Mode="" Description="" Type="Variable" Display="advanced" Required="true" Mask="false">compute,utility</Config>
+  <Config Name="Keep listening model loaded" Target="STT_MODEL_TTL" Default="-1" Mode="" Description="Seconds a speech-to-text model stays on the card after its last use. -1 = never unload (locked). 300 = unload after five idle minutes." Type="Variable" Display="always" Required="false" Mask="false">-1</Config>
+  <Config Name="Timezone" Target="TZ" Default="America/New_York" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">America/New_York</Config>
+</Container>

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>strata-twr03</Name>
+  <Repository>osmanturan/strata:cuda-latest</Repository>
+  <Registry>https://hub.docker.com/r/osmanturan/strata</Registry>
+  <Network>br0</Network>
+  <ExtraNetworks/>
+  <MyIP>10.47.40.129</MyIP>
+  <MyMAC/>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/osman-turan/strata-docker</Support>
+  <Project>https://github.com/osman-turan/strata-docker</Project>
+  <ReadMe/>
+  <Overview>Strata, the fleet's coding model: Qwen3.8 Flash-Next Coder (pack IQ1_M) at 256K context on Tower03's FIRST RTX 5060 Ti only. Always loaded; uses about 61 GB of system RAM. OpenAI-compatible API at http://10.47.40.129:8080. The API key lives in the data folder (state/api-key), not in this template. The second 5060 Ti belongs to image generation (ComfyUI, Invoke-AI) and must not be added here. Measured 2026-11-16: 85-109 tok/s; first load after a restart can take about 7 minutes.</Overview>
+  <Category>AI:</Category>
+  <WebUI>http://[IP]:[PORT:8080]</WebUI>
+  <TemplateURL/>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/strata.png</Icon>
+  <ExtraParams>--runtime=nvidia --restart=unless-stopped --log-driver=json-file --log-opt max-size=10m --log-opt max-file=3</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <Memory/>
+  <DateInstalled>1794919547</DateInstalled>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>Nvidia-Driver plugin</Requires>
+  <Config Name="API Port" Target="8080" Default="8080" Mode="tcp" Description="Strata listens here on the container's own IP (10.47.40.129)." Type="Port" Display="always" Required="true" Mask="false">8080</Config>
+  <Config Name="Data" Target="/data" Default="/mnt/cache_docker_ssd/appdata/strata" Mode="rw" Description="Model packs, install, state and the API key." Type="Path" Display="always" Required="true" Mask="false">/mnt/cache_docker_ssd/appdata/strata</Config>
+  <Config Name="Model family" Target="FAMILY" Default="coder" Mode="" Description="coder = Flash-Next Coder." Type="Variable" Display="always" Required="true" Mask="false">coder</Config>
+  <Config Name="Model pack" Target="MODEL" Default="IQ1_M" Mode="" Description="IQ1_M is the pack chosen for one 16 GB card (about 61 GB RAM). IQ3_S needs about 84 GB RAM." Type="Variable" Display="always" Required="true" Mask="false">IQ1_M</Config>
+  <Config Name="Card index" Target="GPU" Default="0" Mode="" Description="Index among the cards this container can see. With one card visible this is 0." Type="Variable" Display="always" Required="true" Mask="false">0</Config>
+  <Config Name="Context" Target="CONTEXT" Default="256k" Mode="" Description="Context window: 32k, 64k, 128k or 256k. RAM use is about the same at 128k and 256k." Type="Variable" Display="always" Required="true" Mask="false">256k</Config>
+  <Config Name="NVIDIA_VISIBLE_DEVICES" Target="NVIDIA_VISIBLE_DEVICES" Default="GPU-b50f8351-6281-76b6-ebe6-b16d2dcc1f36" Mode="" Description="GPU UUID (nvidia-smi -L). The FIRST RTX 5060 Ti only." Type="Variable" Display="always" Required="true" Mask="false">GPU-b50f8351-6281-76b6-ebe6-b16d2dcc1f36</Config>
+  <Config Name="NVIDIA_DRIVER_CAPABILITIES" Target="NVIDIA_DRIVER_CAPABILITIES" Default="compute,utility" Mode="" Description="" Type="Variable" Display="advanced" Required="true" Mask="false">compute,utility</Config>
+  <Config Name="Timezone" Target="TZ" Default="America/New_York" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">America/New_York</Config>
+  <TailscaleStateDir/>
+</Container>

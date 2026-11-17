@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>immich-machine-learning</Name>
+  <Repository>ghcr.io/immich-app/immich-machine-learning:release-cuda</Repository>
+  <Registry>https://github.com/immich-app/immich/pkgs/container/immich-machine-learning</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <MyMAC/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/immich-app/immich/discussions</Support>
+  <Project>https://immich.app/</Project>
+  <ReadMe/>
+  <Overview>Machine-learning service for the Immich server on Tower03 (smart search, faces, text in photos) on Tower02's GTX 1660 Ti. Jellyfin transcoding keeps first claim on the card. Immich reaches it at http://tower02:3003 (Administration, Settings, Machine Learning). Keep this image on the same release as immich-server on Tower03: update both together. Added 2026-11-17; the earlier copy ran on Tower04's Quadro.</Overview>
+  <Category>Tools:Utilities Other:</Category>
+  <WebUI/>
+  <TemplateURL/>
+  <Icon>https://raw.githubusercontent.com/sgraaf/Unraid-Docker-Templates/main/immich/immich-machine-learning.png</Icon>
+  <ExtraParams>--runtime=nvidia --restart=unless-stopped</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>Nvidia Driver plugin</Requires>
+  <Config Name="API Port" Target="3003" Default="3003" Mode="tcp" Description="" Type="Port" Display="always" Required="true" Mask="false">3003</Config>
+  <Config Name="Model cache" Target="/cache" Default="/mnt/user/appdata/immich-ml/model-cache" Mode="rw" Description="Downloaded ML models" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/immich-ml/model-cache</Config>
+  <Config Name="NVIDIA_VISIBLE_DEVICES" Target="NVIDIA_VISIBLE_DEVICES" Default="GPU-7b98b2e5-21e4-1654-31b4-f16108a5da6b" Mode="" Description="GPU UUID (nvidia-smi -L). Default = Tower02 GTX 1660 Ti." Type="Variable" Display="always" Required="true" Mask="false">GPU-7b98b2e5-21e4-1654-31b4-f16108a5da6b</Config>
+  <Config Name="NVIDIA_DRIVER_CAPABILITIES" Target="NVIDIA_DRIVER_CAPABILITIES" Default="all" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">all</Config>
+  <Config Name="Timezone" Target="TZ" Default="America/New_York" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">America/New_York</Config>
+</Container>
