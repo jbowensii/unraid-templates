@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>basalt</Name>
+  <Repository>ghcr.io/jbowensii/basalt:latest</Repository>
+  <Registry>https://github.com/jbowensii/basalt-unraid/pkgs/container/basalt</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/jesdga95/basalt/issues</Support>
+  <Project>https://github.com/jesdga95/basalt</Project>
+  <Overview>Basalt is a local LLM inference engine optimized for NVIDIA Blackwell GPUs (RTX 5090/5080, B200, GB200). Serves models like Qwen3.8-Flash-Next, DeepSeek-V4.1-Flash, and Qwen3.8-27B via OpenAI- and Anthropic-compatible APIs. Spills expert weights to system RAM for large models. REQUIRES: NVIDIA Blackwell GPU, driver R580+, NVIDIA Container Runtime.</Overview>
+  <Category>AI: Productivity:</Category>
+  <WebUI>http://[IP]:[PORT:8080]/</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/templates/basalt.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/basalt.png</Icon>
+  <ExtraParams>--gpus all --runtime=nvidia</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>NVIDIA Blackwell GPU (CC 12.0) with driver R580+ and NVIDIA Container Runtime configured in Unraid.</Requires>
+  <Config Name="WebUI Port" Target="8080" Default="8080" Mode="tcp" Description="API server port (OpenAI-compatible)" Type="Port" Display="always" Required="true" Mask="false">8080</Config>
+  <Config Name="Data" Target="/data" Default="/mnt/user/appdata/basalt" Mode="rw" Description="Config file and cache directory" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/basalt</Config>
+  <Config Name="Models" Target="/models" Default="/mnt/user/appdata/basalt/models" Mode="rw" Description="Directory for downloaded .basalt model files" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/basalt/models</Config>
+  <Config Name="NVIDIA_VISIBLE_DEVICES" Target="NVIDIA_VISIBLE_DEVICES" Default="all" Mode="" Description="Which GPUs to expose (all, or specific GPU IDs)" Type="Variable" Display="advanced" Required="false" Mask="false">all</Config>
+</Container>
