@@ -13,7 +13,7 @@
   <Category>AI: Productivity:</Category>
   <WebUI>http://[IP]:[PORT:8080]/</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/my-basalt.xml</TemplateURL>
-  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/basalt.png</Icon>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/basalt.svg</Icon>
   <ExtraParams>--gpus all --runtime=nvidia</ExtraParams>
   <PostArgs/>
   <CPUset/>
