@@ -12,7 +12,7 @@
   <Overview>Basalt is a local LLM inference engine optimized for NVIDIA Blackwell GPUs (RTX 5090/5080, B200, GB200). Serves models like Qwen3.8-Flash-Next, DeepSeek-V4.1-Flash, and Qwen3.8-27B via OpenAI- and Anthropic-compatible APIs. Spills expert weights to system RAM for large models. REQUIRES: NVIDIA Blackwell GPU, driver R580+, NVIDIA Container Runtime.</Overview>
   <Category>AI: Productivity:</Category>
   <WebUI>http://[IP]:[PORT:8080]/</WebUI>
-  <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/templates/basalt.xml</TemplateURL>
+  <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/my-basalt.xml</TemplateURL>
   <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/basalt.png</Icon>
   <ExtraParams>--gpus all --runtime=nvidia</ExtraParams>
   <PostArgs/>
