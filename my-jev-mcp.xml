@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>jev-mcp</Name>
+  <Repository>ghcr.io/jbowensii/jev-mcp-unraid:latest</Repository>
+  <Registry>https://ghcr.io/jbowensii/jev-mcp-unraid</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/jbowensii/jev-mcp-unraid/issues</Support>
+  <Project>https://github.com/jbowensii/jev-mcp-unraid</Project>
+  <Overview>TypeSafe "Jev" judgment MCP server (verify claims, screen injection, find, rerank, classify, decide, compare, extract fields, review patches, gate completion). stdio bridged to streamable HTTP on port 8933 via mcp-proxy, for registration in MCPJungle. Set TYPESAFE_API_KEY to your TypeSafe key (never baked into the image).</Overview>
+  <Category>Tools: AI:</Category>
+  <WebUI/>
+  <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/my-jev-mcp.xml</TemplateURL>
+  <Icon>https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons@main/png/typesafe.png</Icon>
+  <ExtraParams/>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires/>
+  <Config Name="HTTP Port" Target="8933" Default="8933" Mode="tcp" Description="Streamable-HTTP MCP endpoint (http://host:8933/stream)" Type="Port" Display="always" Required="true" Mask="false">8933</Config>
+  <Config Name="TYPESAFE_API_KEY" Target="TYPESAFE_API_KEY" Default="" Mode="" Description="Your TypeSafe (Jev) API key. Required. Never committed to the image or repo." Type="Variable" Display="always" Required="true" Mask="true"/>
+</Container>
