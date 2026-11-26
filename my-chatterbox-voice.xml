@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <Container version="2">
   <Name>chatterbox-voice</Name>
   <Repository>ghcr.io/jbowensii/chatterbox-voice:latest</Repository>
@@ -20,7 +20,7 @@ Model files are not in the image: put base/ (Chatterbox-Turbo files), t3_turbo_f
   <Category>AI: Tools:</Category>
   <WebUI>http://[IP]:[PORT:8880]/health</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/my-chatterbox-voice.xml</TemplateURL>
-  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/chatterbox-voice/icon.svg</Icon>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/chatterbox.svg</Icon>
   <ExtraParams>--runtime=nvidia --restart=unless-stopped</ExtraParams>
   <PostArgs/>
   <CPUset/>

@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <Container version="2">
   <Name>strata-twr03</Name>
   <Repository>osmanturan/strata:cuda-latest</Repository>
@@ -15,8 +15,8 @@
   <Overview>Strata, the fleet's coding model: Qwen3.8 Flash-Next Coder (pack IQ1_M) at 256K context on Tower03's FIRST RTX 5060 Ti only. Always loaded; uses about 61 GB of system RAM. OpenAI-compatible API at http://10.47.40.129:8080. The API key lives in the data folder (state/api-key), not in this template. The second 5060 Ti belongs to image generation (ComfyUI, Invoke-AI) and must not be added here. Measured 2026-11-16: 85-109 tok/s; first load after a restart can take about 7 minutes.</Overview>
   <Category>AI:</Category>
   <WebUI>http://[IP]:[PORT:8080]</WebUI>
-  <TemplateURL/>
-  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/strata.png</Icon>
+  <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/my-strata-twr03.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/strata-twr03.svg</Icon>
   <ExtraParams>--runtime=nvidia --restart=unless-stopped --log-driver=json-file --log-opt max-size=10m --log-opt max-file=3</ExtraParams>
   <PostArgs/>
   <CPUset/>

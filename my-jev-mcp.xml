@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <Container version="2">
   <Name>jev-mcp</Name>
   <Repository>ghcr.io/jbowensii/jev-mcp-unraid:latest</Repository>
@@ -13,7 +13,7 @@
   <Category>Tools: AI:</Category>
   <WebUI/>
   <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/my-jev-mcp.xml</TemplateURL>
-  <Icon>https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons@main/png/typesafe.png</Icon>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/jev-mcp.svg</Icon>
   <ExtraParams/>
   <PostArgs/>
   <CPUset/>

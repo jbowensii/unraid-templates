@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <Container version="2">
   <Name>immich-machine-learning</Name>
   <Repository>ghcr.io/immich-app/immich-machine-learning:release-cuda</Repository>
@@ -14,8 +14,8 @@
   <Overview>Machine-learning service for the Immich server on Tower03 (smart search, faces, text in photos) on Tower02's GTX 1660 Ti. Jellyfin transcoding keeps first claim on the card. Immich reaches it at http://tower02:3003 (Administration, Settings, Machine Learning). Keep this image on the same release as immich-server on Tower03: update both together. Added 2026-11-17; the earlier copy ran on Tower04's Quadro.</Overview>
   <Category>Tools:Utilities Other:</Category>
   <WebUI/>
-  <TemplateURL/>
-  <Icon>https://raw.githubusercontent.com/sgraaf/Unraid-Docker-Templates/main/immich/immich-machine-learning.png</Icon>
+  <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/my-immich-machine-learning.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/immich.svg</Icon>
   <ExtraParams>--runtime=nvidia --restart=unless-stopped</ExtraParams>
   <PostArgs/>
   <CPUset/>

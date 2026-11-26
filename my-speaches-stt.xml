@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <Container version="2">
   <Name>speaches-stt</Name>
   <Repository>ghcr.io/speaches-ai/speaches:latest-cuda</Repository>
@@ -14,8 +14,8 @@
   <Overview>The fleet's listener: speech-to-text (Whisper, OpenAI-compatible /v1/audio/transcriptions) on Tower01's RTX A2000. The model is kept loaded (STT_MODEL_TTL=-1) and takes about 1.6 GB of the card; Jellyfin transcoding keeps first claim on the rest. Voices (Chatterbox, Kokoro) run on Tower04, not here. API at http://tower01:8790. Added 2026-11-17.</Overview>
   <Category>AI: Tools:</Category>
   <WebUI>http://[IP]:[PORT:8790]/</WebUI>
-  <TemplateURL/>
-  <Icon>https://cdn.jsdelivr.net/gh/selfhst/icons/png/speaches.png</Icon>
+  <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/my-speaches-stt.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/speaches-stt.svg</Icon>
   <ExtraParams>--runtime=nvidia --restart=unless-stopped</ExtraParams>
   <PostArgs/>
   <CPUset/>
