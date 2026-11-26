@@ -29,7 +29,7 @@ Back up appdata while the container is stopped. For a long-lived shared service,
   <ExtraParams>--shm-size=1g --stop-timeout=60</ExtraParams>
   <PostArgs/>
   <CPUset/>
-  <DateInstalled>1794262137</DateInstalled>
+  <DateInstalled>1795716092</DateInstalled>
   <DonateText>Templates are free, coffee is optional</DonateText>
   <DonateLink>https://paypal.me/HighlandJewls</DonateLink>
   <Requires/>

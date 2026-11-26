@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0"?>
 <Container version="2">
+  <DateInstalled>1795716220</DateInstalled>
   <Name>immich-machine-learning</Name>
   <Repository>ghcr.io/immich-app/immich-machine-learning:release-cuda</Repository>
   <Registry>https://github.com/immich-app/immich/pkgs/container/immich-machine-learning</Registry>

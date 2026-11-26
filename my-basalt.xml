@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <Container version="2">
   <Name>basalt</Name>
   <Repository>ghcr.io/jbowensii/basalt:latest</Repository>
@@ -17,7 +17,7 @@
   <ExtraParams>--gpus all --runtime=nvidia</ExtraParams>
   <PostArgs/>
   <CPUset/>
-  <DateInstalled/>
+  <DateInstalled>1795716092</DateInstalled>
   <DonateText/>
   <DonateLink/>
   <Requires>NVIDIA Blackwell GPU (CC 12.0) with driver R580+ and NVIDIA Container Runtime configured in Unraid.</Requires>

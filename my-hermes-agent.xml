@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0"?>
 <Container version="2">
+  <DateInstalled>1795716220</DateInstalled>
   <Name>hermes-agent</Name>
   <Repository>nousresearch/hermes-agent:latest</Repository>
   <Registry>https://hub.docker.com/r/nousresearch/hermes-agent</Registry>

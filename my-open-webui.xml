@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0"?>
 <Container version="2">
+  <DateInstalled>1795716220</DateInstalled>
   <Name>open-webui</Name>
   <Repository>ghcr.io/open-webui/open-webui:main</Repository>
   <Registry>https://github.com/open-webui/open-webui/pkgs/container/open-webui</Registry>

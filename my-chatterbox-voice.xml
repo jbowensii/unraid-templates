@@ -25,7 +25,7 @@ Model files are not in the image: put base/ (Chatterbox-Turbo files), t3_turbo_f
   <PostArgs/>
   <CPUset/>
   <Memory/>
-  <DateInstalled>1794917636</DateInstalled>
+  <DateInstalled>1795716092</DateInstalled>
   <DonateText/>
   <DonateLink/>
   <Requires>Nvidia-Driver plugin; model files in the Models folder.</Requires>

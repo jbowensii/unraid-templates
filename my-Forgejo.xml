@@ -23,7 +23,7 @@ NOTE: Forgejo does not use a rolling 'latest' tag by design. This template is pi
   <ExtraParams>--restart=unless-stopped</ExtraParams>
   <PostArgs/>
   <CPUset/>
-  <DateInstalled>1789053600</DateInstalled>
+  <DateInstalled>1795716092</DateInstalled>
   <DonateText>Donate to Forgejo</DonateText>
   <DonateLink>https://liberapay.com/forgejo</DonateLink>
   <Requires/>

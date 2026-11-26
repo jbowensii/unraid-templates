@@ -17,7 +17,7 @@
   <ExtraParams>--restart=unless-stopped</ExtraParams>
   <PostArgs/>
   <CPUset/>
-  <DateInstalled/>
+  <DateInstalled>1795716092</DateInstalled>
   <DonateText/>
   <DonateLink/>
   <Description>PostgreSQL 15 for Wiki.js on Tower04 dockernet (10.47.40.51).</Description>

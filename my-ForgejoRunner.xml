@@ -27,7 +27,7 @@ NOTE: Runs as root (--user 0:0) so the daemon can access the host Docker socket 
   <ExtraParams>--restart=unless-stopped --user 0:0 -w /data</ExtraParams>
   <PostArgs>forgejo-runner daemon</PostArgs>
   <CPUset/>
-  <DateInstalled>1789053600</DateInstalled>
+  <DateInstalled>1795716092</DateInstalled>
   <DonateText>Donate to Forgejo</DonateText>
   <DonateLink>https://liberapay.com/forgejo</DonateLink>
   <Requires/>

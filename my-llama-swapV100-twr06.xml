@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0"?>
 <Container version="2">
+  <DateInstalled>1795716220</DateInstalled>
   <Name>llama-swapV100-twr06</Name>
   <Repository>ghcr.io/mostlygeek/llama-swap:cuda</Repository>
   <Registry>https://github.com/mostlygeek/llama-swap/pkgs/container/llama-swap</Registry>

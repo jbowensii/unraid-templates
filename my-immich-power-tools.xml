@@ -23,7 +23,7 @@ Must be on the same Docker network as immich-server and immich-vectorchord-db.</
   <ExtraParams>--user 99:100</ExtraParams>
   <PostArgs/>
   <CPUset/>
-  <DateInstalled>1794261246</DateInstalled>
+  <DateInstalled>1795716092</DateInstalled>
   <DonateText/>
   <DonateLink/>
   <Requires>Requires immich-server and immich-vectorchord-db on the same Docker network (immich_internal). Create an API key in Immich with ALL permissions: Account Icon &#x2192; Account Settings &#x2192; API Keys &#x2192; New API Key &#x2192; Select All &#x2192; Create.&#13;

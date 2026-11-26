@@ -17,7 +17,7 @@
   <ExtraParams>--restart unless-stopped</ExtraParams>
   <PostArgs/>
   <CPUset/>
-  <DateInstalled/>
+  <DateInstalled>1795716092</DateInstalled>
   <DonateText/>
   <DonateLink/>
   <Requires>GluetunVPN container running; port 6868 published on GluetunVPN; 6868 in GluetunVPN FIREWALL_INPUT_PORTS</Requires>

@@ -17,7 +17,7 @@
   <ExtraParams>--gpus "device=GPU-b50f8351-6281-76b6-ebe6-b16d2dcc1f36" --ulimit memlock=-1:-1 --shm-size 2g --stop-timeout 120 --restart unless-stopped</ExtraParams>
   <PostArgs/>
   <CPUset/>
-  <DateInstalled/>
+  <DateInstalled>1795716092</DateInstalled>
   <DonateText/>
   <DonateLink/>
   <Requires>NVIDIA Container Toolkit; RTX 5060 Ti (GPU-b50f8351-6281-76b6-ebe6-b16d2dcc1f36); Driver 580+</Requires>

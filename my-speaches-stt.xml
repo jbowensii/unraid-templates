@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0"?>
 <Container version="2">
+  <DateInstalled>1795716220</DateInstalled>
   <Name>speaches-stt</Name>
   <Repository>ghcr.io/speaches-ai/speaches:latest-cuda</Repository>
   <Registry>https://github.com/speaches-ai/speaches/pkgs/container/speaches</Registry>

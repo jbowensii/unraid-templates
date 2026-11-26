@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0"?>
 <Container version="2">
+  <DateInstalled>1795716220</DateInstalled>
   <Name>mcp-auth-redis</Name>
   <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/redis.svg</Icon>
   <Repository>redis:7-alpine</Repository>

@@ -17,7 +17,7 @@
   <ExtraParams>--stop-timeout 45 --restart unless-stopped</ExtraParams>
   <PostArgs/>
   <CPUset/>
-  <DateInstalled/>
+  <DateInstalled>1795716092</DateInstalled>
   <DonateText/>
   <DonateLink/>
   <Requires>storage.sqlite placed in the data volume and the matching STORAGE_ENCRYPTION_KEY, or start fresh and onboard in the dashboard.</Requires>

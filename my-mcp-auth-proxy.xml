@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0"?>
 <Container version="2">
+  <DateInstalled>1795716220</DateInstalled>
   <Name>mcp-auth-proxy</Name>
   <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/mcp-auth-proxy.svg</Icon>
   <Repository>ghcr.io/babs/mcp-auth-proxy:latest</Repository>
