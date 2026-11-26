@@ -1,8 +1,11 @@
 ﻿<?xml version="1.0"?>
-<CAProfile>
-  <Name>jbowensii</Name>
-  <Author>jbowensii</Author>
-  <Overview>Personal Unraid Docker templates by John Bowens ΓÇö AI/LLM services, media tools, home-lab utilities, and custom stacks.</Overview>
-  <PreferredTemplateLocation>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/</PreferredTemplateLocation>
-  <DateInstalled>2026-11-26</DateInstalled>
-</CAProfile>
+<CommunityApplications>
+  <Profile>
+    jbowensii maintains Docker container templates for self-hosted home-lab
+    services including AI/LLM inference, media automation, development tools,
+    and miscellaneous utilities. Templates are tested on Unraid 6.x/7.x.
+    For support, open an issue at https://github.com/jbowensii/unraid-templates/issues.
+  </Profile>
+  <WebPage>https://github.com/jbowensii/unraid-templates</WebPage>
+  <Forum>https://github.com/jbowensii/unraid-templates/issues</Forum>
+</CommunityApplications>
