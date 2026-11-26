@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <Container version="2">
   <Name>MediaWiki</Name>
   <Repository>mediawiki:stable</Repository>
@@ -13,7 +13,7 @@
   <Category>Productivity: Tools: Other:</Category>
   <WebUI>http://[IP]:[PORT:80]/</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/mediawiki.xml</TemplateURL>
-  <Icon>https://raw.githubusercontent.com/wikimedia/mediawiki/master/resources/assets/mediawiki.png</Icon>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/mediawiki.svg</Icon>
   <ExtraParams/>
   <PostArgs/>
   <CPUset/>

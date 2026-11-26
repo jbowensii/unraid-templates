@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <Container version="2">
   <Name>hindsight</Name>
   <Repository>ghcr.io/vectorize-io/hindsight:latest</Repository>
@@ -25,7 +25,7 @@ Back up appdata while the container is stopped. For a long-lived shared service,
   <Category>AI: Tools:Utilities Productivity:</Category>
   <WebUI>http://[IP]:[PORT:9999]/</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/PikkonMG/unraid-docker-templates/main/templates/hindsight.xml</TemplateURL>
-  <Icon>https://raw.githubusercontent.com/PikkonMG/unraid-docker-templates/main/templates/img/hindsight.png</Icon>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/hindsight.svg</Icon>
   <ExtraParams>--shm-size=1g --stop-timeout=60</ExtraParams>
   <PostArgs/>
   <CPUset/>

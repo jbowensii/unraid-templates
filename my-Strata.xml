@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <Container version="2">
   <Name>strata</Name>
   <Repository>ghcr.io/niko1221/strata:0.2.1-cuda13</Repository>
@@ -13,7 +13,7 @@
   <Category>AI:</Category>
   <WebUI>http://[IP]:[PORT:8081]/</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/my-Strata.xml</TemplateURL>
-  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/strata.png</Icon>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/strata.svg</Icon>
   <ExtraParams>--gpus "device=GPU-b50f8351-6281-76b6-ebe6-b16d2dcc1f36" --ulimit memlock=-1:-1 --shm-size 2g --stop-timeout 120 --restart unless-stopped</ExtraParams>
   <PostArgs/>
   <CPUset/>

@@ -1,0 +1,8 @@
+﻿<?xml version="1.0"?>
+<CAProfile>
+  <Name>jbowensii</Name>
+  <Author>jbowensii</Author>
+  <Overview>Personal Unraid Docker templates by John Bowens ΓÇö AI/LLM services, media tools, home-lab utilities, and custom stacks.</Overview>
+  <PreferredTemplateLocation>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/</PreferredTemplateLocation>
+  <DateInstalled>2026-11-26</DateInstalled>
+</CAProfile>

@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <Container version="2">
   <Name>omniroute</Name>
   <Repository>diegosouzapw/omniroute:latest</Repository>
@@ -9,11 +9,11 @@
   <Privileged>false</Privileged>
   <Support>https://github.com/cheaper-inference/OmniRoute</Support>
   <Project>https://github.com/cheaper-inference/OmniRoute</Project>
-  <Overview>OmniRoute — unified AI gateway. One OpenAI- and Anthropic-compatible endpoint in front of 375+ providers / 1400+ models. Dashboard + API at :20128 on this container's own LAN IP. Secured: REQUIRE_API_KEY=true, so /v1 clients need an OmniRoute key (made in the dashboard). Config store is the encrypted storage.sqlite in the data volume; it is decrypted with STORAGE_ENCRYPTION_KEY (set below). Runs standalone (no Redis) for single-user use.</Overview>
+  <Overview>OmniRoute â€” unified AI gateway. One OpenAI- and Anthropic-compatible endpoint in front of 375+ providers / 1400+ models. Dashboard + API at :20128 on this container's own LAN IP. Secured: REQUIRE_API_KEY=true, so /v1 clients need an OmniRoute key (made in the dashboard). Config store is the encrypted storage.sqlite in the data volume; it is decrypted with STORAGE_ENCRYPTION_KEY (set below). Runs standalone (no Redis) for single-user use.</Overview>
   <Category>AI:</Category>
   <WebUI>http://[IP]:[PORT:20128]/</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/my-omniroute.xml</TemplateURL>
-  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/omniroute.png</Icon>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/omniroute.svg</Icon>
   <ExtraParams>--stop-timeout 45 --restart unless-stopped</ExtraParams>
   <PostArgs/>
   <CPUset/>

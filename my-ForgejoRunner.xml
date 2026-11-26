@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <Container version="2">
   <Name>ForgejoRunner</Name>
   <Repository>data.forgejo.org/forgejo/runner:12</Repository>
@@ -23,7 +23,7 @@ NOTE: Runs as root (--user 0:0) so the daemon can access the host Docker socket 
   <Category>Tools: Network:Other</Category>
   <WebUI/>
   <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/my-ForgejoRunner.xml</TemplateURL>
-  <Icon>https://forgejo.org/_astro/logo.D33RzxQb.svg</Icon>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/forgejo-runner.svg</Icon>
   <ExtraParams>--restart=unless-stopped --user 0:0 -w /data</ExtraParams>
   <PostArgs>forgejo-runner daemon</PostArgs>
   <CPUset/>

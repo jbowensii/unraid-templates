@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <Container version="2">
   <Name>AnythingLLM</Name>
   <Repository>mintplexlabs/anythingllm:latest</Repository>
@@ -15,7 +15,7 @@
   <Category>AI: Productivity: Tools:Utilities Other:</Category>
   <WebUI>http://[IP]:[PORT:3001]/</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/nwithan8/unraid_templates/main/templates/anything_llm.xml</TemplateURL>
-  <Icon>https://raw.githubusercontent.com/nwithan8/unraid_templates/master/images/anythingllm-icon.png</Icon>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/anythingllm.svg</Icon>
   <ExtraParams>--cap-add SYS_ADMIN</ExtraParams>
   <PostArgs/>
   <CPUset/>

@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <Container version="2">
   <Name>watermarks-remover</Name>
   <Repository>ghcr.io/guillaumemeyer/watermarks-remover:latest</Repository>
@@ -21,7 +21,7 @@ Client side: the skill reads WATERMARKS_SERVICE_URL, e.g. http://10.47.40.43:876
   <Category>Tools:Utilities Productivity:</Category>
   <WebUI>http://[IP]:[PORT:8765]/health</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/my-watermarks-remover.xml</TemplateURL>
-  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/watermarks-remover/icon.svg</Icon>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/watermarks-remover.svg</Icon>
   <ExtraParams>--restart=unless-stopped --read-only --tmpfs /tmp --init --user 10001:10001</ExtraParams>
   <PostArgs/>
   <CPUset/>

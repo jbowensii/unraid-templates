@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <Container version="2">
   <Name>speaches</Name>
   <Repository>ghcr.io/speaches-ai/speaches:latest-cuda</Repository>
@@ -16,8 +16,8 @@
   <Category>AI: Tools:</Category>
   <WebUI>http://[IP]:[PORT:8000]/</WebUI>
   <TemplateURL/>
-  <Icon>https://cdn.jsdelivr.net/gh/selfhst/icons/png/speaches.png</Icon>
-  <ExtraParams>--runtime=nvidia --restart=unless-stopped</ExtraParams>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/speaches.svg</Icon>
+  <ExtraParams>-p 8790:8000 -v /mnt/user/appdata/speaches/cache:/home/ubuntu/.cache/huggingface/hub -e CHAT_COMPLETION_BASE_URL=http://10.47.40.121:20128/v1 -e CHAT_COMPLETION_API_KEY=</ExtraParams>
   <PostArgs/>
   <CPUset/>
   <Memory/>

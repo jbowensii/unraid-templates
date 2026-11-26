@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <Container version="2">
   <Name>bindery</Name>
   <Repository>ghcr.io/vavallee/bindery:latest</Repository>
@@ -20,7 +20,7 @@ Default user is 99:100. If you change PUID/PGID, also change the --user value in
   <Category>MediaApp:Books Downloaders: MediaServer:Other Tools:Utilities</Category>
   <WebUI>http://[IP]:[PORT:8787]/</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/vavallee/unraid-templates/main/templates/bindery.xml</TemplateURL>
-  <Icon>https://raw.githubusercontent.com/vavallee/bindery/main/.github/assets/logo.png</Icon>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/bindery.svg</Icon>
   <ExtraParams>--user 99:100 --network=container:GluetunVPN</ExtraParams>
   <PostArgs/>
   <CPUset/>

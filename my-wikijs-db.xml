@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <Container version="2">
   <Name>wikijs-db</Name>
   <Repository>postgres:15-alpine</Repository>
@@ -13,7 +13,7 @@
   <Category>Network:Other Tools:</Category>
   <WebUI/>
   <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/my-wikijs-db.xml</TemplateURL>
-  <Icon>https://raw.githubusercontent.com/docker-library/docs/01c12653951b2fe592c1f93a13b4e289ada0e3a1/postgres/logo.png</Icon>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/postgresql.svg</Icon>
   <ExtraParams>--restart=unless-stopped</ExtraParams>
   <PostArgs/>
   <CPUset/>

@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <Container version="2">
   <Name>Forgejo</Name>
   <Repository>codeberg.org/forgejo/forgejo:16</Repository>
@@ -19,7 +19,7 @@ NOTE: Forgejo does not use a rolling 'latest' tag by design. This template is pi
   <Category>Cloud: Network:Other Tools:</Category>
   <WebUI>http://[IP]:[PORT:3100]/</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/my-Forgejo.xml</TemplateURL>
-  <Icon>https://forgejo.org/_astro/logo.D33RzxQb.svg</Icon>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/forgejo.svg</Icon>
   <ExtraParams>--restart=unless-stopped</ExtraParams>
   <PostArgs/>
   <CPUset/>

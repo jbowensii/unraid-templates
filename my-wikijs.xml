@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <Container version="2">
   <Name>wikijs</Name>
   <Repository>ghcr.io/requarks/wiki:2</Repository>
@@ -10,13 +10,13 @@
   <Support>https://github.com/requarks/wiki/issues</Support>
   <Project>https://js.wiki/</Project>
   <ReadMe>https://docs.requarks.io/</ReadMe>
-  <Overview>Wiki.js — a modern wiki engine built on Node.js. This instance hosts the silvesti.wiki migration from MediaWiki. Runs on Tower04 dockernet ipvlan with PostgreSQL backend (wikijs-db container at 10.47.40.51).&#13;
+  <Overview>Wiki.js â€” a modern wiki engine built on Node.js. This instance hosts the silvesti.wiki migration from MediaWiki. Runs on Tower04 dockernet ipvlan with PostgreSQL backend (wikijs-db container at 10.47.40.51).&#13;
 &#13;
 FIRST RUN: After starting both wikijs-db and wikijs containers, open the WebUI at http://10.47.40.52:3000 and complete the setup wizard. Create your admin account. Then configure Authelia SSO under Administration > Authentication.</Overview>
   <Category>Network:Other Tools:</Category>
   <WebUI>http://[IP]:[PORT:3000]/</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/my-wikijs.xml</TemplateURL>
-  <Icon>https://raw.githubusercontent.com/requarks/wiki/main/assets/favicons/android-chrome-512x512.png</Icon>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/wikijs.svg</Icon>
   <ExtraParams>--restart=unless-stopped</ExtraParams>
   <PostArgs/>
   <CPUset/>

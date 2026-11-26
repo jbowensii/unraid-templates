@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <Container version="2">
   <Name>hermes-agent</Name>
   <Repository>nousresearch/hermes-agent:latest</Repository>
@@ -13,7 +13,7 @@
   <Category>AI:</Category>
   <WebUI>http://[IP]:[PORT:9119]</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/my-hermes-agent.xml</TemplateURL>
-  <Icon>https://raw.githubusercontent.com/medzin/docker-templates/main/images/hermes-agent-icon.png</Icon>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/hermes-agent.svg</Icon>
   <PostArgs>gateway run</PostArgs>
   <Config Name="Appdata" Target="/opt/data" Default="/mnt/cache_docker_ssd/appdata/hermes-agent" Mode="rw" Description="All Hermes state (config.yaml, .env, hindsight/config.json). Real disk path, not /mnt/user, so the 10000:10000 ownership sticks." Type="Path" Display="always" Required="true" Mask="false">/mnt/cache_docker_ssd/appdata/hermes-agent</Config>
   <Config Name="Dashboard" Target="9119" Default="9119" Mode="tcp" Description="Dashboard port (only listens when HERMES_DASHBOARD=1)." Type="Port" Display="always" Required="true" Mask="false">9119</Config>

@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <Container version="2">
   <Name>romarr</Name>
   <Repository>ghcr.io/blizzhacker/romarr:latest</Repository>
@@ -13,7 +13,7 @@
   <Category>Downloaders: MediaApp:Other</Category>
   <WebUI>http://[IP]:[PORT:6868]/</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/my-romarr.xml</TemplateURL>
-  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/romarr.png</Icon>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/romarr.svg</Icon>
   <ExtraParams>--restart unless-stopped</ExtraParams>
   <PostArgs/>
   <CPUset/>
@@ -27,7 +27,7 @@
   <Config Name="PROWLARR_URL" Target="PROWLARR_URL" Default="http://localhost:9696" Mode="" Description="Prowlarr URL. Since both run behind GluetunVPN on the same network namespace, use localhost." Type="Variable" Display="always" Required="true" Mask="false">http://localhost:9696</Config>
   <Config Name="PROWLARR_API_KEY" Target="PROWLARR_API_KEY" Default="" Mode="" Description="Prowlarr API key. Find in Prowlarr Settings > General > API Key." Type="Variable" Display="always" Required="true" Mask="true"></Config>
   <Config Name="SABNZBD_URL" Target="SABNZBD_URL" Default="http://localhost:8080" Mode="" Description="SABnzbd URL. Runs on same GluetunVPN network namespace." Type="Variable" Display="always" Required="false" Mask="false">http://localhost:8080</Config>
-  <Config Name="SABNZBD_API_KEY" Target="SABNZBD_API_KEY" Default="" Mode="" Description="SABnzbd API key. Find in SABnzbd Config > General > API Key." Type="Variable" Display="advanced" Required="false" Mask="true"></Config>
+  <Config Name="SABNZBD_API_KEY" Target="SABNZBD_API_KEY" Default="" Mode="" Description="SABnzbd API key. Find in SABnzbd Config > General > API Key." Type="Variable" Display="always" Required="false" Mask="true"></Config>
   <Config Name="LIBRARY_KIND" Target="LIBRARY_KIND" Default="folder" Mode="" Description="Library mode: folder (use existing folder structure) or romm (RomM-compatible). Use folder unless you run RomM." Type="Variable" Display="always" Required="true" Mask="false">folder</Config>
   <Config Name="LIBRARY_PATH" Target="LIBRARY_PATH" Default="/roms" Mode="" Description="Path inside container to ROM library root. Must match the ROMs Library volume mount target." Type="Variable" Display="always" Required="true" Mask="false">/roms</Config>
   <Config Name="PUID" Target="PUID" Default="99" Mode="" Description="Run as user ID (99 = nobody on Unraid)" Type="Variable" Display="advanced" Required="true" Mask="false">99</Config>

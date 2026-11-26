@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <Container version="2">
   <Name>mediawiki-plus</Name>
   <Repository>ghcr.io/jbowensii/mediawiki-plus:latest</Repository>
@@ -15,7 +15,7 @@
   <Category>Productivity: Tools: Other:</Category>
   <WebUI>http://[IP]:[PORT:8080]/</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/mediawiki-plus/mediawiki-plus.xml</TemplateURL>
-  <Icon>https://raw.githubusercontent.com/wikimedia/mediawiki/master/resources/assets/mediawiki.png</Icon>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/mediawiki-plus.svg</Icon>
   <ExtraParams/>
   <PostArgs/>
   <CPUset/>

@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <Container version="2">
   <Name>isfdb-db</Name>
   <Repository>mariadb:10.11</Repository>
@@ -13,7 +13,7 @@
   <Category>Tools: Productivity:</Category>
   <WebUI/>
   <TemplateURL>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/my-isfdb-db.xml</TemplateURL>
-  <Icon>https://raw.githubusercontent.com/docker-library/docs/master/mariadb/logo.png</Icon>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/mariadb.svg</Icon>
   <ExtraParams>--restart unless-stopped</ExtraParams>
   <PostArgs/>
   <CPUset/>

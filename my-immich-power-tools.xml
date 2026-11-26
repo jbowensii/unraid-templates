@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <Container version="2">
   <Name>immich-power-tools</Name>
   <Repository>ghcr.io/immich-power-tools/immich-power-tools:latest</Repository>
@@ -19,7 +19,7 @@ Must be on the same Docker network as immich-server and immich-vectorchord-db.</
   <Category>MediaApp:Photos Tools:Utilities</Category>
   <WebUI>http://[IP]:[PORT:8009]</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/rorar/unraid-templates/main/templates/immich-power-tools.xml</TemplateURL>
-  <Icon>https://raw.githubusercontent.com/rorar/unraid-templates/main/templates/docker_icons/immich-power-tools-logo.png</Icon>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/immich-power-tools.svg</Icon>
   <ExtraParams>--user 99:100</ExtraParams>
   <PostArgs/>
   <CPUset/>

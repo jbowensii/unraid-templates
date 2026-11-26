@@ -1,6 +1,7 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <Container version="2">
   <Name>mcp-auth-proxy</Name>
+  <Icon>https://raw.githubusercontent.com/jbowensii/unraid-templates/main/icons/mcp-auth-proxy.svg</Icon>
   <Repository>ghcr.io/babs/mcp-auth-proxy:latest</Repository>
   <Registry>https://github.com/babs/mcp-auth-proxy/pkgs/container/mcp-auth-proxy</Registry>
   <Network>bridge</Network>
